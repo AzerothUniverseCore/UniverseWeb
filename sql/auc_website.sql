@@ -11,7 +11,7 @@
  Target Server Version : 100508
  File Encoding         : 65001
 
- Date: 08/07/2026 09:03:06
+ Date: 08/07/2026 09:31:43
 */
 
 SET NAMES utf8mb4;
@@ -254,7 +254,7 @@ CREATE TABLE `downloadfr`  (
   `image` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `url` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of downloadfr
@@ -265,6 +265,7 @@ INSERT INTO `downloadfr` VALUES (3, '[Mac] Client Azeroth Universe', 'ZIP', '16,
 INSERT INTO `downloadfr` VALUES (4, '[Mac] Updater Azeroth Universe', 'Github', '7.44 MB', 1, 'wow-azerothuniversec.png', 'https://github.com/AzerothUniverseCore/UniverseUpdater/releases/tag/UniversePatcher');
 INSERT INTO `downloadfr` VALUES (5, '[Option] Patch Azeroth Universe', 'MPQ', '62,73 Go', 1, 'wow-p.png', 'https://azeroth-universe.eu/fr/patchs');
 INSERT INTO `downloadfr` VALUES (6, '[Windows] Launcher d\'urgence Azeroth Universe', 'Github', '11.7 MB', 1, 'wow-azerothuniverseb.png', 'https://github.com/AzerothUniverseCore/UniverseUpdater/releases/tag/UniverseEmergency');
+INSERT INTO `downloadfr` VALUES (7, '[Mac] Launcher Azeroth Universe', 'Github', '10.7 MB', 1, 'wow-azerothuniversec.png', 'https://github.com/AzerothUniverseCore/UniverseUpdater/releases/tag/AzerothLauncherMac-macOS');
 
 -- ----------------------------
 -- Table structure for forum
