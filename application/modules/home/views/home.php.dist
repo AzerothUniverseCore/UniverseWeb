@@ -1,0 +1,153 @@
+<section class="syphrena-hero">
+  <div class="syphrena-hero-container">
+    <video class="syphrena-background-video" src="https://azerothuniverse.org/application/themes/default/assets/videos/Azeroth.mp4" data-src="https://azerothuniverse.org/application/themes/default/assets/videos/Azeroth.mp4" loop="loop" muted="muted" preload="auto" autoplay="autoplay" playsinline="playsinline"></video>
+    <div class="syphrena-hero-title">
+      <span class="orange-shadow">Rejoignez la bataille</span></span> <span class="bfa-orange"><span class="orange-shadow">d'Azeroth Universe</span></span> !
+    </div>
+    <div class="syphrena-hero-subtitle">
+      <span class="orange-shadow">Venez vous battre pour votre faction avec une expérience inédite de l'extension</span></span> <span class="bfa-orange"><span class="orange-shadow">Wrath of the lich King 3.3.5</span></span> !
+    </div>
+    <div class="syphrena-hero-buttons">
+      <a href="<?= base_url("/register"); ?>" class="syphrena-hero-button">
+        <div class="syphrena-hero-button-inner">
+          <span class="orange-shadow">🏹</span></span> <span class="orange-shadow">NOUS REJOINDRE</span></span>
+        </div>
+      </a>
+      <a href="<?= base_url("/download"); ?>" class="syphrena-hero-button">
+        <div class="syphrena-hero-button-inner">
+          <span class="orange-shadow">📜</span></span> <span class="orange-shadow">CLIENT</span></span>
+        </div>
+      </a>
+	  <a href="https://www.youtube.com/@AzerothUniverseTV" class="syphrena-hero-button" target="_blank">
+    <div class="syphrena-hero-button-inner">
+        <span class="orange-shadow">
+            <i class="fab fa-youtube"></i> <!-- Icône YouTube -->
+        </span>
+        <span class="orange-shadow">AZEROTH UNIVERSE TV</span>
+    </div>
+</a>
+    </div>
+  </div>
+  <div class="syphrena-hero-divider-thick"></div>
+</section>
+
+<section class="syphrena-home-item" style="position: relative; background-image: url(../application/themes/default/assets/images/default-background.jpg)">
+  <div class="syphrena-hero-container">
+    <div class="syphrena-hero-title"></div>
+    <div class="syphrena-news-list">
+      <?php if ($this->wowmodule->getNewsStatus()) : ?>
+        <?php for ($i = 0; $i < 2; $i++) { ?>
+          <a href="<?= base_url('news/' . $NewsList[$i]->id); ?>" class="syphrena-new" style="background-image: linear-gradient(0deg, black, transparent), url(<?= base_url('assets/images/news/' . $NewsList[$i]->image); ?>)">
+            <div class="syphrena-new-title syphrena-new-title-centered"><?php echo $NewsList[$i]->title ?></div>
+            <div class="syphrena-new-subtitle">
+              <p><?php /* echo strlen($NewsList[$i]->description) > 142 ? substr($NewsList[$i]->description, 0, 142) . "..." : $NewsList[$i]->description; */ ?></p>
+            </div>
+          </a>
+        <?php } ?>
+      <?php endif ?>
+    </div>
+    <!-- Image dynamique flottante -->
+    <img src="../application/themes/default/assets/images/Argus_Emoji.png" alt="Argus Emoji" class="floating-image">
+  </div>
+  <div class="syphrena-hero-divider-thin"></div>
+</section>
+
+<?php
+// Connexion à la base de données Auth
+$pdoAuth = new PDO('mysql:host=localhost:3309;dbname=auc_auth;charset=utf8mb4', 'root', 'root');
+
+// Préparation de la requête pour obtenir le statut du royaume
+$stmtRealmStatus = $pdoAuth->prepare("SELECT * FROM realmlist WHERE flag = 64 AND id = 1;");
+$stmtRealmStatus->execute();
+$realmStatus = $stmtRealmStatus->fetchColumn();
+
+// Vérifier si le royaume est hors ligne
+$isRealmOffline = ($realmStatus == 0);
+
+// Connexion à la base de données des personnages
+$pdoCharacters = new PDO('mysql:host=localhost:3309;dbname=auc_chars;charset=utf8mb4', 'root', 'root');
+
+// Récupération du nombre de joueurs en ligne
+$stmtOnlinePlayers = $pdoCharacters->prepare("SELECT COUNT(*) FROM characters WHERE online = 1");
+$stmtOnlinePlayers->execute();
+$onlinePlayers = $stmtOnlinePlayers->fetchColumn();
+
+// Texte à afficher en fonction de l'état du royaume
+$heroTitle = $isRealmOffline ? "Maintenance du royaume" : "Qui est en ligne ?";
+$heroSubtitle = $isRealmOffline ?
+    "Notre royaume est temporairement inaccessible. Revenez bientôt pour continuer votre épopée dans Azeroth Universe !" :
+    "Actuellement, {$onlinePlayers} " . ($onlinePlayers >= 2 ? 'aventuriers' : 'aventurier') . " explorent les terres d'Azeroth Universe.";
+?>
+
+<section class="syphrena-home-item" style="background-image: url(../assets/images/syphrena/card-background-13.jpg)">
+    <div class="syphrena-hero-container">
+        <div class="syphrena-hero-title">
+            <?php echo $heroTitle; ?>
+        </div>
+        <div class="syphrena-hero-subtitle">
+            <?php echo $heroSubtitle; ?>
+        </div>
+        <div class="syphrena-hero-buttons">
+            <?php if ($isRealmOffline): ?>
+            <a href="https://azerothuniverse.org/time/frFR" class="syphrena-hero-button">
+                <div class="syphrena-hero-button-inner">
+                    <!--<span class="orange-shadow">🕰️ TEMPS RESTANT</span>-->
+                </div>
+            </a>
+            <?php else: ?>
+            <a href="<?php echo base_url('online'); ?>" class="syphrena-hero-button">
+                <div class="syphrena-hero-button-inner">
+                    <span class="orange-shadow">👥 Voir les joueurs en ligne</span>
+                </div>
+            </a>
+            <?php endif; ?>
+        </div>
+    </div>
+    <div class="syphrena-hero-divider-thin"></div>
+</section>
+
+<section class="syphrena-home-item" style="background-image: url(../assets/images/syphrena/head-background.jpg)">
+  <div class="syphrena-hero-container syphrena-home-item-reversed">
+    <div class="syphrena-hero-title">
+      <span class="orange-shadow">Besoin d'aide ?</span></span>
+    </div>
+    <div class="syphrena-hero-subtitle">
+      <span class="orange-shadow">Rejoignez notre communauté Discord, c'est l'endroit que vous trouverez ce que vous cherchez.</span></span>
+    </div>
+    <div class="syphrena-hero-buttons">
+      <a href="https://discord.com/invite/9kfczSTdWk" class="syphrena-hero-button">
+        <div class="syphrena-hero-button-inner">
+          <span class="orange-shadow">🌐</span></span> <span class="orange-shadow">REJOINDRE DISCORD</span></span>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="syphrena-hero-divider-thin"></div>
+</section>
+<script type="text/javascript">
+  
+    window.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+    }, false);
+
+   
+    window.addEventListener('keydown', function (e) {
+        if (e.keyCode === 123) { 
+            e.preventDefault();
+            alert("Les outils de développement sont désactivés.");
+            return false;
+        }
+    }, false);
+
+    
+    window.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey && e.shiftKey && e.keyCode === 73) || 
+            (e.ctrlKey && e.shiftKey && e.keyCode === 67) || 
+            (e.ctrlKey && e.shiftKey && e.keyCode === 74) || 
+            (e.ctrlKey && e.keyCode === 85)) {
+            e.preventDefault();
+            alert("Les outils de développement sont désactivés.");
+            return false;
+        }
+    }, false);
+</script>

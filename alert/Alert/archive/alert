@@ -1,0 +1,18 @@
+SERVERALERT:
+<html><body>
+<p>Voici un exemple de ce qui peut être fait dans le fichier d'alerte du serveur.<br /><br /></p>
+<p>Il y a trois styles d'en-tête différents :</p>
+<h1 align="center">Il s'agit du style d'en-tête 1</h1>
+<h2 align="center">C'est le style d'en-tête 2</h2>
+<h3 align="center">C'est le style d'en-tête 3 (comme le style de paragraphe)<br /><br /></h3>
+<p align="left">Le texte peut être aligné à gauche,</p>
+<p align="center">Centre,</p>
+<p align="right">ou à droite !</p>
+<p>Il est |cffff0000également|r |cffff00ffpossible|r de |cff8080ffcolorier|r |cff00ffffle|r |cff00ff00texte|r,</p>
+<p>ajouter des icônes |TInterface/Icons/INV_Misc_Coin_01:16:16:0:0:64:64:4:60:4:60|t au milieu du texte,</p>
+<p>ainsi que d'ajouter des images et de les aligner également !</p>
+<img src="Interface/Icons/Ability_Ambush" width="24" height="24" align="right"/>
+<img src="Interface/Icons/INV_Misc_Coin_02" width="24" height="24" align="left"/>
+<img src="Interface/Icons/INV_Misc_Coin_03" width="24" height="24" align="center"/>
+<p><br />Nous pouvons même ajouter des éléments cliquables <a href="http://fr.wowhead.com/item=105538">Chaperon de loup de fer</a>!</p>
+</body></html>

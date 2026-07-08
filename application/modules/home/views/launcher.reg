@@ -1,0 +1,12 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\azeroth]
+@="URL:Azeroth Launcher"
+"URL Protocol"=""
+
+[HKEY_CLASSES_ROOT\azeroth\shell]
+
+[HKEY_CLASSES_ROOT\azeroth\shell\open]
+
+[HKEY_CLASSES_ROOT\azeroth\shell\open\command]
+@="\"C:\\Program Files (x86)\\AzerothUniverse\\_universe_\\AzerothUniverse.exe\" \"%1\""

@@ -1,0 +1,89 @@
+<section class="uk-section uk-section-xsmall uk-padding-remove slider-section">
+    <div class="uk-background-cover uk-height-small header-section"></div>
+    <div class="syphrena-hero-divider-thin"></div>
+</section>
+<section class="uk-section uk-section-xsmall main-section" data-uk-height-viewport="expand: true">
+    <div class="uk-container">
+        <h4 class="uk-h4 uk-text-uppercase uk-text-bold"><i class="fas fa-users"></i> <?=$this->lang->line('tab_online');?></h4>
+        <ul class="uk-subnav uk-subnav-pill" uk-switcher="connect: .onlineplayers">
+            <?php foreach ($realms as $realm): ?>
+                <li><a href="#"><i class="fas fa-server"></i> <?= $this->wowrealm->getRealmName($realm->realmID); ?></a></li>
+            <?php endforeach; ?>
+        </ul>
+        <ul class="uk-switcher onlineplayers uk-margin-small">
+            <?php foreach ($realms as $charsMultiRealm):
+                $multiRealm = $this->wowrealm->getRealmConnectionData($charsMultiRealm->id);
+                $online_players = $this->online_model->getOnlinePlayers($multiRealm);
+            ?>
+            <li>
+                <div class="uk-overflow-auto uk-margin-small">
+                    <table class="uk-table dark-table uk-table-divider uk-table-small">
+                        <thead>
+                            <tr>
+                                <th class="uk-table-expand"><i class="fas fa-user"></i> <?=$this->lang->line('table_header_name');?></th>
+                                <th class="uk-table-expand uk-text-center"><i class="fas fa-info-circle"></i> <?=$this->lang->line('table_header_level');?></th>
+                                <th class="uk-table-expand uk-text-center"><i class="fas fa-user-tag"></i> <?=$this->lang->line('table_header_race');?></th>
+                                <th class="uk-table-expand uk-text-center"><i class="fas fa-user-tag"></i> <?=$this->lang->line('table_header_class');?></th>
+                                <th class="uk-table-expand uk-text-center"><i class="fas fa-location-arrow"></i> <?=$this->lang->line('table_header_zone');?></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach($online_players as $online): ?>
+                                <tr>
+                                    <td class="uk-text-capitalize">
+										<?= $online->name ?>
+										<?php if (isset($online->rank)): ?>
+											<?php if ($online->rank == 0): ?>
+												<span title="Joueur" style="color: gray;">👤⚔️</span>
+											<?php elseif ($online->rank == 1): ?>
+												<span title="Modérateur" style="color: blue;">🧑‍🔹</span>
+											<?php elseif ($online->rank == 2): ?>
+												<span title="Maître du jeu" style="color: green;">🧙‍🛡️</span>
+											<?php elseif ($online->rank == 3): ?>
+												<span title="Fondateur/Développeur" style="color: gold;">👼🛠️</span>
+											<?php elseif ($online->rank == 4): ?>
+												<span title="Console Bot" style="color: red;">🤖💭</span>
+											<?php endif; ?>
+										<?php endif; ?>
+									</td>
+                                    <td class="uk-text-center"><?= $online->level ?></td>
+                                    <td class="uk-text-center"><img class="uk-border-rounded" src="<?= base_url('assets/images/races/'.$this->wowgeneral->getRaceIcon($online->race)); ?>" width="20" height="20" title="<?= $this->wowgeneral->getRaceName($online->race); ?>" alt="<?= $this->wowgeneral->getRaceName($online->race); ?>"></td>
+                                    <td class="uk-text-center"><img class="uk-border-rounded" src="<?= base_url('assets/images/class/'.$this->wowgeneral->getClassIcon($online->class)); ?>" width="20" height="20" title="<?= $this->wowgeneral->getClassName($online->class); ?>" alt="<?= $this->wowgeneral->getClassName($online->class); ?>"></td>
+                                    <td class="uk-text-center"><?= $this->wowgeneral->getSpecifyZone($online->zone); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</section>
+<script type="text/javascript">
+    
+    window.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+    }, false);
+
+    
+    window.addEventListener('keydown', function (e) {
+        if (e.keyCode === 123) { 
+            e.preventDefault();
+            alert("Les outils de développement sont désactivés.");
+            return false;
+        }
+    }, false);
+
+    
+    window.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey && e.shiftKey && e.keyCode === 73) || 
+            (e.ctrlKey && e.shiftKey && e.keyCode === 67) || 
+            (e.ctrlKey && e.shiftKey && e.keyCode === 74) || 
+            (e.ctrlKey && e.keyCode === 85)) { 
+            e.preventDefault();
+            alert("Les outils de développement sont désactivés.");
+            return false;
+        }
+    }, false);
+</script>

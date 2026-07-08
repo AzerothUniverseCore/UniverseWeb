@@ -1,0 +1,259 @@
+
+.home-logo-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.home-logo-link {
+  display: inline-block;
+  text-decoration: none; 
+}
+
+.home-logo {
+  width: 200px; 
+  height: auto;
+  transition: transform 0.2s ease-in-out;
+}
+
+.home-logo:hover {
+  transform: scale(1.1);
+}
+
+.orange-shadow {
+  text-shadow: 2px 2px 4px orange;
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+ 
+::-webkit-scrollbar-track {
+    background-color: #e4e4e4;
+    border-radius: 100px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    background-color: #FFA500;
+    border-radius: 100px;
+}
+
+
+body {
+  font-family: 'Roboto', sans-serif; 
+  margin: 0;
+  padding: 0;
+  background-image: url('background_mop.jpg'); 
+  background-size: cover; 
+  background-position: center; 
+  background-attachment: fixed;
+  color: #fff; 
+}
+
+
+body {
+  cursor: url('gam372.cur'), default;
+}
+
+
+a {
+  cursor: url('gam375.cur'), pointer;
+}
+
+
+.home-button-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.home-button {
+  padding: 12px 30px;
+  background-color: #FFA500; 
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.home-button:hover {
+  background-color: #ff8c00;
+  transform: scale(1.1);
+}
+
+
+header {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+.news-section {
+  flex: 1;
+  padding: 60px 20px;
+}
+
+.news-container {
+  width: 85%;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 50px;
+  font-size: 2.5rem;
+  color: #fff; 
+  font-weight: 600;
+}
+
+html, body {
+	overflow-x: hidden;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.news-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+.news-item {
+  background-color: rgba(0, 0, 0, 0.7); 
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transform: scale(1);
+}
+
+.news-item:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.news-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.news-image {
+  width: 100%;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px 12px 0 0; 
+}
+
+.news-content {
+  padding: 20px;
+}
+
+.news-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 15px 0;
+  color: #fff;
+}
+
+.news-description {
+  color: white;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  padding: 20px; 
+}
+
+.news-date {
+  color: #FFA500;
+  font-size: 0.9rem;
+}
+
+.azeroth-hero-title .azeroth-hero-subtitle{
+  text-shadow: 0 0 1px transparent, 0 1px 2px rgba(0,0,0,.8);
+}
+
+.azeroth-hero-title{
+  font-family: 'BlizQuadrata Web';
+  font-size: 2.25rem;
+  text-transform: uppercase;
+}
+
+.news-item:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.footer-section {
+    background-color: rgba(0, 0, 0, 0.8); 
+    color: #fff;
+    text-align: center;
+    padding: 15px 10px;
+    font-size: 0.9rem;
+    width: 100%;
+}
+
+.footer-text {
+    margin: 5px 0;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.footer-link {
+    font-weight: bold;
+    color: #FFA500;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    color: #ff7f00;
+    text-decoration: underline;
+}
+
+.footer-small-text {
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+@media screen and (max-width: 600px) {
+    .footer-section {
+        font-size: 0.8rem;
+        padding: 12px 5px;
+    }
+
+    .footer-text {
+        font-size: 0.9rem;
+    }
+
+    .footer-small-text {
+        font-size: 0.75rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+  .news-container {
+    width: 90%;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .news-title {
+    font-size: 1.25rem;
+  }
+}
