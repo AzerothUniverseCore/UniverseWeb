@@ -161,11 +161,11 @@ class User extends MX_Controller {
 				[
 					'field' => 'password',
 					'label' => 'Password',
-					'rules' => 'trim|required|alpha_numeric|min_length[8]',
+					'rules' => 'trim|required|min_length[8]|max_length[16]',
 					'errors' => [
 						'required' => 'You must provide a %s.',
-						'alpha_numeric' => 'The %s must be at least 8 alphanumeric characters long.',
-						'min_length[8]' => 'The %s must contain numbers and letters.'
+						'min_length[8]' => 'The %s must be at least 8 characters long.',
+						'max_length[16]' => 'The %s must not exceed 16 characters.'
 					]
 				],
 				[

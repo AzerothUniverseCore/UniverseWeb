@@ -333,7 +333,8 @@
     ["patch-9.MPQ", 2582024], ["patch-A.MPQ", 3586981], ["patch-B.MPQ", 9576383], ["patch-C.MPQ", 7454003],
     ["patch-D.MPQ", 7066882], ["patch-E.MPQ", 4552382], ["patch-F.MPQ", 4472260], ["patch-I.MPQ", 510847],
     ["patch-K.MPQ", 2906400], ["patch-N.MPQ", 1294573], ["patch-T.MPQ", 16790], ["patch-U.MPQ", 450230],
-    ["patch-V.MPQ", 61990], ["patch-Y.MPQ", 5586713], ["patch-Z.MPQ", 1686301],
+    ["patch-V.MPQ", 61990], ["patch-Y.MPQ", 5586713], ["patch-Z.MPQ", 1686301], ["patch-ZA.MPQ", 17590],
+	["patch-ZB.MPQ", 4721], ["patch-ZC.MPQ", 8521], ["patch-ZD.MPQ", 9721], ["patch-ZE.MPQ", 20290],
   ];
 
   const frfrFiles = [
