@@ -11,7 +11,7 @@
  Target Server Version : 100508
  File Encoding         : 65001
 
- Date: 08/07/2026 05:03:09
+ Date: 08/07/2026 09:31:43
 */
 
 SET NAMES utf8mb4;
@@ -254,16 +254,18 @@ CREATE TABLE `downloadfr`  (
   `image` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `url` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of downloadfr
 -- ----------------------------
-INSERT INTO `downloadfr` VALUES (1, 'Launcher Azeroth Universe', 'Windows', '', 1, 'wow-azerothuniverseb.png', 'https://azeroth-universe.eu/uploads/launcher/client/LaunchAzerothUniverse.rar');
-INSERT INTO `downloadfr` VALUES (2, 'Mini Launcher Azeroth Universe', 'Windows', '', 1, 'wow-azerothuniverseb.png', 'https://github.com/AzerothUniverseCore/UniverseUpdater/releases/tag/UniverseMiniLauncher');
-INSERT INTO `downloadfr` VALUES (3, 'Client Azeroth Universe', 'Mac', '', 1, 'wow-m.png', 'https://azeroth-universe.eu/uploads/client/AzerothUniverse_platform_Mac.zip');
-INSERT INTO `downloadfr` VALUES (4, 'Updater Azeroth Universe', 'Mac', '', 1, 'wow-azerothuniversec.png', 'https://github.com/AzerothUniverseCore/UniverseUpdater/releases/tag/UniversePatcher');
-INSERT INTO `downloadfr` VALUES (5, 'Patch Azeroth Universe', 'MPQ', '', 1, 'wow-p.png', 'https://azeroth-universe.eu/fr/patchs');
+INSERT INTO `downloadfr` VALUES (1, '[Windows] Launcher Azeroth Universe', 'RAR', '808 Ko', 1, 'wow-azerothuniverseb.png', 'https://azeroth-universe.eu/uploads/launcher/client/LaunchAzerothUniverse.rar');
+INSERT INTO `downloadfr` VALUES (2, '[Windows] Mini Launcher Azeroth Universe', 'Github', '11.5 MB', 1, 'wow-azerothuniverseb.png', 'https://github.com/AzerothUniverseCore/UniverseUpdater/releases/tag/UniverseMiniLauncher');
+INSERT INTO `downloadfr` VALUES (3, '[Mac] Client Azeroth Universe', 'ZIP', '16,5 Go', 1, 'wow-m.png', 'https://azeroth-universe.eu/uploads/client/AzerothUniverse_platform_Mac.zip');
+INSERT INTO `downloadfr` VALUES (4, '[Mac] Updater Azeroth Universe', 'Github', '7.44 MB', 1, 'wow-azerothuniversec.png', 'https://github.com/AzerothUniverseCore/UniverseUpdater/releases/tag/UniversePatcher');
+INSERT INTO `downloadfr` VALUES (5, '[Option] Patch Azeroth Universe', 'MPQ', '62,73 Go', 1, 'wow-p.png', 'https://azeroth-universe.eu/fr/patchs');
+INSERT INTO `downloadfr` VALUES (6, '[Windows] Launcher d\'urgence Azeroth Universe', 'Github', '11.7 MB', 1, 'wow-azerothuniverseb.png', 'https://github.com/AzerothUniverseCore/UniverseUpdater/releases/tag/UniverseEmergency');
+INSERT INTO `downloadfr` VALUES (7, '[Mac] Launcher Azeroth Universe', 'Github', '10.7 MB', 1, 'wow-azerothuniversec.png', 'https://github.com/AzerothUniverseCore/UniverseUpdater/releases/tag/AzerothLauncherMac-macOS');
 
 -- ----------------------------
 -- Table structure for forum
@@ -1463,7 +1465,7 @@ CREATE TABLE `votes_logs`  (
   `lasttime` int(10) UNSIGNED NOT NULL,
   `expired_at` int(10) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 44279 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 44283 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of votes_logs
@@ -1481,6 +1483,10 @@ INSERT INTO `votes_logs` VALUES (44275, 6, 4, 96, 1783427684, 1783514084);
 INSERT INTO `votes_logs` VALUES (44276, 6, 3, 48, 1783427692, 1783460092);
 INSERT INTO `votes_logs` VALUES (44277, 6, 2, 20, 1783427723, 1783434923);
 INSERT INTO `votes_logs` VALUES (44278, 6, 1, 24, 1783427742, 1783438542);
+INSERT INTO `votes_logs` VALUES (44279, 2, 1, 24, 1783489687, 1783500487);
+INSERT INTO `votes_logs` VALUES (44280, 2, 2, 20, 1783489691, 1783496891);
+INSERT INTO `votes_logs` VALUES (44281, 2, 3, 48, 1783489693, 1783522093);
+INSERT INTO `votes_logs` VALUES (44282, 2, 4, 96, 1783489694, 1783576094);
 
 -- ----------------------------
 -- Table structure for zones
