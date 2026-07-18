@@ -1,10 +1,10 @@
 {
     "success": true,
     "version": "3.3.5a",
-    "generated_at": "2026-07-13 18:41:26",
-    "total_files": 989,
-    "total_size": 71490823757,
-    "total_size_mb": 68178.96,
+    "generated_at": "2026-07-18 23:29:36",
+    "total_files": 994,
+    "total_size": 71513398149,
+    "total_size_mb": 68200.49,
     "base_url": "https://azeroth-universe.eu/universe_client/",
     "files": [
         {
@@ -1277,9 +1277,9 @@
         {
             "path": "Data/patch-ZA.MPQ",
             "url": "https://azeroth-universe.eu/universe_client/Data/patch-ZA.MPQ",
-            "size": 18069664,
-            "md5": "b4babe15866d207d8d297f21084fb34c",
-            "modified": 1783746693
+            "size": 18126945,
+            "md5": "7b46e99cc241fd7404ea2f5c2c6e19c2",
+            "modified": 1783968367
         },
         {
             "path": "Data/patch-ZB.MPQ",
@@ -1305,9 +1305,44 @@
         {
             "path": "Data/patch-ZE.MPQ",
             "url": "https://azeroth-universe.eu/universe_client/Data/patch-ZE.MPQ",
-            "size": 20789815,
-            "md5": "c267761b481a7726854be8c5decd839c",
-            "modified": 1783959353
+            "size": 20867760,
+            "md5": "65fcd49a66b341ed8852362b1701780c",
+            "modified": 1783996079
+        },
+        {
+            "path": "Data/patch-ZF.MPQ",
+            "url": "https://azeroth-universe.eu/universe_client/Data/patch-ZF.MPQ",
+            "size": 7094170,
+            "md5": "427242e4b90614cfbfdfbaf68c6fac00",
+            "modified": 1784278814
+        },
+        {
+            "path": "Data/patch-ZG.MPQ",
+            "url": "https://azeroth-universe.eu/universe_client/Data/patch-ZG.MPQ",
+            "size": 95242,
+            "md5": "dce4dabbfa465f0b9b2a13b651d943d5",
+            "modified": 1784278829
+        },
+        {
+            "path": "Data/patch-ZH.MPQ",
+            "url": "https://azeroth-universe.eu/universe_client/Data/patch-ZH.MPQ",
+            "size": 712650,
+            "md5": "e2ecbb5404f219ca89a80f274b0f0987",
+            "modified": 1784310164
+        },
+        {
+            "path": "Data/patch-ZI.MPQ",
+            "url": "https://azeroth-universe.eu/universe_client/Data/patch-ZI.MPQ",
+            "size": 2540764,
+            "md5": "1efa46444cc6cb511cbe75d7a2b9d193",
+            "modified": 1784278862
+        },
+        {
+            "path": "Data/patch-ZJ.MPQ",
+            "url": "https://azeroth-universe.eu/universe_client/Data/patch-ZJ.MPQ",
+            "size": 11996340,
+            "md5": "8180776d71186df5a9ffe999ec8e1d96",
+            "modified": 1784408384
         },
         {
             "path": "Data/patch.MPQ",
