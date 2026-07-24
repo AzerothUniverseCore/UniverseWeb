@@ -48,7 +48,7 @@
             <?php endif; ?>
 			
 			
-            <a href="<?= base_url('recovery'); ?>" class="uk-button uk-button-text"><i class="fas fa-key"></i> <?= lang('button_forgot_password'); ?></a>
+            <a href="<?= site_url('recovery'); ?>" class="uk-button uk-button-text"><i class="fas fa-key"></i> <?= lang('button_forgot_password'); ?></a>
 			
 			
           </div>
@@ -70,7 +70,7 @@
     window.addEventListener('keydown', function (e) {
         if (e.keyCode === 123) { 
             e.preventDefault();
-            alert("Les outils de développement sont désactivés.");
+            alert("<?= $this->lang->line('home_devtools_disabled'); ?>");
             return false;
         }
     }, false);
@@ -82,7 +82,7 @@
             (e.ctrlKey && e.shiftKey && e.keyCode === 74) || 
             (e.ctrlKey && e.keyCode === 85)) { 
             e.preventDefault();
-            alert("Les outils de développement sont désactivés.");
+            alert("<?= $this->lang->line('home_devtools_disabled'); ?>");
             return false;
         }
     }, false);

@@ -5,9 +5,13 @@
             <h3 class="uk-h3"><i class="fas fa-link"></i> <?= $this->lang->line('admin_nav_menu'); ?></h3>
           </div>
           <div class="uk-width-auto">
-            <a href="<?= base_url('admin/menu/create'); ?>" class="uk-icon-button"><i class="fas fa-pen"></i></a>
+            <a href="<?= site_url('admin/menu/create/'.$contentLang); ?>" class="uk-icon-button"><i class="fas fa-pen"></i></a>
           </div>
         </div>
+        <ul class="uk-subnav uk-subnav-pill uk-margin-small">
+          <li class="<?= ($contentLang == 'en') ? 'uk-active' : ''; ?>"><a href="<?= site_url('admin/menu/en'); ?>">EN</a></li>
+          <li class="<?= ($contentLang == 'fr') ? 'uk-active' : ''; ?>"><a href="<?= site_url('admin/menu/fr'); ?>">FR</a></li>
+        </ul>
         <div class="uk-card uk-card-default uk-card-body">
           <div class="uk-overflow-auto">
             <table class="uk-table uk-table-middle uk-table-divider uk-table-small">
@@ -21,7 +25,7 @@
                 </tr>
               </thead>
               <tbody>
-                <?php foreach($this->admin_model->getMenu() as $menu): ?>
+                <?php foreach($menuList as $menu): ?>
                 <tr>
                   <td><?= $menu->id ?></td>
                   <td><?= $menu->name ?></td>
@@ -29,7 +33,7 @@
                   <td><?= $menu->type ?></td>
                   <td>
                     <div class="uk-flex uk-flex-left uk-flex-center@m uk-margin-small">
-                      <a href="<?= base_url('admin/menu/edit/'.$menu->id); ?>" class="uk-button uk-button-primary uk-margin-small-right"><i class="fas fa-edit"></i></a>
+                      <a href="<?= site_url('admin/menu/edit/'.$menu->id.'/'.$contentLang); ?>" class="uk-button uk-button-primary uk-margin-small-right"><i class="fas fa-edit"></i></a>
                       <button class="uk-button uk-button-danger" value="<?= $menu->id ?>" id="button_delete<?= $menu->id ?>" onclick="DeleteMenu(event, this.value)"><i class="fas fa-trash-alt"></i></button>
                     </div>
                   </td>
@@ -47,9 +51,9 @@
         e.preventDefault();
 
         $.ajax({
-          url:"<?= base_url($lang.'/admin/menu/delete'); ?>",
+          url:"<?= site_url('admin/menu/delete'); ?>",
           method:"POST",
-          data:{value},
+          data:{value, contentLang: "<?= $contentLang; ?>"},
           dataType:"text",
           beforeSend: function(){
             $.amaran({
@@ -85,7 +89,7 @@
                 'outEffect': 'slideRight'
               });
             }
-            window.location.replace("<?= base_url('admin/menu'); ?>");
+            window.location.replace("<?= site_url('admin/menu/'.$contentLang); ?>");
           }
         });
       }

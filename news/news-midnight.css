@@ -1,0 +1,459 @@
+/* ==========================================================================
+   AZEROTH UNIVERSE — Theme "Midnight" pour la page Actualites (/news/)
+   Palette inspiree de World of Warcraft: Midnight (Neant/void corrompu,
+   vieux monde d'Arathor en or/bronze, magie arcanique cyan).
+   ========================================================================== */
+
+:root {
+  --void-black: #07050d;
+  --void-deep: #100a20;
+  --void-panel: #170f2c;
+  --void-purple: #2b1454;
+  --void-purple-mid: #4c2889;
+  --void-glow: #9b5de5;
+  --arcane-cyan: #2fe3ea;
+  --arcane-cyan-dim: #1a8f96;
+  --gold: #c9a227;
+  --gold-bright: #f0cf72;
+  --gold-dim: #6e551a;
+  --parchment: #ede4cf;
+  --muted: #b7add0;
+  --corruption: #7a1f5c;
+  --shadow-deep: rgba(0, 0, 0, 0.65);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-x: hidden;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: 'EB Garamond', 'Georgia', serif;
+  color: var(--parchment);
+  background-color: var(--void-black);
+  background-image:
+    radial-gradient(circle at 15% 8%, rgba(155, 93, 229, 0.22), transparent 40%),
+    radial-gradient(circle at 85% 0%, rgba(47, 227, 234, 0.12), transparent 45%),
+    radial-gradient(circle at 50% 100%, rgba(74, 20, 110, 0.35), transparent 55%),
+    linear-gradient(180deg, #0a0614 0%, #100a20 35%, #0c0818 100%);
+  background-attachment: fixed;
+  background-size: cover;
+  position: relative;
+}
+
+/* Voile de "faille du Neant" en surimpression, tres subtil */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: repeating-linear-gradient(115deg, rgba(155, 93, 229, 0.025) 0px, rgba(155, 93, 229, 0.025) 1px, transparent 1px, transparent 3px);
+  mix-blend-mode: overlay;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--void-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gold), var(--gold-dim));
+  border-radius: 100px;
+}
+
+a {
+  color: inherit;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Header                                                                  */
+/* ---------------------------------------------------------------------- */
+
+.midnight-header {
+  position: relative;
+  z-index: 1;
+  padding: 36px 20px 10px;
+  text-align: center;
+}
+
+.midnight-header-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.midnight-logo-link {
+  display: inline-block;
+  text-decoration: none;
+  filter: drop-shadow(0 0 18px rgba(155, 93, 229, 0.55));
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.midnight-logo-link:hover {
+  filter: drop-shadow(0 0 26px rgba(47, 227, 234, 0.65));
+  transform: scale(1.04);
+}
+
+.midnight-logo {
+  width: 170px;
+  height: auto;
+}
+
+/* Selecteur de langue */
+.lang-switch {
+  display: flex;
+  gap: 10px;
+}
+
+.lang-pill {
+  display: inline-block;
+  min-width: 46px;
+  padding: 6px 16px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-align: center;
+  text-decoration: none;
+  color: var(--muted);
+  background: linear-gradient(180deg, rgba(23, 15, 44, 0.9), rgba(10, 6, 20, 0.9));
+  border: 1px solid var(--gold-dim);
+  border-radius: 3px;
+  clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
+  transition: all 0.25s ease;
+}
+
+.lang-pill:hover {
+  color: var(--parchment);
+  border-color: var(--arcane-cyan);
+  box-shadow: 0 0 12px rgba(47, 227, 234, 0.35);
+}
+
+.lang-pill.active {
+  color: var(--void-black);
+  background: linear-gradient(180deg, var(--gold-bright), var(--gold));
+  border-color: var(--gold-bright);
+  box-shadow: 0 0 16px rgba(240, 207, 114, 0.55);
+  cursor: default;
+}
+
+/* Separateur orne */
+.midnight-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 480px;
+  margin: 26px auto 22px;
+}
+
+.midnight-divider::before,
+.midnight-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim));
+}
+
+.midnight-divider::after {
+  background: linear-gradient(90deg, var(--gold-dim), transparent);
+}
+
+.midnight-divider-gem {
+  width: 10px;
+  height: 10px;
+  margin: 0 14px;
+  background: linear-gradient(135deg, var(--gold-bright), var(--arcane-cyan));
+  transform: rotate(45deg);
+  box-shadow: 0 0 10px rgba(240, 207, 114, 0.7);
+  flex-shrink: 0;
+}
+
+/* Bloc titre */
+.midnight-hero {
+  margin-bottom: 10px;
+}
+
+.midnight-eyebrow {
+  margin: 0 0 6px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 5px;
+  color: var(--arcane-cyan);
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.midnight-title {
+  margin: 0;
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 2.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--parchment);
+  text-shadow:
+    0 0 10px rgba(155, 93, 229, 0.85),
+    0 0 24px rgba(155, 93, 229, 0.5),
+    0 2px 2px rgba(0, 0, 0, 0.8);
+}
+
+.midnight-subtitle {
+  margin: 10px auto 0;
+  max-width: 520px;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--muted);
+}
+
+/* ---------------------------------------------------------------------- */
+/* Grille d'actualites                                                     */
+/* ---------------------------------------------------------------------- */
+
+.midnight-news-wrap {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  padding: 20px 20px 70px;
+}
+
+.midnight-news-grid {
+  width: 90%;
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 34px;
+}
+
+.midnight-empty {
+  text-align: center;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 1px;
+  color: var(--muted);
+  padding: 40px 0;
+}
+
+.midnight-card {
+  position: relative;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background: linear-gradient(160deg, rgba(43, 20, 84, 0.55), rgba(7, 5, 13, 0.9));
+  border: 1px solid rgba(201, 162, 39, 0.28);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 10px 26px var(--shadow-deep);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.midnight-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--gold);
+  box-shadow:
+    0 16px 34px var(--shadow-deep),
+    0 0 26px rgba(155, 93, 229, 0.45),
+    0 0 14px rgba(47, 227, 234, 0.25);
+}
+
+/* Coins ornementaux en or, façon cadre d'interface WoW */
+.midnight-card .corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  z-index: 2;
+  opacity: 0.75;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.midnight-card:hover .corner {
+  opacity: 1;
+}
+
+.corner-tl {
+  top: 6px;
+  left: 6px;
+  border-top: 2px solid var(--gold-bright);
+  border-left: 2px solid var(--gold-bright);
+}
+
+.corner-tr {
+  top: 6px;
+  right: 6px;
+  border-top: 2px solid var(--gold-bright);
+  border-right: 2px solid var(--gold-bright);
+}
+
+.corner-bl {
+  bottom: 6px;
+  left: 6px;
+  border-bottom: 2px solid var(--gold-bright);
+  border-left: 2px solid var(--gold-bright);
+}
+
+.corner-br {
+  bottom: 6px;
+  right: 6px;
+  border-bottom: 2px solid var(--gold-bright);
+  border-right: 2px solid var(--gold-bright);
+}
+
+.midnight-card-image {
+  position: relative;
+  width: 100%;
+  height: 190px;
+  background-size: cover;
+  background-position: center;
+}
+
+.midnight-card-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(7, 5, 13, 0.15) 0%, rgba(7, 5, 13, 0.95) 100%),
+    linear-gradient(160deg, rgba(75, 30, 130, 0.35), rgba(7, 5, 13, 0.15));
+}
+
+.midnight-card-date {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  z-index: 2;
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  color: var(--gold-bright);
+  background: rgba(7, 5, 13, 0.7);
+  border: 1px solid rgba(201, 162, 39, 0.5);
+  padding: 3px 10px;
+  border-radius: 2px;
+}
+
+.midnight-card-body {
+  padding: 20px 20px 22px;
+}
+
+.midnight-card-title {
+  margin: 0 0 10px;
+  font-family: 'Cinzel', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--parchment);
+  line-height: 1.35;
+}
+
+.midnight-card-desc {
+  margin: 0 0 16px;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.midnight-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--arcane-cyan);
+  transition: gap 0.25s ease, color 0.25s ease;
+}
+
+.midnight-card:hover .midnight-card-cta {
+  gap: 10px;
+  color: var(--gold-bright);
+}
+
+/* ---------------------------------------------------------------------- */
+/* Footer                                                                  */
+/* ---------------------------------------------------------------------- */
+
+.midnight-footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 22px 12px 26px;
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.55));
+}
+
+.midnight-footer-divider {
+  max-width: 300px;
+  height: 1px;
+  margin: 0 auto 16px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+}
+
+.midnight-footer-text {
+  margin: 4px 0;
+  font-size: 0.95rem;
+}
+
+.midnight-footer-link {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  color: var(--gold-bright);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.midnight-footer-link:hover {
+  color: var(--arcane-cyan);
+  text-shadow: 0 0 10px rgba(47, 227, 234, 0.6);
+}
+
+.midnight-footer-small {
+  margin: 6px 0 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+  opacity: 0.75;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Responsive                                                              */
+/* ---------------------------------------------------------------------- */
+
+@media screen and (max-width: 768px) {
+  .midnight-title {
+    font-size: 1.9rem;
+    letter-spacing: 2px;
+  }
+
+  .midnight-news-grid {
+    width: 92%;
+    gap: 24px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .midnight-title {
+    font-size: 1.5rem;
+  }
+
+  .midnight-eyebrow {
+    letter-spacing: 3px;
+  }
+
+  .lang-pill {
+    padding: 5px 13px;
+  }
+}

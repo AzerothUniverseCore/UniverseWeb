@@ -48,7 +48,7 @@ class Home extends MX_Controller {
            date_default_timezone_set($this->config->item('timezone'));
 
         if(!$this->wowgeneral->getMaintenance())
-            redirect(base_url('maintenance'),'refresh');
+            redirect(site_url($this->lang->lang().'/maintenance'),'refresh');
     }
 
     public function index()
@@ -89,7 +89,7 @@ class Home extends MX_Controller {
         {
             show_error($this->migration->error_string());
         } else {
-            redirect(base_url());
+            redirect(site_url($this->lang->lang()));
         }
     }
 
@@ -112,7 +112,7 @@ class Home extends MX_Controller {
         {
             show_error($this->migration->error_string());
         } else {
-            redirect(base_url());
+            redirect(site_url($this->lang->lang()));
         }
     }
 }

@@ -50,10 +50,10 @@ class Mod extends MX_Controller {
            date_default_timezone_set($this->config->item('timezone'));
 
         if(!$this->wowauth->isLogged())
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         if($this->wowauth->getRank($this->session->userdata('wow_sess_id')) < config_item('mod_access_level'))
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         $this->template->set_theme('mod');
 

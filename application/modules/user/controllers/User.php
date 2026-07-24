@@ -52,12 +52,12 @@ class User extends MX_Controller {
 	{
 		if (!$this->wowmodule->getLoginStatus())
 		{
-			redirect(base_url(),'refresh');
+			redirect(site_url($this->lang->lang()),'refresh');
 		}
 
 		if ($this->wowauth->isLogged())
 		{
-			redirect(base_url(),'refresh');
+			redirect(site_url($this->lang->lang()),'refresh');
 		}
 
 		$data = [
@@ -120,17 +120,17 @@ class User extends MX_Controller {
 	{
 		if (!$this->wowgeneral->getMaintenance())
 		{
-			redirect(base_url('maintenance'),'refresh');
+			redirect(site_url($this->lang->lang().'/maintenance'),'refresh');
 		}
 
 		if (!$this->wowmodule->getRegisterStatus())
 		{
-			redirect(base_url(),'refresh');
+			redirect(site_url($this->lang->lang()),'refresh');
 		}
 
 		if ($this->wowauth->isLogged())
 		{
-			redirect(base_url(), 'refresh');
+			redirect(site_url($this->lang->lang()),'refresh');
 		}
 
 		$data = [
@@ -233,17 +233,17 @@ class User extends MX_Controller {
 	{
 		if (!$this->wowgeneral->getMaintenance())
 		{
-			redirect(base_url('maintenance'),'refresh');
+			redirect(site_url($this->lang->lang().'/maintenance'),'refresh');
 		}
 
 		if (!$this->wowmodule->getRecoveryStatus())
 		{
-			redirect(base_url(),'refresh');
+			redirect(site_url($this->lang->lang()),'refresh');
 		}
 
 		if ($this->wowauth->isLogged())
 		{
-			redirect(base_url(),'refresh');
+			redirect(site_url($this->lang->lang()),'refresh');
 		}
 
 		$data = [
@@ -271,17 +271,17 @@ class User extends MX_Controller {
 	{
 		if (!$this->wowgeneral->getMaintenance())
 		{
-			redirect(base_url(),'refresh');
+			redirect(site_url($this->lang->lang()),'refresh');
 		}
 
 		if (!$this->wowmodule->getUCPStatus())
 		{
-			redirect(base_url(),'refresh');
+			redirect(site_url($this->lang->lang()),'refresh');
 		}
 
 		if (!$this->wowauth->isLogged())
 		{
-			redirect(base_url(),'refresh');
+			redirect(site_url($this->lang->lang()),'refresh');
 		}
 
 		$data = [
@@ -296,17 +296,17 @@ class User extends MX_Controller {
 	{
 		if (!$this->wowgeneral->getMaintenance())
 		{
-			redirect(base_url(),'refresh');
+			redirect(site_url($this->lang->lang()),'refresh');
 		}
 
 		if (!$this->wowmodule->getUCPStatus())
 		{
-			redirect(base_url(),'refresh');
+			redirect(site_url($this->lang->lang()),'refresh');
 		}
 
 		if (!$this->wowauth->isLogged())
 		{
-			redirect(base_url(),'refresh');
+			redirect(site_url($this->lang->lang()),'refresh');
 		}
 
 		$data = [
@@ -321,7 +321,7 @@ class User extends MX_Controller {
 	{
 		if (!$this->wowgeneral->getMaintenance())
 		{
-			redirect(base_url('maintenance'),'refresh');
+			redirect(site_url($this->lang->lang().'/maintenance'),'refresh');
 		}
 
 		if ($this->input->method() == 'post')
@@ -349,7 +349,7 @@ class User extends MX_Controller {
 
 			if ($this->form_validation->run() == FALSE)
 			{
-				redirect(base_url('settings'), 'refresh');
+				redirect(site_url($this->lang->lang().'/settings'),'refresh');
 			}
 			else
 			{
@@ -370,7 +370,7 @@ class User extends MX_Controller {
 		}
 		else
 		{
-			redirect(base_url(), 'refresh');
+			redirect(site_url($this->lang->lang()),'refresh');
 		}
 	}
 
@@ -378,7 +378,7 @@ class User extends MX_Controller {
 	{
 		if (!$this->wowgeneral->getMaintenance())
 		{
-			redirect(base_url('maintenance'),'refresh');
+			redirect(site_url($this->lang->lang().'/maintenance'),'refresh');
 		}
 
 		if ($this->input->method() == 'post')
@@ -414,7 +414,7 @@ class User extends MX_Controller {
 
 			if ($this->form_validation->run() == false)
 			{
-				redirect(base_url('settings'), 'refresh');
+				redirect(site_url($this->lang->lang().'/settings'),'refresh');
 			}
 			else
 			{
@@ -441,7 +441,7 @@ class User extends MX_Controller {
 		}
 		else
 		{
-			redirect(base_url(), 'refresh');
+			redirect(site_url($this->lang->lang()),'refresh');
 		}
 	}
 
@@ -449,7 +449,7 @@ class User extends MX_Controller {
 	{
 		if (!$this->wowgeneral->getMaintenance())
 		{
-			redirect(base_url('maintenance'),'refresh');
+			redirect(site_url($this->lang->lang().'/maintenance'),'refresh');
 		}
 
 		if ($this->input->method() == 'post')
@@ -485,7 +485,7 @@ class User extends MX_Controller {
 
 			if ($this->form_validation->run() == FALSE)
 			{
-				redirect(base_url('settings'), 'refresh');
+				redirect(site_url($this->lang->lang().'/settings'),'refresh');
 			}
 			else
 			{
@@ -506,7 +506,7 @@ class User extends MX_Controller {
 		}
 		else
 		{
-			redirect(base_url(), 'refresh');
+			redirect(site_url($this->lang->lang()),'refresh');
 		}
 	}
 

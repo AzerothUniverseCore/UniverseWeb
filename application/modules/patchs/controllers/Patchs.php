@@ -18,7 +18,7 @@ class Patchs extends MX_Controller {
 
         // Coupe la page si le site est en maintenance, comme les autres modules
         if(!$this->wowgeneral->getMaintenance())
-            redirect(base_url('maintenance'),'refresh');
+            redirect(site_url($this->lang->lang().'/maintenance'),'refresh');
     }
 
     public function index()

@@ -100,7 +100,7 @@
           return false;
         }
         $.ajax({
-          url:"<?= base_url($lang.'/forgotpassword'); ?>",
+          url:"<?= site_url('forgotpassword'); ?>",
           method:"POST",
           data:{username, email},
           dataType:"text",
@@ -157,7 +157,7 @@
               });
             }
             $('#recoveryForm')[0].reset();
-            window.location.replace("<?= base_url('login'); ?>");
+            window.location.replace("<?= site_url('login'); ?>");
           }
         });
       }
@@ -172,7 +172,7 @@
     window.addEventListener('keydown', function (e) {
         if (e.keyCode === 123) { 
             e.preventDefault();
-            alert("Les outils de développement sont désactivés.");
+            alert("<?= $this->lang->line('home_devtools_disabled'); ?>");
             return false;
         }
     }, false);
@@ -184,7 +184,7 @@
             (e.ctrlKey && e.shiftKey && e.keyCode === 74) || 
             (e.ctrlKey && e.keyCode === 85)) {
             e.preventDefault();
-            alert("Les outils de développement sont désactivés.");
+            alert("<?= $this->lang->line('home_devtools_disabled'); ?>");
             return false;
         }
     }, false);

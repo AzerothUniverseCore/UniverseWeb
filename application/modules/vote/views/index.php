@@ -8,27 +8,27 @@
           <div class="uk-width-1-4@m">
             <ul class="uk-nav uk-nav-default myaccount-nav">
               <?php if ($this->wowmodule->getUCPStatus() == '1'): ?>
-              <li><a href="<?=base_url('panel');?>"><i class="fas fa-user-circle"></i> <?=$this->lang->line('tab_account');?></a></li>
+              <li><a href="<?=site_url('panel');?>"><i class="fas fa-user-circle"></i> <?=$this->lang->line('tab_account');?></a></li>
               <?php endif;?>
               <li class="uk-nav-divider"></li>
               <?php if ($this->wowmodule->getDonationStatus() == '1'): ?>
-              <li><a href="<?=base_url('donate');?>"><i class="fas fa-hand-holding-usd"></i> <?=$this->lang->line('navbar_donate_panel');?></a></li>
+              <li><a href="<?=site_url('donate');?>"><i class="fas fa-hand-holding-usd"></i> <?=$this->lang->line('navbar_donate_panel');?></a></li>
               <?php endif;?>
               <?php if ($this->wowmodule->getVoteStatus() == '1'): ?>
-              <li class="uk-active"><a href="<?=base_url('vote');?>"><i class="fas fa-vote-yea"></i> <?=$this->lang->line('navbar_vote_panel');?></a></li>
+              <li class="uk-active"><a href="<?=site_url('vote');?>"><i class="fas fa-vote-yea"></i> <?=$this->lang->line('navbar_vote_panel');?></a></li>
               <?php endif;?>
               <?php if ($this->wowmodule->getStoreStatus() == '1'): ?>
-              <li><a href="<?=base_url('store');?>"><i class="fas fa-store"></i> <?=$this->lang->line('tab_store');?></a></li>
+              <li><a href="<?=site_url('store');?>"><i class="fas fa-store"></i> <?=$this->lang->line('tab_store');?></a></li>
               <?php endif;?>
               <li class="uk-nav-divider"></li>
               <?php if ($this->wowmodule->getBugtrackerStatus() == '1'): ?>
-              <li><a href="<?=base_url('bugtracker');?>"><i class="fas fa-bug"></i> <?=$this->lang->line('tab_bugtracker');?></a></li>
+              <li><a href="<?=site_url('bugtracker');?>"><i class="fas fa-bug"></i> <?=$this->lang->line('tab_bugtracker');?></a></li>
               <?php endif;?>
               <?php if ($this->wowmodule->getChangelogsStatus() == '1'): ?>
-              <li><a href="<?=base_url('changelogs');?>"><i class="fas fa-scroll"></i> <?=$this->lang->line('tab_changelogs');?></a></li>
+              <li><a href="<?=site_url('changelogs');?>"><i class="fas fa-scroll"></i> <?=$this->lang->line('tab_changelogs');?></a></li>
               <?php endif;?>
               <?php if ($this->wowmodule->getDownloadStatus() == '1'): ?>
-              <li><a href="<?=base_url('download');?>"><i class="fas fa-download"></i> <?=$this->lang->line('tab_download');?></a></li>
+              <li><a href="<?=site_url('download');?>"><i class="fas fa-download"></i> <?=$this->lang->line('tab_download');?></a></li>
               <?php endif;?>
             </ul>
           </div>
@@ -65,7 +65,7 @@
                       </div>
                     </div>
                     <?php if ($this->wowgeneral->getTimestamp() >= $this->vote_model->getTimeLogExpired($voteList->id, $this->session->userdata('wow_sess_id'))): ?>
-                      <?=form_open(base_url('vote/votenow/' . $voteList->id));?>
+                      <?=form_open(site_url('vote/votenow/' . $voteList->id));?>
                         <button class="uk-button uk-button-default uk-width-1-1" formtarget="_blank"><i class="fas fa-vote-yea"></i> <?= $this->lang->line('tab_vote'); ?></button>
                       <?=form_close();?>
                     <?php else: ?>
@@ -92,7 +92,7 @@
     window.addEventListener('keydown', function (e) {
         if (e.keyCode === 123) { 
             e.preventDefault();
-            alert("Les outils de développement sont désactivés.");
+            alert("<?= $this->lang->line('home_devtools_disabled'); ?>");
             return false;
         }
     }, false);
@@ -104,7 +104,7 @@
             (e.ctrlKey && e.shiftKey && e.keyCode === 74) || 
             (e.ctrlKey && e.keyCode === 85)) { 
             e.preventDefault();
-            alert("Les outils de développement sont désactivés.");
+            alert("<?= $this->lang->line('home_devtools_disabled'); ?>");
             return false;
         }
     }, false);

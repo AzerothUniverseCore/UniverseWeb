@@ -3,15 +3,15 @@
   <div class="syphrena-hero-container">
     <video class="syphrena-background-video" src="../application/themes/default/assets/videos/Azeroth.mp4" data-src="../application/themes/default/assets/videos/Azeroth.mp4" loop="loop" muted="muted" preload="auto" autoplay="autoplay" playsinline="playsinline"></video>
     <div class="syphrena-hero-title">
-      <span class="orange-shadow">Revivez votre aventure</span></span> <span class="bfa-orange"><span class="orange-shadow"></span></span>
+      <span class="orange-shadow"><?= $this->lang->line('home_hero_title'); ?></span></span> <span class="bfa-orange"><span class="orange-shadow"></span></span>
     </div>
     <div class="syphrena-hero-subtitle">
-      <span class="orange-shadow">Choisissez votre faction et préparez-vous à une aventure épique !</span></span> <span class="bfa-orange"><span class="orange-shadow"></span></span>
+      <span class="orange-shadow"><?= $this->lang->line('home_hero_subtitle'); ?></span></span> <span class="bfa-orange"><span class="orange-shadow"></span></span>
     </div>
     <div class="syphrena-hero-buttons">
-      <a href="<?= base_url("/download"); ?>" class="syphrena-hero-button">
+      <a href="<?= site_url("download"); ?>" class="syphrena-hero-button">
         <div class="syphrena-hero-button-inner">
-          <span class="orange-shadow">🧙</span></span> <span class="orange-shadow">JOUER</span></span>
+          <span class="orange-shadow">🧙</span></span> <span class="orange-shadow"><?= $this->lang->line('home_hero_play'); ?></span></span>
         </div>
       </a>
     </div>
@@ -22,16 +22,16 @@
 <section class="syphrena-home-item" style="position: relative; background-image: url(../application/themes/default/assets/images/background-universe.jpg)">
   <div class="syphrena-hero-container">
     <div class="syphrena-hero-title">
-      <span class="orange-shadow">L'AVENTURE VOUS ATTEND !</span>
+      <span class="orange-shadow"><?= $this->lang->line('home_adventure_title'); ?></span>
     </div>
 	<div class="azeroth-hero-title">
     <div class="azeroth-universe-description">
-      <span class="orange-shadow"><p>Rejoignez Azeroth Universe, un serveur unique qui repousse les limites de World of Warcraft avec du contenu inédit et des mécaniques exclusives ! Que vous soyez un vétéran ou un nouveau joueur, préparez-vous à une aventure sans précédent !</p></span>
+      <span class="orange-shadow"><p><?= $this->lang->line('home_adventure_description'); ?></p></span>
     </div>
 	</div>
-	<a href="<?= base_url("/register"); ?>" class="syphrena-hero-button">
+	<a href="<?= site_url("register"); ?>" class="syphrena-hero-button">
         <div class="syphrena-hero-button-inner">
-          <span class="orange-shadow">🏹</span></span> <span class="orange-shadow">NOUS REJOINDRE</span></span>
+          <span class="orange-shadow">🏹</span></span> <span class="orange-shadow"><?= $this->lang->line('home_hero_join_button'); ?></span></span>
         </div>
       </a>
   </div>
@@ -61,28 +61,28 @@
 <section class="syphrena-home-item" style="position: relative; background-image: url(../application/themes/default/assets/images/head-background-3.jpg)">
   <div class="syphrena-hero-container">
 		<div class="syphrena-hero-title">
-            <span class="orange-shadow">DERNIÈRES ACTUALITÉS</span>
+            <span class="orange-shadow"><?= $this->lang->line('home_news_section_title'); ?></span>
         </div>
     <div class="syphrena-hero-title"></div>
     <div class="syphrena-news-list">
       <?php if ($this->wowmodule->getNewsStatus()) : ?>
         <?php for ($i = 0; $i < 4; $i++) { ?>
-          <a href="<?= base_url('news/' . $NewsList[$i]->id); ?>" class="syphrena-new" style="background-image: linear-gradient(0deg, black, transparent), url(<?= base_url('assets/images/news/' . $NewsList[$i]->image); ?>)">
+          <a href="<?= site_url('news/' . $NewsList[$i]->id); ?>" class="syphrena-new" style="background-image: linear-gradient(0deg, black, transparent), url(<?= base_url('assets/images/news/' . $NewsList[$i]->image); ?>)">
             <div class="syphrena-new-title syphrena-new-title-centered"><?php echo $NewsList[$i]->title ?></div>
 			<br>
             <div class="syphrena-new-subtitle">
 			<p class="syphrena-new-meta">
                 🕒 <?= date('d M Y', $NewsList[$i]->date) ?>
               </p>
-              <span class="orange-shadow"><p><?php echo strlen($NewsList[$i]->description) > 0 ? substr($NewsList[$i]->description, 0, 0) . "En savoir plus.." : $NewsList[$i]->description; ?></p></span>
+              <span class="orange-shadow"><p><?php echo strlen($NewsList[$i]->description) > 0 ? substr($NewsList[$i]->description, 0, 0) . $this->lang->line('home_news_read_more') : $NewsList[$i]->description; ?></p></span>
             </div>
           </a>
         <?php } ?>
       <?php endif ?>
     </div>
-	<a href="<?= base_url("news"); ?>" class="syphrena-hero-button">
+	<a href="<?= base_url('news/?lang=' . $this->lang->lang()); ?>" class="syphrena-hero-button">
         <div class="syphrena-hero-button-inner">
-          <span class="orange-shadow">📜</span></span> <span class="orange-shadow">CONSULTER LES ACTUALITÉS</span></span>
+          <span class="orange-shadow">📜</span></span> <span class="orange-shadow"><?= $this->lang->line('home_news_view_all'); ?></span></span>
         </div>
       </a>
   </div>
@@ -93,37 +93,37 @@
 <div class="azeroth-hero-title">
   <div class="syphrena-hero-container">
     <div class="syphrena-hero-title">
-        <span class="orange-shadow">Nos Fonctionnalités</span>
+        <span class="orange-shadow"><?= $this->lang->line('home_features_title'); ?></span>
     </div>
     <div class="image-section">
       
       <div class="image-column">
         <div class="image-item">
-          <img src="../assets/icon/sesame80.png" alt="Sésame">
+          <img src="../assets/icon/sesame80.png" alt="<?= $this->lang->line('home_feature_sesame_title'); ?>">
           <div class="image-text">
-            <span class="orange-shadow"><p class="image-title">Sésame</p></span>
-            <p class="image-description">Idéal pour ceux qui souhaitent plonger rapidement dans le contenu de haut niveau. <a href="/fr/download" target="_blank">Nous Rejoindre</a><br><br><a href="/fr/news/10" target="_blank">Lire l'article..</a></br></p>
+            <span class="orange-shadow"><p class="image-title"><?= $this->lang->line('home_feature_sesame_title'); ?></p></span>
+            <p class="image-description"><?= $this->lang->line('home_feature_sesame_desc'); ?> <a href="<?= site_url('download'); ?>" target="_blank"><?= $this->lang->line('home_feature_join_us_link'); ?></a><br><br><a href="<?= site_url('news/10'); ?>" target="_blank"><?= $this->lang->line('home_read_article'); ?></a></br></p>
           </div>
         </div>
         <div class="image-item">
-          <img src="../assets/icon/recuperations.png" alt="Récupération de personnage">
+          <img src="../assets/icon/recuperations.png" alt="<?= $this->lang->line('home_feature_recovery_title'); ?>">
           <div class="image-text">
-            <span class="orange-shadow"><p class="image-title">Récupération de personnage</p></span>
-            <p class="image-description">Azeroth Universe propose un service de récupération de personnage en provenance d'autres serveurs privés/officiel. <a href="https://discord.com/invite/yDVSxdWFYx" target="_blank">Rejoindre Discord</a><br><br><a href="/fr/news/1" target="_blank">Lire l'article..</a></br></p>
+            <span class="orange-shadow"><p class="image-title"><?= $this->lang->line('home_feature_recovery_title'); ?></p></span>
+            <p class="image-description"><?= $this->lang->line('home_feature_recovery_desc'); ?> <a href="https://discord.com/invite/yDVSxdWFYx" target="_blank"><?= $this->lang->line('home_feature_join_discord_link'); ?></a><br><br><a href="<?= site_url('news/1'); ?>" target="_blank"><?= $this->lang->line('home_read_article'); ?></a></br></p>
           </div>
         </div>
         <div class="image-item">
           <img src="../assets/icon/breloque.png" alt="Conversion Breloques">
           <div class="image-text">
-            <span class="orange-shadow"><p class="image-title">Conversion des Breloques</p></span>
-            <p class="image-description">Vous pouvez obtenir des Breloques en votant pour le serveur : <br><a href="/fr/vote" target="_blank">Obtenir des Breloques Inférieures</a> <br><br><a href="/fr/news/7" target="_blank">Lire l'article..</a></br></p>
+            <span class="orange-shadow"><p class="image-title"><?= $this->lang->line('home_feature_trinkets_title'); ?></p></span>
+            <p class="image-description"><?= $this->lang->line('home_feature_trinkets_desc'); ?> <br><a href="<?= site_url('vote'); ?>" target="_blank"><?= $this->lang->line('home_feature_trinkets_link'); ?></a> <br><br><a href="<?= site_url('news/7'); ?>" target="_blank"><?= $this->lang->line('home_read_article'); ?></a></br></p>
           </div>
         </div>
         <div class="image-item">
           <img src="../assets/icon/contributor.png" alt="Contributeur">
           <div class="image-text">
-            <span class="orange-shadow"><p class="image-title">Contributeur</p></span>
-            <p class="image-description">Grade exclusif permettant de profiter de nombreux avantages en jeu ! <br><a href="/fr/donate" target="_blank">Contribuer pour Azeroth Universe</a> <br><br><a href="/fr/news/2" target="_blank">Lire l'article..</a></br></p>
+            <span class="orange-shadow"><p class="image-title"><?= $this->lang->line('home_feature_contributor_title'); ?></p></span>
+            <p class="image-description"><?= $this->lang->line('home_feature_contributor_desc'); ?> <br><a href="<?= site_url('donate'); ?>" target="_blank"><?= $this->lang->line('home_feature_contributor_link'); ?></a> <br><br><a href="<?= site_url('news/2'); ?>" target="_blank"><?= $this->lang->line('home_read_article'); ?></a></br></p>
           </div>
         </div>
       </div>
@@ -133,29 +133,29 @@
 		<div class="image-item">
           <img src="../assets/icon/interfactionah.png" alt="Interfaction PvE">
           <div class="image-text">
-            <span class="orange-shadow"><p class="image-title">Interfaction</p></span>
-            <p class="image-description">Les raids et donjons peuvent être réalisés en interfaction, facilitant ainsi l'organisation du PvE.</p>
+            <span class="orange-shadow"><p class="image-title"><?= $this->lang->line('home_feature_crossfaction_title'); ?></p></span>
+            <p class="image-description"><?= $this->lang->line('home_feature_crossfaction_desc'); ?></p>
           </div>
         </div>
         <div class="image-item">
-          <img src="../assets/icon/expRate.png" alt="Modificateur d'expérience">
+          <img src="../assets/icon/expRate.png" alt="<?= $this->lang->line('home_feature_exprate_title'); ?>">
           <div class="image-text">
-            <span class="orange-shadow"><p class="image-title">Modificateur d'expérience</p></span>
-            <p class="image-description">Le modificateur d'expérience vous permet d'ajuster le gain d'XP pour une progression plus rapide ou plus lente selon vos préférences.</p>
+            <span class="orange-shadow"><p class="image-title"><?= $this->lang->line('home_feature_exprate_title'); ?></p></span>
+            <p class="image-description"><?= $this->lang->line('home_feature_exprate_desc'); ?></p>
           </div>
         </div>
         <div class="image-item">
-          <img src="../assets/icon/Heirloom.png" alt="Équipement Héritage">
+          <img src="../assets/icon/Heirloom.png" alt="<?= $this->lang->line('home_feature_heirloom_title'); ?>">
           <div class="image-text">
-            <span class="orange-shadow"><p class="image-title">Équipement Héritage</p></span>
-            <p class="image-description">L'équipement Héritage vous offre des objets qui augmentent vos statistiques et facilitent la montée en niveau de vos personnages.</p>
+            <span class="orange-shadow"><p class="image-title"><?= $this->lang->line('home_feature_heirloom_title'); ?></p></span>
+            <p class="image-description"><?= $this->lang->line('home_feature_heirloom_desc'); ?></p>
           </div>
         </div>
         <div class="image-item">
           <img src="../assets/icon/tmog.png" alt="Transmogrification">
           <div class="image-text">
-            <span class="orange-shadow"><p class="image-title">Transmogrification</p></span>
-            <p class="image-description">Transformez votre style en choisissant l'équipement de votre choix grâce à la monnaie de transmogrification.</p>
+            <span class="orange-shadow"><p class="image-title"><?= $this->lang->line('home_feature_transmog_title'); ?></p></span>
+            <p class="image-description"><?= $this->lang->line('home_feature_transmog_desc'); ?></p>
           </div>
         </div>
       </div>
@@ -168,15 +168,15 @@
 <div class="azeroth-hero-title">
   <div class="syphrena-hero-container">
         <div class="syphrena-hero-title">
-            </i><span class="orange-shadow">AZEROTH UNIVERSE TV</span>
+            </i><span class="orange-shadow"><?= $this->lang->line('home_tv_title'); ?></span>
         </div>
-        <p class="syphrena-hero-subtitle">Découvrez nos vidéos et contenus sur notre chaîne officielle Azeroth Universe TV.</p>
+        <p class="syphrena-hero-subtitle"><?= $this->lang->line('home_tv_subtitle'); ?></p>
         <a href="https://www.youtube.com/@AzerothUniverseTV" class="syphrena-hero-button" target="_blank">
             <div class="syphrena-hero-button-inner">
                 <span class="orange-shadow">
             <i class="fab fa-youtube"></i>
         </span>
-        <span class="orange-shadow">REGARDER</span>
+        <span class="orange-shadow"><?= $this->lang->line('home_tv_watch'); ?></span>
             </div>
         </a>
   </div>
@@ -227,10 +227,11 @@ $stmtOnlinePlayers->execute();
 $onlinePlayers = $stmtOnlinePlayers->fetchColumn();
 
 // Texte à afficher en fonction de l'état du royaume
-$heroTitle = $isRealmOffline ? "Maintenance du royaume" : "Qui est en ligne ?";
+$CI =& get_instance();
+$heroTitle = $isRealmOffline ? $CI->lang->line('home_realm_maintenance_title') : $CI->lang->line('home_realm_online_title');
 $heroSubtitle = $isRealmOffline ?
-    "Notre royaume est temporairement inaccessible. Revenez bientôt pour continuer votre épopée dans Azeroth Universe !" :
-    "Actuellement, {$onlinePlayers} " . ($onlinePlayers >= 2 ? 'aventuriers' : 'aventurier') . " explorent les terres Azeroth Universe.";
+    $CI->lang->line('home_realm_offline_desc') :
+    sprintf($onlinePlayers >= 2 ? $CI->lang->line('home_realm_online_desc_plural') : $CI->lang->line('home_realm_online_desc_singular'), $onlinePlayers);
 ?>
 
 <section class="syphrena-home-item" style="background-image: url(../assets/images/syphrena/PMRXIDON1CB21725038037493.jpg)">
@@ -238,7 +239,7 @@ $heroSubtitle = $isRealmOffline ?
     <div class="syphrena-hero-container">
 	<div class="server-status">
     <span class="pulse <?php echo $isRealmOffline ? 'red' : 'green'; ?>"></span>
-    <span class="orange-shadow"><span class="server-text"><?php echo $isRealmOffline ? 'Royaume hors ligne' : 'Royaume en ligne'; ?></span></span>
+    <span class="orange-shadow"><span class="server-text"><?php echo $isRealmOffline ? $this->lang->line('home_realm_status_offline') : $this->lang->line('home_realm_status_online'); ?></span></span>
 </div>
         <div class="syphrena-hero-title">
 			<span class="orange-shadow"><?php echo $heroTitle; ?></span>
@@ -254,9 +255,9 @@ $heroSubtitle = $isRealmOffline ?
                 </div>
             </a>-->
             <?php else: ?>
-            <a href="<?php echo base_url('online'); ?>" class="syphrena-hero-button">
+            <a href="<?php echo site_url('online'); ?>" class="syphrena-hero-button">
                 <div class="syphrena-hero-button-inner">
-                    <span class="orange-shadow">👥 Voir les joueurs en ligne</span>
+                    <span class="orange-shadow"><?= $this->lang->line('home_view_players_online'); ?></span>
                 </div>
             </a>
             <?php endif; ?>
@@ -269,15 +270,15 @@ $heroSubtitle = $isRealmOffline ?
 <div class="azeroth-hero-title">
   <div class="syphrena-hero-container syphrena-home-item-reversed">
     <div class="syphrena-hero-title">
-      <span class="orange-shadow">Besoin d'aide ?</span></span>
+      <span class="orange-shadow"><?= $this->lang->line('home_help_title'); ?></span></span>
     </div>
     <div class="syphrena-hero-subtitle">
-      <span class="orange-shadow">Rejoignez notre communauté Discord, l'endroit idéal pour trouver ce que vous cherchez !</span></span>
+      <span class="orange-shadow"><?= $this->lang->line('home_help_subtitle'); ?></span></span>
     </div>
     <div class="syphrena-hero-buttons">
       <a href="https://discord.gg/efTx9k4nfE" class="syphrena-hero-button">
         <div class="syphrena-hero-button-inner">
-          <span class="orange-shadow">🌐</span></span> <span class="orange-shadow">REJOINDRE DISCORD</span></span>
+          <span class="orange-shadow">🌐</span></span> <span class="orange-shadow"><?= $this->lang->line('home_join_discord_button'); ?></span></span>
         </div>
       </a>
     </div>
@@ -294,7 +295,7 @@ $heroSubtitle = $isRealmOffline ?
     window.addEventListener('keydown', function (e) {
         if (e.keyCode === 123) { 
             e.preventDefault();
-            alert("Les outils de développement sont désactivés.");
+            alert("<?= $this->lang->line('home_devtools_disabled'); ?>");
             return false;
         }
     }, false);
@@ -306,7 +307,7 @@ $heroSubtitle = $isRealmOffline ?
             (e.ctrlKey && e.shiftKey && e.keyCode === 74) || 
             (e.ctrlKey && e.keyCode === 85)) {
             e.preventDefault();
-            alert("Les outils de développement sont désactivés.");
+            alert("<?= $this->lang->line('home_devtools_disabled'); ?>");
             return false;
         }
     }, false);

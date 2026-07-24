@@ -47,11 +47,11 @@ class Recruit extends MX_Controller
         }
 
         if (!$this->wowgeneral->getMaintenance()) {
-            redirect(base_url('maintenance'), 'refresh');
+            redirect(site_url($this->lang->lang().'/maintenance'),'refresh');
         }
 
         if (!$this->wowauth->isLogged()) {
-            redirect(base_url('login'), 'refresh');
+            redirect(site_url($this->lang->lang().'/login'),'refresh');
         }
     }
 

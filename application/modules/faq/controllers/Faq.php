@@ -12,7 +12,7 @@ class Faq extends MX_Controller {
            date_default_timezone_set($this->config->item('timezone'));
 
         if(!$this->wowgeneral->getMaintenance())
-            redirect(base_url('maintenance'),'refresh');
+            redirect(site_url($this->lang->lang().'/maintenance'),'refresh');
 
 
 

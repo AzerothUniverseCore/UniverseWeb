@@ -78,7 +78,7 @@
     window.addEventListener('keydown', function (e) {
         if (e.keyCode === 123) { 
             e.preventDefault();
-            alert("Les outils de développement sont désactivés.");
+            alert("<?= $this->lang->line('home_devtools_disabled'); ?>");
             return false;
         }
     }, false);
@@ -90,7 +90,7 @@
             (e.ctrlKey && e.shiftKey && e.keyCode === 74) || 
             (e.ctrlKey && e.keyCode === 85)) { 
             e.preventDefault();
-            alert("Les outils de développement sont désactivés.");
+            alert("<?= $this->lang->line('home_devtools_disabled'); ?>");
             return false;
         }
     }, false);

@@ -291,3 +291,99 @@ $lang['soap_send_body'] = 'Nous vous remercions de votre achats dans notre bouti
 /*Email Lang*/
 $lang['email_password_recovery'] = 'Récupération du mot de passe';
 $lang['email_account_activation'] = 'Activation du compte';
+
+/*Footer Lang (Layout)*/
+$lang['footer_trademark'] = 'Toutes les marques citées appartiennent à leurs propriétaires respectifs.';
+
+/*Home Page Content Lang*/
+$lang['home_hero_title'] = 'Revivez votre aventure';
+$lang['home_hero_subtitle'] = 'Choisissez votre faction et préparez-vous à une aventure épique !';
+$lang['home_hero_play'] = 'JOUER';
+$lang['home_adventure_title'] = 'L\'AVENTURE VOUS ATTEND !';
+$lang['home_adventure_description'] = 'Rejoignez Azeroth Universe, un serveur unique qui repousse les limites de World of Warcraft avec du contenu inédit et des mécaniques exclusives ! Que vous soyez un vétéran ou un nouveau joueur, préparez-vous à une aventure sans précédent !';
+$lang['home_hero_join_button'] = 'NOUS REJOINDRE';
+$lang['home_news_section_title'] = 'DERNIÈRES ACTUALITÉS';
+$lang['home_news_read_more'] = 'En savoir plus..';
+$lang['home_news_view_all'] = 'CONSULTER LES ACTUALITÉS';
+$lang['home_features_title'] = 'Nos Fonctionnalités';
+
+$lang['home_feature_sesame_title'] = 'Sésame';
+$lang['home_feature_sesame_desc'] = 'Idéal pour ceux qui souhaitent plonger rapidement dans le contenu de haut niveau.';
+$lang['home_feature_join_us_link'] = 'Nous Rejoindre';
+
+$lang['home_feature_recovery_title'] = 'Récupération de personnage';
+$lang['home_feature_recovery_desc'] = 'Azeroth Universe propose un service de récupération de personnage en provenance d\'autres serveurs privés/officiel.';
+$lang['home_feature_join_discord_link'] = 'Rejoindre Discord';
+
+$lang['home_feature_trinkets_title'] = 'Conversion des Breloques';
+$lang['home_feature_trinkets_desc'] = 'Vous pouvez obtenir des Breloques en votant pour le serveur :';
+$lang['home_feature_trinkets_link'] = 'Obtenir des Breloques Inférieures';
+
+$lang['home_feature_contributor_title'] = 'Contributeur';
+$lang['home_feature_contributor_desc'] = 'Grade exclusif permettant de profiter de nombreux avantages en jeu !';
+$lang['home_feature_contributor_link'] = 'Contribuer pour Azeroth Universe';
+
+$lang['home_read_article'] = 'Lire l\'article..';
+
+$lang['home_feature_crossfaction_title'] = 'Interfaction';
+$lang['home_feature_crossfaction_desc'] = 'Les raids et donjons peuvent être réalisés en interfaction, facilitant ainsi l\'organisation du PvE.';
+
+$lang['home_feature_exprate_title'] = 'Modificateur d\'expérience';
+$lang['home_feature_exprate_desc'] = 'Le modificateur d\'expérience vous permet d\'ajuster le gain d\'XP pour une progression plus rapide ou plus lente selon vos préférences.';
+
+$lang['home_feature_heirloom_title'] = 'Équipement Héritage';
+$lang['home_feature_heirloom_desc'] = 'L\'équipement Héritage vous offre des objets qui augmentent vos statistiques et facilitent la montée en niveau de vos personnages.';
+
+$lang['home_feature_transmog_title'] = 'Transmogrification';
+$lang['home_feature_transmog_desc'] = 'Transformez votre style en choisissant l\'équipement de votre choix grâce à la monnaie de transmogrification.';
+
+$lang['home_tv_title'] = 'AZEROTH UNIVERSE TV';
+$lang['home_tv_subtitle'] = 'Découvrez nos vidéos et contenus sur notre chaîne officielle Azeroth Universe TV.';
+$lang['home_tv_watch'] = 'REGARDER';
+
+$lang['home_realm_maintenance_title'] = 'Maintenance du royaume';
+$lang['home_realm_online_title'] = 'Qui est en ligne ?';
+$lang['home_realm_offline_desc'] = 'Notre royaume est temporairement inaccessible. Revenez bientôt pour continuer votre épopée dans Azeroth Universe !';
+$lang['home_realm_online_desc_singular'] = 'Actuellement, %d aventurier explore les terres Azeroth Universe.';
+$lang['home_realm_online_desc_plural'] = 'Actuellement, %d aventuriers explorent les terres Azeroth Universe.';
+$lang['home_realm_status_online'] = 'Royaume en ligne';
+$lang['home_realm_status_offline'] = 'Royaume hors ligne';
+$lang['home_view_players_online'] = '👥 Voir les joueurs en ligne';
+
+$lang['home_help_title'] = 'Besoin d\'aide ?';
+$lang['home_help_subtitle'] = 'Rejoignez notre communauté Discord, l\'endroit idéal pour trouver ce que vous cherchez !';
+$lang['home_join_discord_button'] = 'REJOINDRE DISCORD';
+
+$lang['home_devtools_disabled'] = 'Les outils de développement sont désactivés.';
+
+/*Patchs Lang*/
+$lang['patchs_title'] = 'TÉLÉCHARGEMENT DES PATCHS';
+$lang['patchs_subtitle'] = 'Fichiers MPQ à placer dans votre dossier %s';
+$lang['patchs_grimoire_title'] = 'Grimoire des patchs';
+$lang['patchs_search_placeholder'] = 'Rechercher…';
+$lang['patchs_empty'] = 'Aucun fichier ne correspond à ce filtre.';
+$lang['patchs_locale'] = 'fr-FR';
+$lang['patchs_unit_ko'] = 'Ko';
+$lang['patchs_unit_mo'] = 'Mo';
+$lang['patchs_unit_go'] = 'Go';
+$lang['patchs_result_singular'] = 'résultat';
+$lang['patchs_result_plural'] = 'résultats';
+$lang['patchs_total_files'] = 'fichiers';
+$lang['patchs_total_suffix'] = 'au total';
+
+/*Download Lang*/
+$lang['download_installation_title'] = 'Installation';
+$lang['download_tutorial_title'] = 'Tutoriel';
+$lang['download_client_tab'] = 'Client';
+$lang['download_button'] = 'Télécharger';
+$lang['download_label'] = 'Téléchargement';
+
+/*Online Lang*/
+$lang['table_header_level'] = 'Niveau';
+$lang['table_header_race'] = 'Race';
+$lang['table_header_class'] = 'Classe';
+$lang['online_rank_player'] = 'Joueur';
+$lang['online_rank_moderator'] = 'Modérateur';
+$lang['online_rank_gamemaster'] = 'Maître du jeu';
+$lang['online_rank_founder'] = 'Fondateur/Développeur';
+$lang['online_rank_bot'] = 'Console Bot';

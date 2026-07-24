@@ -703,13 +703,23 @@ class General_model extends CI_Model {
         return $this->email->send();
     }
 
+    /**
+     * Nom de la table de menu correspondant a la langue active.
+     * 'menufr' pour le francais, 'menu' pour toutes les autres
+     * langues supportees (anglais actuellement).
+     */
+    private function menuTable()
+    {
+        return ($this->lang->lang() == 'fr') ? 'menufr' : 'menu';
+    }
+
     public function getMenu()
     {
-        return $this->db->select('*')->get('menufr');
+        return $this->db->select('*')->get($this->menuTable());
     }
 
     public function getMenuChild($id)
     {
-        return $this->db->select('*')->where('child', $id)->get('menufr');
+        return $this->db->select('*')->where('child', $id)->get($this->menuTable());
     }
 }

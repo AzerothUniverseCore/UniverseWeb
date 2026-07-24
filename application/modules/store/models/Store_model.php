@@ -11,6 +11,21 @@ class Store_model extends CI_Model {
         parent::__construct();
     }
 
+    /**
+     * Tables de contenu selon la langue active : 'store_items'/
+     * 'store_categories' (EN) par defaut, 'store_itemsfr'/
+     * 'store_categoriesfr' pour le francais.
+     */
+    private function storeItemsTable()
+    {
+        return ($this->lang->lang() == 'fr') ? 'store_itemsfr' : 'store_items';
+    }
+
+    private function storeCategoriesTable()
+    {
+        return ($this->lang->lang() == 'fr') ? 'store_categoriesfr' : 'store_categories';
+    }
+
     public function getStoreTop()
     {
         return $this->db->select('*')->order_by('id', 'ASC')->limit('15')->get('store_top')->result();
@@ -18,98 +33,98 @@ class Store_model extends CI_Model {
 
     public function getName($id)
     {
-        return $this->db->select('name')->where('id', $id)->get('store_itemsfr')->row('name');
+        return $this->db->select('name')->where('id', $id)->get($this->storeItemsTable())->row('name');
     }
 
     public function getDescription($id)
     {
-        return $this->db->select('description')->where('id', $id)->get('store_itemsfr')->row('description');
+        return $this->db->select('description')->where('id', $id)->get($this->storeItemsTable())->row('description');
     }
 
     public function getCategory($id)
     {
-        return $this->db->select('category')->where('id', $id)->get('store_itemsfr')->row('category');
+        return $this->db->select('category')->where('id', $id)->get($this->storeItemsTable())->row('category');
     }
 
     public function getType($id)
     {
-        return $this->db->select('type')->where('id', $id)->get('store_itemsfr')->row('type');
+        return $this->db->select('type')->where('id', $id)->get($this->storeItemsTable())->row('type');
     }
 
     public function getPriceType($id)
     {
-        return $this->db->select('price_type')->where('id', $id)->get('store_itemsfr')->row('price_type');
+        return $this->db->select('price_type')->where('id', $id)->get($this->storeItemsTable())->row('price_type');
     }
 
     public function getPriceDP($id)
     {
-        return $this->db->select('dp')->where('id', $id)->get('store_itemsfr')->row('dp');
+        return $this->db->select('dp')->where('id', $id)->get($this->storeItemsTable())->row('dp');
     }
 
     public function getPriceVP($id)
     {
-        return $this->db->select('vp')->where('id', $id)->get('store_itemsfr')->row('vp');
+        return $this->db->select('vp')->where('id', $id)->get($this->storeItemsTable())->row('vp');
     }
 
     public function getIcon($id)
     {
-        return $this->db->select('icon')->where('id', $id)->get('store_itemsfr')->row('icon');
+        return $this->db->select('icon')->where('id', $id)->get($this->storeItemsTable())->row('icon');
     }
 
     public function getCommand($id)
     {
-        return $this->db->select('command')->where('id', $id)->get('store_itemsfr')->row('command');
+        return $this->db->select('command')->where('id', $id)->get($this->storeItemsTable())->row('command');
     }
 
     public function getItemExist($id)
     {
-        return $this->db->select('*')->where('id', $id)->get('store_itemsfr')->num_rows();
+        return $this->db->select('*')->where('id', $id)->get($this->storeItemsTable())->num_rows();
     }
 
     public function getRoute($id)
     {
-        return $this->db->select('route')->where('id', $id)->get('store_categoriesfr')->row('route');
+        return $this->db->select('route')->where('id', $id)->get($this->storeCategoriesTable())->row('route');
     }
 
     public function getCategoryExist($route)
     {
-        return $this->db->select('route')->where('route', $route)->get('store_categoriesfr')->num_rows();
+        return $this->db->select('route')->where('route', $route)->get($this->storeCategoriesTable())->num_rows();
     }
 
     public function getCategoryId($route)
     {
-        return $this->db->select('id')->where('route', $route)->get('store_categoriesfr')->row('id');
+        return $this->db->select('id')->where('route', $route)->get($this->storeCategoriesTable())->row('id');
     }
 
     public function getCategoryName($route)
     {
-        return $this->db->select('name')->where('route', $route)->get('store_categoriesfr')->row('name');
+        return $this->db->select('name')->where('route', $route)->get($this->storeCategoriesTable())->row('name');
     }
 
     public function getCategoryRealm($route)
     {
-        return $this->db->select('realmid')->where('route', $route)->get('store_categoriesfr')->row('realmid');
+        return $this->db->select('realmid')->where('route', $route)->get($this->storeCategoriesTable())->row('realmid');
     }
 
     public function getCategoryRealmId($category)
     {
-        return $this->db->select('realmid')->where('id', $category)->get('store_categoriesfr')->row('realmid');
+        return $this->db->select('realmid')->where('id', $category)->get($this->storeCategoriesTable())->row('realmid');
     }
 
     public function getCategoryItems($route)
     {
         $id = $this->getCategoryId($route);
-        return $this->db->select('*')->where('category', $id)->get('store_itemsfr')->result();
+        return $this->db->select('*')->where('category', $id)->get($this->storeItemsTable())->result();
     }
 
     public function getCategories($realmid)
     {
-        return $this->db->select('*')->where('realmid', $realmid)->get('store_categoriesfr');
+        return $this->db->select('*')->where('realmid', $realmid)->get($this->storeCategoriesTable());
     }
 
     public function getItem($id)
     {
-        return $this->db->select('*')->where('id', $id)->get('store_itemsfr')->row_array();
+        return $this->db->select('*')->where('id', $id)->get($this->storeItemsTable())->row_array();
     }
 
     public function insertStoreLog($accountid, $charid, $name, $type, $pricetype, $dp, $vp)

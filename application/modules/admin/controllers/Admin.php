@@ -53,13 +53,13 @@ class Admin extends MX_Controller {
            date_default_timezone_set($this->config->item('timezone'));
 
         if(!$this->wowauth->isLogged())
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         if($this->wowauth->getRank($this->session->userdata('wow_sess_id')) < config_item('admin_access_level'))
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         if($this->admin_model->getBanSpecify($this->session->userdata('wow_sess_id'))->num_rows())
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         $this->template->set_theme('admin');
 
@@ -248,10 +248,10 @@ class Admin extends MX_Controller {
     public function accountmanage($id)
     {
         if (is_null($id) || empty($id))
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         if ($this->admin_model->getAccountExist($id) < 1)
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         $data = [
             'pagetitle' => $this->lang->line('button_admin_panel'),
@@ -265,10 +265,10 @@ class Admin extends MX_Controller {
     public function accountdonatelogs($id)
     {
         if (is_null($id) || empty($id))
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         if ($this->admin_model->getAccountExist($id) < 1)
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         $data = [
             'pagetitle' => $this->lang->line('button_admin_panel'),
@@ -315,38 +315,53 @@ class Admin extends MX_Controller {
     /**
      * Website functions
      */
-    public function managemenu()
+    /**
+     * $contentLang designe la langue du CONTENU du menu gere ('fr' pour
+     * `menufr`, autre chose/absent pour `menu` = anglais) -- independant
+     * de la langue de l'interface admin elle-meme ($this->lang->lang()).
+     */
+    public function managemenu($contentLang = null)
     {
+        $contentLang = ($contentLang === 'fr') ? 'fr' : 'en';
+
         $data = [
             'pagetitle' => $this->lang->line('button_admin_panel'),
-            'lang' => $this->lang->lang()
+            'lang' => $this->lang->lang(),
+            'contentLang' => $contentLang,
+            'menuList' => $this->admin_model->getMenu($contentLang)
         ];
 
         $this->template->build('menu/manage_menu', $data);
     }
 
-    public function createmenu()
+    public function createmenu($contentLang = null)
     {
+        $contentLang = ($contentLang === 'fr') ? 'fr' : 'en';
+
         $data = [
             'pagetitle' => $this->lang->line('button_admin_panel'),
-            'lang' => $this->lang->lang()
+            'lang' => $this->lang->lang(),
+            'contentLang' => $contentLang
         ];
 
         $this->template->build('menu/create_menu', $data);
     }
 
-    public function editmenu($id)
+    public function editmenu($id, $contentLang = null)
     {
         if (is_null($id) || empty($id))
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
-        if ($this->admin_model->getMenuSpecifyRows($id) < 1)
-            redirect(base_url(),'refresh');
+        $contentLang = ($contentLang === 'fr') ? 'fr' : 'en';
+
+        if ($this->admin_model->getMenuSpecifyRows($id, $contentLang) < 1)
+            redirect(site_url($this->lang->lang()),'refresh');
 
         $data = [
             'pagetitle' => $this->lang->line('button_admin_panel'),
             'idlink' => $id,
-            'lang' => $this->lang->lang()
+            'lang' => $this->lang->lang(),
+            'contentLang' => $contentLang
         ];
 
         $this->template->build('menu/edit_menu', $data);
@@ -360,7 +375,8 @@ class Admin extends MX_Controller {
         $main = $this->input->post('main');
         $child = $this->input->post('child');
         $type = $this->input->post('type');
-        echo $this->admin_model->insertMenu($name, $url, $icon, $main, $child, $type);
+        $contentLang = $this->input->post('contentLang');
+        echo $this->admin_model->insertMenu($name, $url, $icon, $main, $child, $type, $contentLang);
     }
 
     public function updatemenu()
@@ -372,13 +388,15 @@ class Admin extends MX_Controller {
         $main = $this->input->post('main');
         $child = $this->input->post('child');
         $type = $this->input->post('type');
-        echo $this->admin_model->updateSpecifyMenu($id, $name, $url, $icon, $main, $child, $type);
+        $contentLang = $this->input->post('contentLang');
+        echo $this->admin_model->updateSpecifyMenu($id, $name, $url, $icon, $main, $child, $type, $contentLang);
     }
 
     public function deletemenu()
     {
         $id = $this->input->post('value');
-        echo $this->admin_model->delSpecifyMenu($id);
+        $contentLang = $this->input->post('contentLang');
+        echo $this->admin_model->delSpecifyMenu($id, $contentLang);
     }
 
     public function managerealms()
@@ -425,10 +443,10 @@ class Admin extends MX_Controller {
     public function editrealm($id)
     {
         if (is_null($id) || empty($id))
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         if ($this->admin_model->getRealmsSpecifyRows($id) < 1)
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         $data = [
             'pagetitle' => $this->lang->line('button_admin_panel'),
@@ -520,10 +538,10 @@ class Admin extends MX_Controller {
     public function editslide($id)
     {
         if (is_null($id) || empty($id))
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         if ($this->admin_model->getSlidesSpecifyRows($id) < 1)
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         $data = [
             'pagetitle' => $this->lang->line('button_admin_panel'),
@@ -604,10 +622,10 @@ class Admin extends MX_Controller {
     public function editnews($id)
     {
         if (is_null($id) || empty($id))
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         if ($this->admin_model->getNewsSpecifyRows($id) < 1)
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         $data = [
             'pagetitle' => $this->lang->line('button_admin_panel'),
@@ -670,10 +688,10 @@ class Admin extends MX_Controller {
     public function editchangelog($id)
     {
         if (is_null($id) || empty($id))
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         if ($this->admin_model->getChangelogSpecifyRows($id) < 1)
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         $data = [
             'pagetitle' => $this->lang->line('button_admin_panel'),
@@ -751,10 +769,10 @@ class Admin extends MX_Controller {
     public function editpage($id)
     {
         if (is_null($id) || empty($id))
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         if ($this->admin_model->getPagesSpecifyRows($id) < 1)
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         $data = [
             'pagetitle' => $this->lang->line('button_admin_panel'),
@@ -833,10 +851,10 @@ class Admin extends MX_Controller {
     public function edittopsite($id)
     {
         if (is_null($id) || empty($id))
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         if ($this->admin_model->getTopsitesSpecifyRows($id) < 1)
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         $data = [
             'pagetitle' => $this->lang->line('button_admin_panel'),
@@ -983,10 +1001,10 @@ class Admin extends MX_Controller {
     public function editstorecategory($id)
     {
         if (is_null($id) || empty($id))
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         if ($this->admin_model->getStoreCategorySpecifyRows($id) < 1)
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         $data = [
             'pagetitle' => $this->lang->line('button_admin_panel'),
@@ -1036,10 +1054,10 @@ class Admin extends MX_Controller {
     public function editstoreitem($id)
     {
         if (is_null($id) || empty($id))
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         if ($this->admin_model->getItemSpecifyRows($id) < 1)
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         $data = [
             'pagetitle' => $this->lang->line('button_admin_panel'),
@@ -1098,10 +1116,10 @@ class Admin extends MX_Controller {
     public function editstoretop($id)
     {
         if (is_null($id) || empty($id))
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         if ($this->admin_model->getStoreTopSpecifyRows($id) < 1)
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         $data = [
             'pagetitle' => $this->lang->line('button_admin_panel'),
@@ -1154,7 +1172,7 @@ class Admin extends MX_Controller {
     public function editdonateplan($id)
     {
         if (is_null($id) || empty($id))
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         $data = [
             'pagetitle' => $this->lang->line('button_admin_panel'),
@@ -1268,10 +1286,10 @@ class Admin extends MX_Controller {
     public function editforumcategory($id)
     {
         if (is_null($id) || empty($id))
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         if ($this->admin_model->getSpecifyForumCategoryRows($id) < 1)
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         $data = [
             'pagetitle' => $this->lang->line('button_admin_panel'),
@@ -1314,10 +1332,10 @@ class Admin extends MX_Controller {
     public function editforum($id)
     {
         if (is_null($id) || empty($id))
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         if ($this->admin_model->getSpecifyForumRows($id) < 1)
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         $data = [
             'pagetitle' => $this->lang->line('button_admin_panel'),
@@ -1390,10 +1408,10 @@ class Admin extends MX_Controller {
     public function editdownload($id)
     {
         if (is_null($id) || empty($id))
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         if ($this->admin_model->getDownloadSpecifyRows($id) < 1)
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         $data = [
             'pagetitle' => $this->lang->line('button_admin_panel'),

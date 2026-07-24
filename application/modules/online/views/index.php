@@ -34,15 +34,15 @@
 										<?= $online->name ?>
 										<?php if (isset($online->rank)): ?>
 											<?php if ($online->rank == 0): ?>
-												<span title="Joueur" style="color: gray;">👤⚔️</span>
+												<span title="<?= $this->lang->line('online_rank_player'); ?>" style="color: gray;">👤⚔️</span>
 											<?php elseif ($online->rank == 1): ?>
-												<span title="Modérateur" style="color: blue;">🧑‍🔹</span>
+												<span title="<?= $this->lang->line('online_rank_moderator'); ?>" style="color: blue;">🧑‍🔹</span>
 											<?php elseif ($online->rank == 2): ?>
-												<span title="Maître du jeu" style="color: green;">🧙‍🛡️</span>
+												<span title="<?= $this->lang->line('online_rank_gamemaster'); ?>" style="color: green;">🧙‍🛡️</span>
 											<?php elseif ($online->rank == 3): ?>
-												<span title="Fondateur/Développeur" style="color: gold;">👼🛠️</span>
+												<span title="<?= $this->lang->line('online_rank_founder'); ?>" style="color: gold;">👼🛠️</span>
 											<?php elseif ($online->rank == 4): ?>
-												<span title="Console Bot" style="color: red;">🤖💭</span>
+												<span title="<?= $this->lang->line('online_rank_bot'); ?>" style="color: red;">🤖💭</span>
 											<?php endif; ?>
 										<?php endif; ?>
 									</td>
@@ -70,7 +70,7 @@
     window.addEventListener('keydown', function (e) {
         if (e.keyCode === 123) { 
             e.preventDefault();
-            alert("Les outils de développement sont désactivés.");
+            alert("<?= $this->lang->line('home_devtools_disabled'); ?>");
             return false;
         }
     }, false);
@@ -82,7 +82,7 @@
             (e.ctrlKey && e.shiftKey && e.keyCode === 74) || 
             (e.ctrlKey && e.keyCode === 85)) { 
             e.preventDefault();
-            alert("Les outils de développement sont désactivés.");
+            alert("<?= $this->lang->line('home_devtools_disabled'); ?>");
             return false;
         }
     }, false);

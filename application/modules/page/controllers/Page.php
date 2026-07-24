@@ -46,16 +46,16 @@ class Page extends MX_Controller {
            date_default_timezone_set($this->config->item('timezone'));
 
         if(!$this->wowgeneral->getMaintenance())
-            redirect(base_url('maintenance'),'refresh');
+            redirect(site_url($this->lang->lang().'/maintenance'),'refresh');
     }
 
     public function index($uri)
     {
         if (empty($uri) || is_null($uri) || $uri == NULL)
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         if ($this->page_model->getVerifyExist($uri) < 1)
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         $data = array(
             'uri' => $uri,

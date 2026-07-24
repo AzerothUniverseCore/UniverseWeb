@@ -5,7 +5,7 @@
             <h3 class="uk-h3"><i class="fas fa-edit"></i> <?= $this->lang->line('placeholder_edit_menu'); ?></h3>
           </div>
           <div class="uk-width-auto">
-            <a href="<?= base_url('admin/menu'); ?>" class="uk-icon-button"><i class="fas fa-arrow-circle-left"></i></a>
+            <a href="<?= site_url('admin/menu/'.$contentLang); ?>" class="uk-icon-button"><i class="fas fa-arrow-circle-left"></i></a>
           </div>
         </div>
         <div class="uk-card uk-card-default">
@@ -18,7 +18,7 @@
                   <div class="uk-form-controls">
                     <div class="uk-inline uk-width-1-1">
                       <span class="uk-form-icon uk-form-icon-flip"><i class="fas fa-pen"></i></span>
-                      <input class="uk-input" type="text" id="menu_name" value="<?= $this->admin_model->getMenuSpecifyName($idlink); ?>" placeholder="<?= $this->lang->line('placeholder_name'); ?>" required>
+                      <input class="uk-input" type="text" id="menu_name" value="<?= $this->admin_model->getMenuSpecifyName($idlink, $contentLang); ?>" placeholder="<?= $this->lang->line('placeholder_name'); ?>" required>
                     </div>
                   </div>
                 </div>
@@ -27,7 +27,7 @@
                   <div class="uk-form-controls">
                     <div class="uk-inline uk-width-1-1">
                       <span class="uk-form-icon uk-form-icon-flip"><i class="fas fa-link"></i></span>
-                      <input class="uk-input" type="text" id="menu_url" value="<?= $this->admin_model->getMenuSpecifyUrl($idlink); ?>" placeholder="<?= $this->lang->line('placeholder_url'); ?>" required>
+                      <input class="uk-input" type="text" id="menu_url" value="<?= $this->admin_model->getMenuSpecifyUrl($idlink, $contentLang); ?>" placeholder="<?= $this->lang->line('placeholder_url'); ?>" required>
                     </div>
                   </div>
                 </div>
@@ -40,7 +40,7 @@
                   <div class="uk-form-controls">
                     <div class="uk-inline uk-width-1-1">
                       <span class="uk-form-icon uk-form-icon-flip"><i class="fab fa-font-awesome-flag"></i></span>
-                      <input class="uk-input" type="text" id="menu_icon" value="<?= $this->admin_model->getMenuSpecifyIcon($idlink); ?>" placeholder="<?= $this->lang->line('placeholder_icon_name'); ?>" required>
+                      <input class="uk-input" type="text" id="menu_icon" value="<?= $this->admin_model->getMenuSpecifyIcon($idlink, $contentLang); ?>" placeholder="<?= $this->lang->line('placeholder_icon_name'); ?>" required>
                     </div>
                   </div>
                 </div>
@@ -49,8 +49,8 @@
                   <div class="uk-form-controls">
                     <select class="uk-select" id="menu_main">
                       <option value="0"><?= $this->lang->line('notification_select_type'); ?></option>
-                      <option value="1" <?php if($this->admin_model->getMenuSpecifyMain($idlink) == '1') echo 'selected'; ?>><?= $this->lang->line('option_normal'); ?></option>
-                      <option value="2" <?php if($this->admin_model->getMenuSpecifyMain($idlink) == '2') echo 'selected'; ?>><?= $this->lang->line('option_dropdown'); ?></option>
+                      <option value="1" <?php if($this->admin_model->getMenuSpecifyMain($idlink, $contentLang) == '1') echo 'selected'; ?>><?= $this->lang->line('option_normal'); ?></option>
+                      <option value="2" <?php if($this->admin_model->getMenuSpecifyMain($idlink, $contentLang) == '2') echo 'selected'; ?>><?= $this->lang->line('option_dropdown'); ?></option>
                     </select>
                   </div>
                 </div>
@@ -63,7 +63,7 @@
                   <div class="uk-form-controls">
                     <div class="uk-inline uk-width-1-1">
                       <span class="uk-form-icon uk-form-icon-flip"><i class="fas fa-bars"></i></span>
-                      <input class="uk-input" type="number" id="menu_child" value="<?= $this->admin_model->getMenuSpecifyChild($idlink); ?>" placeholder="<?= $this->lang->line('table_header_id'); ?>" required>
+                      <input class="uk-input" type="number" id="menu_child" value="<?= $this->admin_model->getMenuSpecifyChild($idlink, $contentLang); ?>" placeholder="<?= $this->lang->line('table_header_id'); ?>" required>
                     </div>
                   </div>
                 </div>
@@ -72,8 +72,8 @@
                   <div class="uk-form-controls">
                     <select class="uk-select" id="menu_type">
                       <option value="0"><?= $this->lang->line('notification_select_type'); ?></option>
-                      <option value="1" <?php if($this->admin_model->getMenuSpecifyType($idlink) == '1') echo 'selected'; ?>><?= $this->lang->line('option_internal_url'); ?></option>
-                      <option value="2" <?php if($this->admin_model->getMenuSpecifyType($idlink) == '2') echo 'selected'; ?>><?= $this->lang->line('option_external_url'); ?></option>
+                      <option value="1" <?php if($this->admin_model->getMenuSpecifyType($idlink, $contentLang) == '1') echo 'selected'; ?>><?= $this->lang->line('option_internal_url'); ?></option>
+                      <option value="2" <?php if($this->admin_model->getMenuSpecifyType($idlink, $contentLang) == '2') echo 'selected'; ?>><?= $this->lang->line('option_external_url'); ?></option>
                     </select>
                   </div>
                 </div>
@@ -132,9 +132,9 @@
           return false;
         }
         $.ajax({
-          url:"<?= base_url($lang.'/admin/menu/update'); ?>",
+          url:"<?= site_url('admin/menu/update'); ?>",
           method:"POST",
-          data:{id, name, url, icon, main, child, type},
+          data:{id, name, url, icon, main, child, type, contentLang: "<?= $contentLang; ?>"},
           dataType:"text",
           beforeSend: function(){
             $.amaran({
@@ -171,7 +171,7 @@
               });
             }
             $('#updatemenuForm')[0].reset();
-            window.location.replace("<?= base_url('admin/menu/edit/'.$idlink); ?>");
+            window.location.replace("<?= site_url('admin/menu/edit/'.$idlink.'/'.$contentLang); ?>");
           }
         });
       }

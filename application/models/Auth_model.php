@@ -294,7 +294,7 @@ class Auth_model extends CI_Model {
     public function logout()
     {
         $this->session->sess_destroy();
-        redirect(base_url(),'refresh');
+        redirect(site_url($this->lang->lang()),'refresh');
     }
 
     /**

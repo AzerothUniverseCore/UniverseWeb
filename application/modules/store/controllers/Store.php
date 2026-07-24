@@ -46,13 +46,13 @@ class Store extends MX_Controller {
            date_default_timezone_set($this->config->item('timezone'));
 
         if (!$this->wowgeneral->getMaintenance())
-            redirect(base_url('maintenance'),'refresh');
+            redirect(site_url($this->lang->lang().'/maintenance'),'refresh');
 
         if (!$this->wowmodule->getStoreStatus())
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         if (!$this->wowauth->isLogged())
-            redirect(base_url('login'),'refresh');
+            redirect(site_url($this->lang->lang().'/login'),'refresh');
     }
 
     public function index()
@@ -68,10 +68,10 @@ class Store extends MX_Controller {
     public function category($route)
     {
         if (empty($route) || is_null($route) || $route == NULL)
-            redirect(base_url('store'),'refresh');
+            redirect(site_url($this->lang->lang().'/store'),'refresh');
 
         if ($this->store_model->getCategoryExist($route) < 1)
-            redirect(base_url('store'),'refresh');
+            redirect(site_url($this->lang->lang().'/store'),'refresh');
 
         $data = array(
             'route' => $route,

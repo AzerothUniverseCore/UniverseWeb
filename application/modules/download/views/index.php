@@ -8,8 +8,8 @@
         <div class="uk-grid uk-grid-medium" data-uk-grid>
             <div class="uk-width-1-1">
                 <div class="uk-width-auto">
-                    <h4 class="uk-h4 uk-text-uppercase uk-text-bold"><i class="fas fa-download"></i> Installation</h4>
-                    <div style="text-align: center;"><h4 class="uk-h4 uk-text-uppercase uk-text-bold"><i class="fas fa-chalkboard-teacher"></i> <u>Tutoriel</u></h4>
+                    <h4 class="uk-h4 uk-text-uppercase uk-text-bold"><i class="fas fa-download"></i> <?= $this->lang->line('download_installation_title'); ?></h4>
+                    <div style="text-align: center;"><h4 class="uk-h4 uk-text-uppercase uk-text-bold"><i class="fas fa-chalkboard-teacher"></i> <u><?= $this->lang->line('download_tutorial_title'); ?></u></h4>
                         <a href="https://www.youtube.com/@AzerothUniverseTV" target="_blank" class="youtube-button">
                             <i class="fab fa-youtube"></i> Azeroth Universe TV
                         </a>
@@ -29,7 +29,7 @@
                             <div uk-grid>
                                 <div class="uk-width-auto@m">
                                     <ul class="uk-tab-left" uk-tab="connect: #component-tab-left; animation: uk-animation-slide-left-medium, uk-animation-slide-right-medium">
-                                        <li><a href="#">Client</a></li>
+                                        <li><a href="#"><?= $this->lang->line('download_client_tab'); ?></a></li>
                                     </ul>
                                 </div>
                                 <div class="uk-width-expand@m">
@@ -52,7 +52,7 @@
 														<td><?=$files->fileName?></td>
 														<td><?=$files->weight?></td>
 														<td><?=$files->type?></td>
-														<td><a class="uk-button uk-button-default" href="<?=$files->url?>" target="_blank"><i class="fas fa-download"></i> Télécharger</a></td>
+														<td><a class="uk-button uk-button-default" href="<?=$files->url?>" target="_blank"><i class="fas fa-download"></i> <?= $this->lang->line('download_button'); ?></a></td>
 													</tr>
 													<?php endforeach;?>
 												</tbody>
@@ -65,7 +65,7 @@
 														<th class="uk-width-small"></th>
 														<th class="uk-width-large"></th>
 														<th></th>
-														<th>Téléchargement</th>
+														<th><?= $this->lang->line('download_label'); ?></th>
 													</tr>
 												</thead>
 												<tbody>
@@ -74,7 +74,7 @@
 														<td><div style="background:url(<?=base_url('assets/images/forums/wow-icons/' . $files->image);?>); width: 50px; height: 50px;)"></div></td>
 														<td><?=$files->fileName?></td>
 														<td><?=$files->weight?></td>
-														<td><a class="uk-button uk-button-default" href="<?=$files->url?>" target="_blank"><i class="fas fa-download"></i> Téléchargement</a></td>
+														<td><a class="uk-button uk-button-default" href="<?=$files->url?>" target="_blank"><i class="fas fa-download"></i> <?= $this->lang->line('download_label'); ?></a></td>
 													</tr>
 													<?php endforeach;?>
 													<center><b></b></center>
@@ -126,7 +126,7 @@
     window.addEventListener('keydown', function (e) {
         if (e.keyCode === 123) { 
             e.preventDefault();
-            alert("Les outils de développement sont désactivés.");
+            alert("<?= $this->lang->line('home_devtools_disabled'); ?>");
             return false;
         }
     }, false);
@@ -138,7 +138,7 @@
             (e.ctrlKey && e.shiftKey && e.keyCode === 74) || 
             (e.ctrlKey && e.keyCode === 85)) { 
             e.preventDefault();
-            alert("Les outils de développement sont désactivés.");
+            alert("<?= $this->lang->line('home_devtools_disabled'); ?>");
             return false;
         }
     }, false);

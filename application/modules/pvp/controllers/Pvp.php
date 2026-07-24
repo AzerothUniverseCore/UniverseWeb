@@ -46,10 +46,10 @@ class Pvp extends MX_Controller {
            date_default_timezone_set($this->config->item('timezone'));
 
         if(!$this->wowgeneral->getMaintenance())
-            redirect(base_url('maintenance'),'refresh');
+            redirect(site_url($this->lang->lang().'/maintenance'),'refresh');
 
         if (!$this->wowmodule->getPVPStatus())
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
     }
 
     public function index()

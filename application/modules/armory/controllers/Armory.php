@@ -21,7 +21,7 @@ class armory extends MX_Controller {
 	public function index($id)
     {
         if (empty($id) || is_null($id) || $id == NULL)
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         $data = array(
 			'id' => $id,
@@ -34,7 +34,7 @@ class armory extends MX_Controller {
 	public function guild($guildid)
     {
         if (empty($guildid) || is_null($guildid) || $guildid == NULL)
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         $data = array(
 			'guildid' => $guildid,

@@ -46,13 +46,13 @@ class Download extends MX_Controller {
            date_default_timezone_set($this->config->item('timezone'));
 
         if(!$this->wowgeneral->getMaintenance())
-            redirect(base_url('maintenance'),'refresh');
+            redirect(site_url($this->lang->lang() . '/maintenance'),'refresh');
 		
 		if (!$this->wowmodule->getDownloadStatus())
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         if (!$this->wowauth->isLogged())
-            redirect(base_url('login'),'refresh');
+            redirect(site_url($this->lang->lang() . '/login'),'refresh');
     }
 
     public function index()
@@ -60,7 +60,7 @@ class Download extends MX_Controller {
 
         $data = array(
 		
-            'pagetitle' => 'Téléchargement',
+            'pagetitle' => $this->lang->line('tab_download'),
         );
 
         $this->template->build('index', $data);

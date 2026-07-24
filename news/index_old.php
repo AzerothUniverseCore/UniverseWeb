@@ -43,10 +43,7 @@ $i18n = [
     'fr' => [
         'html_lang'      => 'fr',
         'page_title'     => 'Azeroth Universe - Actualités',
-        'eyebrow'        => 'Azeroth Universe',
         'heading'        => 'Nos Actualités',
-        'subtitle'       => 'Chroniques, mises à jour et récits venus des confins d\'Azeroth.',
-        'read_more'      => 'Lire la suite',
         'copyright_name' => 'Azeroth Universe',
         'rights'         => 'Tous droits réservés.',
         'trademark'      => "Toutes les marques citées appartiennent à leurs propriétaires respectifs.",
@@ -57,10 +54,7 @@ $i18n = [
     'en' => [
         'html_lang'      => 'en',
         'page_title'     => 'Azeroth Universe - News',
-        'eyebrow'        => 'Azeroth Universe',
         'heading'        => 'Our News',
-        'subtitle'       => 'Chronicles, updates and tales from the far reaches of Azeroth.',
-        'read_more'      => 'Read more',
         'copyright_name' => 'Azeroth Universe',
         'rights'         => 'All rights reserved.',
         'trademark'      => 'All trademarks mentioned belong to their respective owners.',
@@ -141,71 +135,56 @@ function auc_news_preview($html, $maxLength = 150)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <title><?= htmlspecialchars($t['page_title']) ?></title>
-    <link rel="stylesheet" href="news-midnight.css">
+    <link rel="stylesheet" href="style.css">
 	<link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
 
-    <header class="midnight-header">
-        <div class="midnight-header-inner">
-            <a href="/<?= $lang ?>/" class="midnight-logo-link">
-                <img src="UniverseLogo.png" alt="<?= htmlspecialchars($t['logo_alt']) ?>" class="midnight-logo">
-            </a>
-            <nav class="lang-switch">
-                <a href="?lang=fr" class="lang-pill <?= $lang === 'fr' ? 'active' : '' ?>">FR</a>
-                <a href="?lang=en" class="lang-pill <?= $lang === 'en' ? 'active' : '' ?>">EN</a>
-            </nav>
+    <section class="news-section">
+        <div class="news-container">
+    <section class="home-logo-container">
+        <a href="/<?= $lang ?>/" class="home-logo-link">
+            <img src="UniverseLogo.png" alt="<?= htmlspecialchars($t['logo_alt']) ?>" class="home-logo">
+        </a>
+        <div class="news-lang-switch">
+            <a href="?lang=fr" class="<?= $lang === 'fr' ? 'active' : '' ?>">FR</a>
+            <a href="?lang=en" class="<?= $lang === 'en' ? 'active' : '' ?>">EN</a>
         </div>
-
-        <div class="midnight-divider"><span class="midnight-divider-gem"></span></div>
-
-        <div class="midnight-hero">
-            <p class="midnight-eyebrow"><?= htmlspecialchars($t['eyebrow']) ?></p>
-            <h1 class="midnight-title"><?= htmlspecialchars($t['heading']) ?></h1>
-            <p class="midnight-subtitle"><?= htmlspecialchars($t['subtitle']) ?></p>
-        </div>
-    </header>
-
-    <main class="midnight-news-wrap">
-        <div class="midnight-news-grid">
-            <?php if (empty($newsList)) : ?>
-                <p class="midnight-empty"><?= htmlspecialchars($t['empty_list']) ?></p>
-            <?php else : ?>
-                <?php foreach ($newsList as $news) : ?>
-                    <a href="/<?= $lang ?>/news/<?= (int) $news['id'] ?>" class="midnight-card">
-                        <span class="corner corner-tl"></span>
-                        <span class="corner corner-tr"></span>
-                        <span class="corner corner-bl"></span>
-                        <span class="corner corner-br"></span>
-                        <div class="midnight-card-image" style="background-image: url('../assets/images/news/<?= htmlspecialchars($news['image']) ?>');">
-                            <span class="midnight-card-date">🕒 <?= date('d M Y', (int) $news['date']) ?></span>
+    </section>
+            <div class="azeroth-hero-title">
+                <span class="orange-shadow"><h1><u><?= htmlspecialchars($t['heading']) ?></u></h1></span>
+            </div>
+            <div class="news-list">
+                <?php if (empty($newsList)) : ?>
+                    <p style="text-align:center;"><?= htmlspecialchars($t['empty_list']) ?></p>
+                <?php else : ?>
+                    <?php foreach ($newsList as $news) : ?>
+                        <div class="news-item">
+                            <a href="/<?= $lang ?>/news/<?= (int) $news['id'] ?>" class="news-link">
+                                <div class="news-image" style="background-image: url('../assets/images/news/<?= htmlspecialchars($news['image']) ?>');"></div>
+                                <div class="news-content">
+                                    <h2 class="news-title"><?= htmlspecialchars($news['title']) ?></h2>
+                                    <p class="news-date">🕒<?= date('d M Y', (int) $news['date']) ?></p>
+                                    <p class="news-description"><?= auc_news_preview($news['description'], 150) ?></p>
+                                </div>
+                            </a>
                         </div>
-                        <div class="midnight-card-body">
-                            <h2 class="midnight-card-title"><?= htmlspecialchars($news['title']) ?></h2>
-                            <p class="midnight-card-desc"><?= auc_news_preview($news['description'], 150) ?></p>
-                            <span class="midnight-card-cta"><?= htmlspecialchars($t['read_more']) ?> &rarr;</span>
-                        </div>
-                    </a>
-                <?php endforeach; ?>
-            <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
         </div>
-    </main>
-
-    <footer class="midnight-footer">
-        <div class="midnight-footer-divider"></div>
-        <p class="midnight-footer-text">
-            <i class="far fa-copyright"></i> <?= date('Y'); ?>
-            <a href="/<?= $lang ?>/" class="midnight-footer-link"><?= htmlspecialchars($t['copyright_name']) ?></a>. <?= htmlspecialchars($t['rights']) ?>
-        </p>
-        <p class="midnight-footer-small">
-            <?= htmlspecialchars($t['trademark']) ?>
-        </p>
-    </footer>
+    </section>
+<section class="footer-section">
+    <p class="footer-text">
+        <i class="far fa-copyright"></i> <?= date('Y'); ?>
+        <a href="/<?= $lang ?>/" class="footer-link"><?= htmlspecialchars($t['copyright_name']) ?></a>. <?= htmlspecialchars($t['rights']) ?>
+    </p>
+    <p class="footer-small-text">
+        <?= htmlspecialchars($t['trademark']) ?>
+    </p>
+</section>
 </body>
 </html>
 <script type="text/javascript">

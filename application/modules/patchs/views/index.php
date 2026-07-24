@@ -5,9 +5,9 @@
 <section class="syphrena-home-item" style="position: relative; background-image: url(../application/themes/default/assets/images/head-background-3.jpg)">
   <div class="syphrena-hero-container">
     <div class="syphrena-hero-title">
-      <span class="orange-shadow">TÉLÉCHARGEMENT DES PATCHS</span>
+      <span class="orange-shadow"><?= $this->lang->line('patchs_title'); ?></span>
     </div>
-    <p class="syphrena-hero-subtitle">Fichiers MPQ à placer dans votre dossier <span class="au-fe-code">Data/</span></p>
+    <p class="syphrena-hero-subtitle"><?= sprintf($this->lang->line('patchs_subtitle'), '<span class="au-fe-code">Data/</span>'); ?></p>
 
     <div class="au-fe-shell">
       <div class="au-fe-frame">
@@ -26,18 +26,18 @@
 
           <div class="au-fe-header">
             <div class="au-fe-headtext">
-              <div class="au-fe-title">Grimoire des patchs</div>
+              <div class="au-fe-title"><?= $this->lang->line('patchs_grimoire_title'); ?></div>
               <div class="au-fe-path" id="au-fe-path">Data/</div>
             </div>
             <div class="au-fe-search">
-              <input type="text" id="au-fe-search" placeholder="Rechercher…">
+              <input type="text" id="au-fe-search" placeholder="<?= $this->lang->line('patchs_search_placeholder'); ?>">
             </div>
           </div>
 
           <div class="au-fe-rule"><span>❖</span></div>
 
           <div class="au-fe-list" id="au-fe-list"></div>
-          <p class="au-fe-empty" id="au-fe-empty">Aucun fichier ne correspond à ce filtre.</p>
+          <p class="au-fe-empty" id="au-fe-empty"><?= $this->lang->line('patchs_empty'); ?></p>
 
           <div class="au-fe-rule au-fe-rule-small"><span>❖</span></div>
           <div class="au-fe-count" id="au-fe-count">—</div>
@@ -323,6 +323,16 @@
 </style>
 
 <script>
+const AU_I18N = {
+  locale: "<?= $this->lang->line('patchs_locale'); ?>",
+  ko: "<?= $this->lang->line('patchs_unit_ko'); ?>",
+  mo: "<?= $this->lang->line('patchs_unit_mo'); ?>",
+  go: "<?= $this->lang->line('patchs_unit_go'); ?>",
+  resultSingular: "<?= $this->lang->line('patchs_result_singular'); ?>",
+  resultPlural: "<?= $this->lang->line('patchs_result_plural'); ?>",
+  totalFiles: "<?= $this->lang->line('patchs_total_files'); ?>",
+  totalSuffix: "<?= $this->lang->line('patchs_total_suffix'); ?>"
+};
 (function(){
   const BASE = "https://azeroth-universe.eu/universe_client/Data";
 
@@ -352,9 +362,9 @@
   };
 
   function formatKo(ko){
-    if(ko >= 1048576) return (ko/1048576).toLocaleString('fr-FR',{maximumFractionDigits:2}) + " Go";
-    if(ko >= 1024) return (ko/1024).toLocaleString('fr-FR',{maximumFractionDigits:1}) + " Mo";
-    return ko.toLocaleString('fr-FR') + " Ko";
+    if(ko >= 1048576) return (ko/1048576).toLocaleString(AU_I18N.locale,{maximumFractionDigits:2}) + " " + AU_I18N.go;
+    if(ko >= 1024) return (ko/1024).toLocaleString(AU_I18N.locale,{maximumFractionDigits:1}) + " " + AU_I18N.mo;
+    return ko.toLocaleString(AU_I18N.locale) + " " + AU_I18N.ko;
   }
 
   // Couleurs de rareté façon objet WoW, selon le poids du fichier
@@ -410,8 +420,8 @@
 
     emptyEl.classList.toggle('au-fe-show', visible === 0);
     countEl.textContent = query
-      ? `${visible} résultat${visible>1?'s':''}`
-      : `${files.length} fichiers · ${formatKo(totalKo)} au total`;
+      ? `${visible} ${visible>1 ? AU_I18N.resultPlural : AU_I18N.resultSingular}`
+      : `${files.length} ${AU_I18N.totalFiles} · ${formatKo(totalKo)} ${AU_I18N.totalSuffix}`;
   }
 
   document.querySelectorAll('.au-fe-stab').forEach(tab=>{

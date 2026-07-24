@@ -90,10 +90,10 @@ class Vote_model extends CI_Model {
                     window.open( "'.$url.'","_self")
                 </script>';
 
-            redirect(base_url('vote'),'refresh');
+            redirect(site_url($this->lang->lang().'/vote'),'refresh');
         } else {
             echo '<script type="text/javascript">alert("According to our records you have already voted in this top. Contact with Support Ingame for Resolving this problem")</script>';
-            redirect(base_url('vote'),'refresh');
+            redirect(site_url($this->lang->lang().'/vote'),'refresh');
         }
     }
 }

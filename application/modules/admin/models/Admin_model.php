@@ -15,7 +15,7 @@ class Admin_model extends CI_Model {
         $this->auth = $this->load->database('auth', TRUE);
 
         if (!$this->wowmodule->getACPStatus())
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
     }
 
     public function setLimit($limit)
@@ -236,7 +236,19 @@ class Admin_model extends CI_Model {
         return true;
     }
 
-    public function insertMenu($name, $url, $icon, $main, $child, $type)
+    /**
+     * Table de menu ciblee par les fonctions ci-dessous.
+     * $contentLang = 'fr' -> table `menufr` (contenu francais)
+     * $contentLang = tout le reste (dont null/'en') -> table `menu` (contenu anglais)
+     * Ce choix est INDEPENDANT de la langue de l'interface admin :
+     * c'est la langue du CONTENU du menu qu'on est en train d'editer.
+     */
+    private function menuTable($contentLang = null)
+    {
+        return ($contentLang === 'fr') ? 'menufr' : 'menu';
+    }
+
+    public function insertMenu($name, $url, $icon, $main, $child, $type, $contentLang = null)
     {
         $data = array(
             'name' => $name,
@@ -247,11 +259,11 @@ class Admin_model extends CI_Model {
             'type' => $type
         );
 
-        $this->db->insert('menu', $data);
+        $this->db->insert($this->menuTable($contentLang), $data);
         return true;
     }
 
-    public function updateSpecifyMenu($id, $name, $url, $icon, $main, $child, $type)
+    public function updateSpecifyMenu($id, $name, $url, $icon, $main, $child, $type, $contentLang = null)
     {
         $update = array(
             'name' => $name,
@@ -262,54 +274,54 @@ class Admin_model extends CI_Model {
             'type' => $type
         );
 
-        $this->db->where('id', $id)->update('menu', $update);
+        $this->db->where('id', $id)->update($this->menuTable($contentLang), $update);
         return true;
     }
 
-    public function delSpecifyMenu($id)
+    public function delSpecifyMenu($id, $contentLang = null)
     {
-        $this->db->where('id', $id)->delete('menu');
+        $this->db->where('id', $id)->delete($this->menuTable($contentLang));
         return true;
     }
 
-    public function getMenu()
+    public function getMenu($contentLang = null)
     {
-        return $this->db->select('*')->get('menu')->result();
+        return $this->db->select('*')->get($this->menuTable($contentLang))->result();
     }
 
-    public function getMenuSpecifyRows($id)
+    public function getMenuSpecifyRows($id, $contentLang = null)
     {
-        return $this->db->select('*')->where('id', $id)->get('menu')->num_rows();
+        return $this->db->select('*')->where('id', $id)->get($this->menuTable($contentLang))->num_rows();
     }
 
-    public function getMenuSpecifyName($id)
+    public function getMenuSpecifyName($id, $contentLang = null)
     {
-        return $this->db->select('name')->where('id', $id)->get('menu')->row('name');
+        return $this->db->select('name')->where('id', $id)->get($this->menuTable($contentLang))->row('name');
     }
 
-    public function getMenuSpecifyUrl($id)
+    public function getMenuSpecifyUrl($id, $contentLang = null)
     {
-        return $this->db->select('url')->where('id', $id)->get('menu')->row('url');
+        return $this->db->select('url')->where('id', $id)->get($this->menuTable($contentLang))->row('url');
     }
 
-    public function getMenuSpecifyIcon($id)
+    public function getMenuSpecifyIcon($id, $contentLang = null)
     {
-        return $this->db->select('icon')->where('id', $id)->get('menu')->row('icon');
+        return $this->db->select('icon')->where('id', $id)->get($this->menuTable($contentLang))->row('icon');
     }
 
-    public function getMenuSpecifyMain($id)
+    public function getMenuSpecifyMain($id, $contentLang = null)
     {
-        return $this->db->select('main')->where('id', $id)->get('menu')->row('main');
+        return $this->db->select('main')->where('id', $id)->get($this->menuTable($contentLang))->row('main');
     }
 
-    public function getMenuSpecifyChild($id)
+    public function getMenuSpecifyChild($id, $contentLang = null)
     {
-        return $this->db->select('child')->where('id', $id)->get('menu')->row('child');
+        return $this->db->select('child')->where('id', $id)->get($this->menuTable($contentLang))->row('child');
     }
 
-    public function getMenuSpecifyType($id)
+    public function getMenuSpecifyType($id, $contentLang = null)
     {
-        return $this->db->select('type')->where('id', $id)->get('menu')->row('type');
+        return $this->db->select('type')->where('id', $id)->get($this->menuTable($contentLang))->row('type');
     }
 
     public function insertRealm($hostname, $username, $password, $database, $realm_id, $soaphost, $soapuser, $soappass, $soapport, $emulator)
@@ -503,7 +515,7 @@ class Admin_model extends CI_Model {
 
         $this->db->insert('newsfr', $data);
 
-        redirect(base_url('admin/news'),'refresh');
+        redirect(site_url($this->lang->lang().'/admin/news'),'refresh');
     }
 
     public function updateSpecifyNews($id, $title, $description, $image)
@@ -522,7 +534,7 @@ class Admin_model extends CI_Model {
 
         $this->db->where('id', $id)->update('newsfr', $update);
 
-        redirect(base_url('admin/news'),'refresh');
+        redirect(site_url($this->lang->lang().'/admin/news'),'refresh');
     }
 
     public function delSpecifyNew($id)

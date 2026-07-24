@@ -46,10 +46,10 @@ class News extends MX_Controller {
            date_default_timezone_set($this->config->item('timezone'));
 
         if(!$this->wowgeneral->getMaintenance())
-            redirect(base_url('maintenance'),'refresh');
+            redirect(site_url($this->lang->lang().'/maintenance'),'refresh');
 
         if (!$this->wowmodule->getNewsStatus())
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
     }
 
     public function article($id)
@@ -74,7 +74,7 @@ class News extends MX_Controller {
     public function reply()
     {
         if (!$this->wowauth->isLogged())
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         $ssesid = $this->session->userdata('wow_sess_id');
         $newsid = $this->input->post('news');
@@ -85,7 +85,7 @@ class News extends MX_Controller {
     public function deletereply()
     {
         if (!$this->wowauth->isLogged())
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         $id = $this->input->post('value');
         echo $this->news_model->removeComment($id);

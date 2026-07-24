@@ -48,13 +48,13 @@ class Bugtracker extends MX_Controller {
            date_default_timezone_set($this->config->item('timezone'));
 
         if(!$this->wowgeneral->getMaintenance())
-            redirect(base_url('maintenance'),'refresh');
+            redirect(site_url($this->lang->lang().'/maintenance'),'refresh');
 
         if (!$this->wowmodule->getBugtrackerStatus())
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         if(!$this->wowauth->isLogged())
-            redirect(base_url('login'),'refresh');
+            redirect(site_url($this->lang->lang().'/login'),'refresh');
     }
 
     public function index()
@@ -106,10 +106,10 @@ class Bugtracker extends MX_Controller {
     public function report($id)
     {
         if (empty($id) || is_null($id) || $id == '0')
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         if (!$this->wowmodule->getBugtrackerStatus())
-            redirect(base_url(),'refresh');
+            redirect(site_url($this->lang->lang()),'refresh');
 
         $data = array(
             'idlink' => $id,

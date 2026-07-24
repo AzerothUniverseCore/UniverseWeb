@@ -487,11 +487,11 @@ $newpassI = [
 			$this->removeTempUser($key);
 
 			$this->session->set_flashdata('account_activation', 'true');
-			redirect(base_url('login'));
+			redirect(site_url($this->lang->lang().'/login'));
 		} else {
 			$this->session->set_flashdata('account_activation', 'false');
 		}
-		redirect(base_url('login'));
+		redirect(site_url($this->lang->lang().'/login'));
 	}
 
 

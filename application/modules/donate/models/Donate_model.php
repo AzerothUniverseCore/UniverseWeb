@@ -47,14 +47,23 @@ class Donate_model extends CI_Model
         return $api;
     }
 
+    /**
+     * Table de contenu selon la langue active : 'donate' (EN) par
+     * defaut, 'donatefr' pour le francais.
+     */
+    private function donateTable()
+    {
+        return ($this->lang->lang() == 'fr') ? 'donatefr' : 'donate';
+    }
+
     public function getSpecifyDonate($id)
     {
-        return $this->db->select('*')->where('id', $id)->get('donatefr');
+        return $this->db->select('*')->where('id', $id)->get($this->donateTable());
     }
 
     public function getDonations()
     {
-        return $this->db->select('*')->get('donatefr');
+        return $this->db->select('*')->get($this->donateTable());
     }
 
     public function getCurrentDP()
