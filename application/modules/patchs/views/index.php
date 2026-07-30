@@ -14,6 +14,7 @@
 
         <div class="au-fe-sidetabs">
           <button class="au-fe-stab active" data-tab="root"><span>DATA</span></button>
+          <button class="au-fe-stab" data-tab="enus"><span>ENUS</span></button>
           <button class="au-fe-stab" data-tab="frfr"><span>FRFR</span></button>
         </div>
 
@@ -338,13 +339,22 @@ const AU_I18N = {
 
   const rootFiles = [
     ["common.MPQ", 65], ["common-2.MPQ", 1358], ["expansion.MPQ", 65], ["lichking.MPQ", 65],
-    ["patch.MPQ", 1421], ["patch-2.MPQ", 1459], ["patch-3.MPQ", 1464], ["patch-4.MPQ", 2500799],
+    ["patch.MPQ", 1421], ["patch-2.MPQ", 1459], ["patch-3.MPQ", 1464], ["patch-4.MPQ", 2500792],
     ["patch-5.MPQ", 3140908], ["patch-6.MPQ", 2762975], ["patch-7.MPQ", 3449454], ["patch-8.MPQ", 2115044],
     ["patch-9.MPQ", 2582024], ["patch-A.MPQ", 3586981], ["patch-B.MPQ", 9576383], ["patch-C.MPQ", 7454003],
-    ["patch-D.MPQ", 7066882], ["patch-E.MPQ", 4552382], ["patch-F.MPQ", 4472260], ["patch-I.MPQ", 510847],
+    ["patch-D.MPQ", 7066882], ["patch-E.MPQ", 4472355], ["patch-F.MPQ", 4472260], ["patch-I.MPQ", 510847],
     ["patch-K.MPQ", 2906400], ["patch-N.MPQ", 1294573], ["patch-T.MPQ", 16790], ["patch-U.MPQ", 450230],
-    ["patch-V.MPQ", 61990], ["patch-Y.MPQ", 5586713], ["patch-Z.MPQ", 1686301], ["patch-ZA.MPQ", 17590],
-	["patch-ZB.MPQ", 4721], ["patch-ZC.MPQ", 8521], ["patch-ZD.MPQ", 9721], ["patch-ZE.MPQ", 20290],
+    ["patch-Y.MPQ", 5586645], ["patch-Z.MPQ", 1686301], ["patch-ZA.MPQ", 11393],
+  ];
+
+  const enusFiles = [
+    ["backup-enUS.MPQ", 163327], ["base-enUS.MPQ", 28494], ["expansion-locale-enUS.MPQ", 16982],
+    ["expansion-speech-enUS.MPQ", 235385], ["lichking-locale-enUS.MPQ", 12065], ["lichking-speech-enUS.MPQ", 345712],
+    ["locale-enUS.MPQ", 199504], ["patch-enUS.MPQ", 289665], ["patch-enUS-2.MPQ", 220284],
+    ["patch-enUS-3.MPQ", 98022], ["patch-enUS-4.MPQ", 1236292], ["patch-enUS-5.MPQ", 93],
+    ["patch-enUS-6.MPQ", 571], ["patch-enUS-7.MPQ", 327769], ["patch-enUS-8.MPQ", 274],
+    ["patch-enUS-9.MPQ", 419], ["patch-enUS-U.MPQ", 811], ["patch-enUS-V.MPQ", 181749],
+    ["patch-enUS-X.MPQ", 40], ["speech-enUS.MPQ", 428155],
   ];
 
   const frfrFiles = [
@@ -353,11 +363,13 @@ const AU_I18N = {
     ["locale-frFR.MPQ", 197304], ["patch-frFR.MPQ", 539160], ["patch-frFR-2.MPQ", 220894],
     ["patch-frFR-3.MPQ", 1225345], ["patch-frFR-4.MPQ", 93], ["patch-frFR-5.MPQ", 571],
     ["patch-frFR-6.MPQ", 327769], ["patch-frFR-7.MPQ", 274], ["patch-frFR-8.MPQ", 419],
-    ["patch-frFR-U.MPQ", 811], ["patch-frFR-X.MPQ", 40], ["speech-frFR.MPQ", 431604],
+    ["patch-frFR-U.MPQ", 811], ["patch-frFR-V.MPQ", 172636], ["patch-frFR-W.MPQ", 47558],
+    ["patch-frFR-X.MPQ", 40], ["speech-frFR.MPQ", 431604],
   ];
 
   const FOLDERS = {
     root: { files: rootFiles, base: BASE, path: "Data/" },
+    enus: { files: enusFiles, base: BASE + "/enUS", path: "Data/enUS/" },
     frfr: { files: frfrFiles, base: BASE + "/frFR", path: "Data/frFR/" }
   };
 

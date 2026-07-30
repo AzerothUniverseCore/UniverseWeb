@@ -109,7 +109,7 @@
           <img src="../assets/icon/recuperations.png" alt="<?= $this->lang->line('home_feature_recovery_title'); ?>">
           <div class="image-text">
             <span class="orange-shadow"><p class="image-title"><?= $this->lang->line('home_feature_recovery_title'); ?></p></span>
-            <p class="image-description"><?= $this->lang->line('home_feature_recovery_desc'); ?> <a href="https://discord.com/invite/yDVSxdWFYx" target="_blank"><?= $this->lang->line('home_feature_join_discord_link'); ?></a><br><br><a href="<?= site_url('news/1'); ?>" target="_blank"><?= $this->lang->line('home_read_article'); ?></a></br></p>
+            <p class="image-description"><?= $this->lang->line('home_feature_recovery_desc'); ?> <a href="https://discord.gg/yBnzhaJChf" target="_blank"><?= $this->lang->line('home_feature_join_discord_link'); ?></a><br><br><a href="<?= site_url('news/1'); ?>" target="_blank"><?= $this->lang->line('home_read_article'); ?></a></br></p>
           </div>
         </div>
         <div class="image-item">
@@ -276,7 +276,7 @@ $heroSubtitle = $isRealmOffline ?
       <span class="orange-shadow"><?= $this->lang->line('home_help_subtitle'); ?></span></span>
     </div>
     <div class="syphrena-hero-buttons">
-      <a href="https://discord.gg/efTx9k4nfE" class="syphrena-hero-button">
+      <a href="https://discord.gg/yBnzhaJChf" class="syphrena-hero-button">
         <div class="syphrena-hero-button-inner">
           <span class="orange-shadow">🌐</span></span> <span class="orange-shadow"><?= $this->lang->line('home_join_discord_button'); ?></span></span>
         </div>
