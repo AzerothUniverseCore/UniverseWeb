@@ -30,7 +30,7 @@
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
 
   body {
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -38,10 +38,17 @@
     color: var(--text);
     min-height: 100vh;
     position: relative;
+    overflow-x: hidden;
+  }
+
+  .hero-wrap {
+    position: relative;
+    display: flow-root;
   }
 
   .bg-video {
-    position: fixed;
+    display: block;
+    position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
@@ -51,14 +58,6 @@
     pointer-events: none;
   }
 
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(4,20,13,0.5) 0%, rgba(4,20,13,0.58) 45%, rgba(4,20,13,0.72) 100%);
-    pointer-events: none;
-    z-index: 1;
-  }
   body::after {
     content: '';
     position: fixed;
@@ -76,15 +75,17 @@
 
   /* ---------- sticky nav ---------- */
   .navbar {
-    position: sticky;
+    position: fixed;
     top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 30;
     display: flex;
     align-items: center;
     gap: 28px;
     width: calc(100% - 32px);
     max-width: 1320px;
-    margin: 14px auto 0;
+    margin: 0;
     padding: 10px 24px;
     background: rgba(18,63,43,0.4);
     backdrop-filter: blur(14px);
@@ -248,13 +249,12 @@
     position: relative;
     width: 100%;
     text-align: center;
-    min-height: clamp(420px, 82vh, 700px);
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
     padding: 40px 20px 56px;
-    overflow: hidden;
   }
   .hero::before {
     content: '';
@@ -263,14 +263,14 @@
     background: linear-gradient(180deg, rgba(4,20,13,0) 0%, rgba(4,20,13,0) 55%, rgba(4,20,13,0.45) 80%, rgba(4,20,13,0.85) 100%);
     z-index: 0;
   }
-  .hero > * { position: relative; z-index: 1; }
+  .hero > *:not(.bg-video):not(.divider-hero) { position: relative; z-index: 1; }
 
   .hero-fade {
-    height: 160px;
-    margin-bottom: -160px;
+    height: 200px;
+    margin-bottom: -200px;
     position: relative;
     z-index: 5;
-    background: linear-gradient(180deg, rgba(4,20,13,0.85) 0%, rgba(4,20,13,0.35) 45%, rgba(4,20,13,0) 100%);
+    background: linear-gradient(180deg, rgba(4,20,13,0.85) 0%, rgba(4,20,13,0.3) 25%, rgba(4,20,13,0.05) 55%, rgba(4,20,13,0) 100%);
     pointer-events: none;
   }
 
@@ -305,14 +305,65 @@
 
   .wrap { max-width: 880px; margin: 0 auto; padding: 0 20px 4rem; }
 
+  /* bg.png fixe (comme un fond d'ecran) du bas de l'ombre du hero jusqu'au
+     footer, avec un voile jade pour garder le texte clair lisible. Le
+     footer (en dehors de .content-bg) recoit sa propre image plus tard. */
+  .content-bg {
+    position: relative;
+    display: flow-root;
+    background-color: var(--jade-900);
+    background-image: url('bg.png');
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+  .content-bg > * { position: relative; z-index: 1; }
+
+  /* bg_red.png pour le footer. Attachment "scroll" (pas "fixed") car le footer
+     est une petite boite : avec "fixed", position/size se calculent par rapport
+     au viewport et non a la boite, ce qui masquait l'image derriere le fond uni. */
+  .footer-bg {
+    position: relative;
+    display: flow-root;
+    background-color: #1a0505;
+    background-image: url('bg_red.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: scroll;
+    padding: 3.2rem 20px 2.8rem;
+  }
+  .footer-bg > * { position: relative; z-index: 1; }
+
+  .divider-footer {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -18px;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    z-index: 5;
+    pointer-events: none;
+  }
+  @media (max-width: 860px) {
+    .divider-footer { bottom: -10px; }
+  }
+  @media (max-width: 640px) {
+    .divider-footer { bottom: -6px; }
+  }
+
   /* ---------- content sections ---------- */
   .content-section { padding-top: 2.6rem; scroll-margin-top: 96px; }
+  #fr-new, #en-new { padding-top: 0; }
   .sec-head { display: flex; align-items: center; gap: 12px; margin-bottom: 1.1rem; }
   .sec-icon-wrap {
     width: 36px; height: 36px; flex-shrink: 0; border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
-    background: linear-gradient(135deg, rgba(205,167,94,0.16), rgba(63,156,102,0.28));
-    border: 0.5px solid var(--border-strong);
+    background: linear-gradient(135deg, rgba(120,84,38,0.18), rgba(205,167,94,0.22));
+    border: 0.5px solid rgba(120,84,38,0.5);
   }
   .sec-icon { font-size: 17px; color: var(--gold-bright); }
   .sec-title { font-family: 'Cinzel', serif; font-size: 17px; font-weight: 600; letter-spacing: 1px; color: var(--text); white-space: nowrap; }
@@ -325,57 +376,145 @@
   .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
   .tag {
     display: flex; align-items: flex-start; gap: 7px;
-    background: rgb(0 0 0 / 76%);
-    border: 0.5px solid rgb(63 156 102);
-    border-radius: 10px;
+    background: rgba(48,32,14,0.55);
+    border: 0.5px solid rgba(90,62,26,0.6);
+    border-radius: 6px;
     padding: 8px 12px;
     font-size: 12.5px;
     line-height: 1.5;
-    color: var(--text-muted);
+    color: #ecdcb8;
     transition: border-color 0.2s, color 0.2s, background 0.2s;
   }
-  .tag:hover { border-color: var(--border-strong); color: var(--text); background: rgba(31,99,63,0.6); }
+  .tag:hover { border-color: rgba(205,167,94,0.7); color: #fff6e0; background: rgba(48,32,14,0.72); }
   .tag::before {
     content: ''; width: 5px; height: 5px; margin-top: 6px; flex-shrink: 0;
-    background: var(--gold); transform: rotate(45deg); opacity: 0.8;
+    background: #8a5a20; transform: rotate(45deg); opacity: 0.85;
   }
 
-  /* ---------- what's new (distinct treatment) ---------- */
+  /* ---------- what's new (parchment card treatment) ---------- */
   .new-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
   @media (max-width: 620px) { .new-grid { grid-template-columns: 1fr; } }
   .new-card {
     position: relative;
     display: flex; align-items: center; gap: 12px;
-    background: linear-gradient(135deg, rgb(34 83 54), rgb(37 93 75 / 7%));
-    border: 0.5px solid rgb(63 156 102);
-    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(196,177,140,0.6), rgba(160,138,100,0.55));
+    border: 1px solid rgba(90,62,26,0.4);
+    border-radius: 6px;
     padding: 14px 16px;
     overflow: hidden;
+    box-shadow: inset 0 0 0 1px rgba(255,248,225,0.15), 0 2px 6px rgba(20,10,2,0.2);
   }
   .new-card::before {
     content: ''; position: absolute; inset: 0;
-    background: radial-gradient(circle at 15% 15%, rgba(240,211,138,0.15), transparent 60%);
+    background: radial-gradient(circle at 15% 15%, rgba(255,255,255,0.12), transparent 55%);
     pointer-events: none;
   }
   .new-icon {
-    font-size: 19px; color: var(--gold-bright); flex-shrink: 0;
+    font-size: 18px; color: #6b3f18; flex-shrink: 0;
     width: 34px; height: 34px; display: flex; align-items: center; justify-content: center;
-    background: rgba(205,167,94,0.1); border: 0.5px solid var(--border-strong); border-radius: 10px;
+    background: rgba(255,248,225,0.55); border: 1px solid rgba(120,84,38,0.5); border-radius: 50%;
   }
   .new-text { display: flex; flex-direction: column; gap: 3px; }
-  .new-name { font-size: 13px; font-weight: 600; color: var(--text); letter-spacing: 0.3px; }
+  .new-name { font-family: 'Cinzel', serif; font-size: 13px; font-weight: 700; color: #241404; letter-spacing: 0.2px; text-shadow: 0 1px 0 rgba(255,248,225,0.25); }
   .new-badge {
     font-size: 9px; align-self: flex-start;
-    background: rgba(63,156,102,0.22); color: #b9f0d1;
-    border: 0.5px solid rgba(63,156,102,0.5);
-    padding: 1px 6px; border-radius: 10px; letter-spacing: 0.5px;
+    background: rgba(60,40,14,0.18); color: #3b2408;
+    border: 0.5px solid rgba(90,62,26,0.55);
+    padding: 1px 6px; border-radius: 3px; letter-spacing: 0.5px; font-weight: 600;
   }
 
   .divider-orn { display: flex; align-items: center; gap: 12px; margin: 2.6rem 0 0; }
   .divider-orn::before, .divider-orn::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold) 50%, transparent); opacity: 0.5; }
   .divider-orn .diamond { width: 7px; height: 7px; background: var(--gold-bright); transform: rotate(45deg); box-shadow: 0 0 10px rgba(240,211,138,0.6); flex-shrink: 0; }
 
-  .footer { text-align: center; font-size: 11px; color: rgba(159,179,160,0.5); letter-spacing: 2px; text-transform: uppercase; margin-top: 2rem; }
+  .divider-hero {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -34px;
+    z-index: 7;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    pointer-events: none;
+  }
+  @media (max-width: 860px) {
+    .divider-hero { bottom: -20px; transform: scale(1.4); transform-origin: 50% 100%; }
+  }
+  @media (max-width: 640px) {
+    .divider-hero { bottom: -16px; transform: scale(1.85); transform-origin: 50% 100%; }
+  }
+
+  .footer { font-family: 'Cinzel', serif; text-align: center; font-size: 15px; font-weight: 600; color: rgba(159,179,160,0.55); letter-spacing: 2px; text-transform: uppercase; }
+  .footer-legal { font-family: 'Cinzel', serif; text-align: center; font-size: 12px; font-weight: 500; color: rgba(159,179,160,0.4); letter-spacing: 0.3px; text-transform: none; line-height: 1.9; margin-top: 12px; }
+
+  /* ---------- scroll-spy active nav state ---------- */
+  .nav-pill.active { color: var(--gold-bright); background: rgba(255,255,255,0.07); }
+  .nav-dropdown a.active { color: var(--gold-bright); background: rgba(255,255,255,0.08); }
+  .nav-item.active-group > .nav-item-btn { color: var(--gold-bright); }
+
+  /* ---------- back to top ---------- */
+  .back-to-top {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(10,35,24,0.85);
+    border: 1px solid rgba(205,167,94,0.4);
+    color: var(--gold-bright);
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 50;
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity 0.25s, transform 0.25s, background 0.2s, border-color 0.2s;
+    backdrop-filter: blur(6px);
+  }
+  .back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .back-to-top:hover { background: rgba(10,35,24,0.95); border-color: var(--gold-bright); }
+  @media (max-width: 640px) {
+    .back-to-top { right: 14px; bottom: 14px; width: 38px; height: 38px; font-size: 16px; }
+  }
+
+  /* ---------- content search/filter ---------- */
+  .content-search {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 2.4rem;
+    margin-bottom: 1.8rem;
+    padding: 10px 14px;
+    background: rgba(48,32,14,0.55);
+    border: 1px solid rgba(90,62,26,0.6);
+    border-radius: 8px;
+  }
+  .content-search i { font-size: 15px; color: var(--gold-bright); flex-shrink: 0; }
+  .content-search input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    font-size: 13px;
+    color: #ecdcb8;
+  }
+  .content-search input::placeholder { color: rgba(236,220,184,0.45); }
+  .search-noresults {
+    display: none;
+    text-align: center;
+    padding: 2rem 0;
+    color: #6b3f18;
+    font-size: 13px;
+    font-style: italic;
+  }
 </style>
 </head>
 <body class="lang-fr">
@@ -387,13 +526,13 @@
 })();
 </script>
 
-<video class="bg-video" autoplay muted loop playsinline poster="1600_FAQs.jpg">
-  <source src="MoPLaunch_Masthead_loop.mp4" type="video/mp4">
-</video>
-
 <!-- ============================= FRENCH ============================= -->
 <div class="page-lang" id="pf-fr">
 
+  <div class="hero-wrap">
+    <video class="bg-video" autoplay muted loop playsinline poster="1600_FAQs.jpg">
+      <source src="MoPLaunch_Masthead_loop.mp4" type="video/mp4">
+    </video>
   <nav class="navbar">
     <div class="nav-brand">
       <a href="http://azeroth-universe.eu/"><img class="nav-logo" src="LogoAzerothUniverseA.png" alt="Azeroth Universe"></a>
@@ -438,13 +577,22 @@
 
   <div class="hero" id="fr-top">
     <div class="server-name">Azeroth Universe</div>
-    <div class="subtitle">Explorez Notre Contenu</div>
-    <div class="badge-version"><i class="ti ti-disc"></i> Client 3.3.5</div>
+    <div class="subtitle">Retrouvez tout le contenu présent dans le royaume d'Azeroth Universe !<br>Explorez des terres inédites, relevez des défis à la hauteur de votre courage et forgez votre propre légende !</div>
+    <div class="badge-version"></i>3.3.9a.49448</div>
     <div class="hero-rule"><span class="diamond"></span></div>
+    <img src="divider-thick.png" class="divider-hero" alt="">
   </div>
   <div class="hero-fade"></div>
+  </div>
 
-  <div class="wrap">
+  <div class="content-bg">
+    <div class="wrap">
+
+    <div class="content-search">
+      <i class="ti ti-search"></i>
+      <input type="text" id="search-fr" placeholder="Rechercher une fonctionnalite...">
+    </div>
+    <div class="search-noresults" id="noresults-fr">Aucun resultat pour cette recherche.</div>
 
     <section class="content-section" id="fr-new">
       <div class="sec-head">
@@ -600,14 +748,23 @@
     </section>
 
     <div class="divider-orn"><span class="diamond"></span></div>
-    <div class="footer">Azeroth Universe</div>
-
+    </div>
+    <img src="divider-thin.png" class="divider-footer" alt="">
   </div>
+  <div class="footer-bg">
+    <div class="footer">Azeroth Universe</div>
+    <div class="footer-legal">&copy; 2026 Azeroth Universe. Tous droits réservés.<br>Toutes les marques citées appartiennent à leurs propriétaires respectifs.</div>
+  </div>
+
 </div>
 
 <!-- ============================== ENGLISH ============================== -->
 <div class="page-lang" id="pf-en">
 
+  <div class="hero-wrap">
+    <video class="bg-video" autoplay muted loop playsinline poster="1600_FAQs.jpg">
+      <source src="MoPLaunch_Masthead_loop.mp4" type="video/mp4">
+    </video>
   <nav class="navbar">
     <div class="nav-brand">
       <a href="http://azeroth-universe.eu/"><img class="nav-logo" src="LogoAzerothUniverseA.png" alt="Azeroth Universe"></a>
@@ -652,13 +809,22 @@
 
   <div class="hero" id="en-top">
     <div class="server-name">Azeroth Universe</div>
-    <div class="subtitle">Explore Our Content</div>
-    <div class="badge-version"><i class="ti ti-disc"></i> Client 3.3.5</div>
+    <div class="subtitle">Discover all the content available in the realm of Azeroth Universe!<br>Explore uncharted lands, take on challenges worthy of your courage, and forge your own legend!</div>
+    <div class="badge-version"></i>3.3.9a.49448</div>
     <div class="hero-rule"><span class="diamond"></span></div>
+    <img src="divider-thick.png" class="divider-hero" alt="">
   </div>
   <div class="hero-fade"></div>
+  </div>
 
-  <div class="wrap">
+  <div class="content-bg">
+    <div class="wrap">
+
+    <div class="content-search">
+      <i class="ti ti-search"></i>
+      <input type="text" id="search-en" placeholder="Search a feature...">
+    </div>
+    <div class="search-noresults" id="noresults-en">No results for this search.</div>
 
     <section class="content-section" id="en-new">
       <div class="sec-head">
@@ -814,9 +980,14 @@
     </section>
 
     <div class="divider-orn"><span class="diamond"></span></div>
-    <div class="footer">Azeroth Universe</div>
-
+    </div>
+    <img src="divider-thin.png" class="divider-footer" alt="">
   </div>
+  <div class="footer-bg">
+    <div class="footer">Azeroth Universe</div>
+    <div class="footer-legal">&copy; 2026 Azeroth Universe. All rights reserved.<br>All trademarks mentioned belong to their respective owners.</div>
+  </div>
+
 </div>
 
 <script>
@@ -861,6 +1032,70 @@
       document.querySelectorAll('.nav-item.open').forEach(function(i){ i.classList.remove('open'); });
     });
   });
+})();
+</script>
+
+<button type="button" class="back-to-top" id="back-to-top" aria-label="Retour en haut" title="Retour en haut"><i class="ti ti-chevron-up"></i></button>
+
+<script>
+(function(){
+  // ---------- back to top ----------
+  var backToTop = document.getElementById('back-to-top');
+  if (backToTop) {
+    window.addEventListener('scroll', function(){
+      backToTop.classList.toggle('visible', window.scrollY > 500);
+    }, { passive: true });
+    backToTop.addEventListener('click', function(){
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // ---------- scroll-spy ----------
+  var sections = document.querySelectorAll('.content-section[id]');
+  if (sections.length && 'IntersectionObserver' in window) {
+    var spy = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        var id = entry.target.id;
+        var navLink = document.querySelector('.nav-pill[href="#' + id + '"], .nav-dropdown a[href="#' + id + '"]');
+        if (!navLink) return;
+        if (entry.isIntersecting) {
+          document.querySelectorAll('.nav-pill.active, .nav-dropdown a.active').forEach(function(a){ a.classList.remove('active'); });
+          document.querySelectorAll('.nav-item.active-group').forEach(function(g){ g.classList.remove('active-group'); });
+          navLink.classList.add('active');
+          var parentItem = navLink.closest('.nav-item');
+          if (parentItem) parentItem.classList.add('active-group');
+        }
+      });
+    }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
+    sections.forEach(function(sec){ spy.observe(sec); });
+  }
+
+  // ---------- content search/filter ----------
+  function setupSearch(input, noResultsEl){
+    if (!input) return;
+    var container = input.closest('.wrap');
+    if (!container) return;
+    input.addEventListener('input', function(){
+      var q = input.value.trim().toLowerCase();
+      var anyVisible = false;
+      container.querySelectorAll('.content-section').forEach(function(sec){
+        var items = sec.querySelectorAll('.tag, .new-card');
+        var sectionHasMatch = false;
+        items.forEach(function(item){
+          var match = !q || item.textContent.toLowerCase().indexOf(q) !== -1;
+          item.style.display = match ? '' : 'none';
+          if (match) sectionHasMatch = true;
+        });
+        if (items.length === 0) sectionHasMatch = true;
+        var show = !q || sectionHasMatch;
+        sec.style.display = show ? '' : 'none';
+        if (show) anyVisible = true;
+      });
+      if (noResultsEl) noResultsEl.style.display = (q && !anyVisible) ? 'block' : 'none';
+    });
+  }
+  setupSearch(document.getElementById('search-fr'), document.getElementById('noresults-fr'));
+  setupSearch(document.getElementById('search-en'), document.getElementById('noresults-en'));
 })();
 </script>
 
