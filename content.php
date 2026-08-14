@@ -396,7 +396,7 @@
 
   <nav class="navbar">
     <div class="nav-brand">
-      <img class="nav-logo" src="LogoAzerothUniverseA.png" alt="Azeroth Universe">
+      <a href="http://azeroth-universe.eu/"><img class="nav-logo" src="LogoAzerothUniverseA.png" alt="Azeroth Universe"></a>
     </div>
     <div class="nav-pills">
       <a class="nav-pill" href="#fr-new">Nouveautés</a>
@@ -610,7 +610,7 @@
 
   <nav class="navbar">
     <div class="nav-brand">
-      <img class="nav-logo" src="LogoAzerothUniverseA.png" alt="Azeroth Universe">
+      <a href="http://azeroth-universe.eu/"><img class="nav-logo" src="LogoAzerothUniverseA.png" alt="Azeroth Universe"></a>
     </div>
     <div class="nav-pills">
       <a class="nav-pill" href="#en-new">What's New</a>

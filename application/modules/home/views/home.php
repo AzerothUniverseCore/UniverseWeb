@@ -38,6 +38,25 @@
   <div class="syphrena-hero-divider-thin"></div>
 </section>
 
+<section class="syphrena-home-item" style="position: relative; background-image: url(../application/themes/default/assets/images/WoW_-_Midnight_Launch_-_Hotfixes1280x380.png)">
+  <div class="syphrena-hero-container">
+    <div class="syphrena-hero-title">
+      <span class="orange-shadow"><?= $this->lang->line('home_content_title'); ?></span>
+    </div>
+	<div class="azeroth-hero-title">
+    <div class="azeroth-universe-description">
+      <span class="orange-shadow"><p><?= $this->lang->line('home_content_description'); ?></p></span>
+    </div>
+	</div>
+	<a href="https://azeroth-universe.eu/content.php" class="syphrena-hero-button" target="_blank">
+        <div class="syphrena-hero-button-inner">
+          <span class="orange-shadow">🏹</span></span> <span class="orange-shadow"><?= $this->lang->line('home_content_button'); ?></span></span>
+        </div>
+      </a>
+  </div>
+  <div class="syphrena-hero-divider-thin"></div>
+</section>
+
 <!--<section class="syphrena-home-item" style="position: relative; background-image: url(../application/themes/default/assets/images/card-background-10.jpg)">
 <div class="azeroth-hero-title">
   <div class="syphrena-hero-container syphrena-home-item-reversed">
@@ -206,65 +225,7 @@
     </div>
 </section>-->
 
-<?php
-// Connexion à la base de données Auth
-$pdoAuth = new PDO('mysql:host=localhost:3309;dbname=auc_auth;charset=utf8mb4', 'root', 'root');
 
-// Préparation de la requête pour obtenir le statut du royaume
-$stmtRealmStatus = $pdoAuth->prepare("SELECT * FROM realmlist WHERE flag = 64 AND id = 1;");
-$stmtRealmStatus->execute();
-$realmStatus = $stmtRealmStatus->fetchColumn();
-
-// Vérifier si le royaume est hors ligne
-$isRealmOffline = ($realmStatus == 0);
-
-// Connexion à la base de données des personnages
-$pdoCharacters = new PDO('mysql:host=localhost:3309;dbname=auc_chars;charset=utf8mb4', 'root', 'root');
-
-// Récupération du nombre de joueurs en ligne
-$stmtOnlinePlayers = $pdoCharacters->prepare("SELECT COUNT(*) FROM characters WHERE online = 1");
-$stmtOnlinePlayers->execute();
-$onlinePlayers = $stmtOnlinePlayers->fetchColumn();
-
-// Texte à afficher en fonction de l'état du royaume
-$CI =& get_instance();
-$heroTitle = $isRealmOffline ? $CI->lang->line('home_realm_maintenance_title') : $CI->lang->line('home_realm_online_title');
-$heroSubtitle = $isRealmOffline ?
-    $CI->lang->line('home_realm_offline_desc') :
-    sprintf($onlinePlayers >= 2 ? $CI->lang->line('home_realm_online_desc_plural') : $CI->lang->line('home_realm_online_desc_singular'), $onlinePlayers);
-?>
-
-<section class="syphrena-home-item" style="background-image: url(../assets/images/syphrena/PMRXIDON1CB21725038037493.jpg)">
-<div class="azeroth-hero-title">
-    <div class="syphrena-hero-container">
-	<div class="server-status">
-    <span class="pulse <?php echo $isRealmOffline ? 'red' : 'green'; ?>"></span>
-    <span class="orange-shadow"><span class="server-text"><?php echo $isRealmOffline ? $this->lang->line('home_realm_status_offline') : $this->lang->line('home_realm_status_online'); ?></span></span>
-</div>
-        <div class="syphrena-hero-title">
-			<span class="orange-shadow"><?php echo $heroTitle; ?></span>
-        </div>
-        <div class="syphrena-hero-subtitle">
-            <span class="orange-shadow"><?php echo $heroSubtitle; ?></span>
-        </div>
-        <div class="syphrena-hero-buttons">
-            <?php if ($isRealmOffline): ?>
-            <!--<a href="/time/frFR" class="syphrena-hero-button">
-                <div class="syphrena-hero-button-inner">
-                    <span class="orange-shadow">🕰️ TEMPS RESTANT</span>
-                </div>
-            </a>-->
-            <?php else: ?>
-            <a href="<?php echo site_url('online'); ?>" class="syphrena-hero-button">
-                <div class="syphrena-hero-button-inner">
-                    <span class="orange-shadow"><?= $this->lang->line('home_view_players_online'); ?></span>
-                </div>
-            </a>
-            <?php endif; ?>
-        </div>
-    </div>
-    <div class="syphrena-hero-divider-thin"></div>
-</section>
 
 <section class="syphrena-home-item" style="background-image: url(../assets/images/syphrena/head-background.jpg)">
 <div class="azeroth-hero-title">
