@@ -142,6 +142,10 @@ class User_model extends CI_Model
 			]);
 		}
 
+		$this->auth->where('id', $accgame->id)->update('account', [
+			'last_ip' => $this->input->ip_address()
+		]);
+
 		$this->wowauth->arraySession($accgame->id);
 
 		return true;
@@ -196,7 +200,7 @@ class User_model extends CI_Model
 				's'          => $salt,
 				'email'     => $email,
 				'expansion' => $expansion,
-				'last_ip' => '127.0.0.1'
+				'last_ip' => $this->input->ip_address()
 			];
 
 			$this->auth->insert('account', $data);
