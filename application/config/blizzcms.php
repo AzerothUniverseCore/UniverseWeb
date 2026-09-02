@@ -39,6 +39,32 @@ $config['discord_invitation'] = 'yDVSxdWFYx';
 
 /**
  *
+ * Discord Vote Webhook
+ *
+ * URL du webhook Discord du salon #vote-alert : quand un joueur clique sur
+ * "VOTE" (module vote, voir application/modules/vote/models/Vote_model.php)
+ * ET que ce vote est reellement accepte (cooldown expire, pas juste un
+ * re-clic pendant le cooldown), un message est poste dans ce salon avec le
+ * pseudo du joueur et le nom du topsite.
+ *
+ * SECURITE - lisez avant de committer ce fichier dans un depot Git :
+ * n'importe qui possedant cette URL peut poster des messages dans votre
+ * salon Discord en votre nom (elle contient a la fois l'ID du webhook ET
+ * son token secret). getenv() permet de la definir hors de ce fichier (ex:
+ * SetEnv dans un vhost Apache/.htaccess prive, ou variable d'environnement
+ * cote hebergeur) plutot que de la coder en dur ci-dessous - mais la valeur
+ * codee en dur ci-dessous fonctionne aussi telle quelle si vous ne
+ * publiez jamais ce fichier avec un vrai token dedans sur un depot public.
+ *
+ * Laissez une chaine vide ('') pour desactiver completement l'envoi
+ * (aucune erreur, le vote continue de fonctionner normalement, juste sans
+ * notification Discord).
+ *
+*/
+$config['discord_vote_webhook_url'] = getenv('AU_DISCORD_VOTE_WEBHOOK_URL') ?: 'https://discord.com/api/webhooks/1247691761372102697/pSdmHHVpTrocQUz_hbMcZZ3p6miSj2cuRy-pZPgh3un1wd_76iEqOHipiEZiWoxW9w6Y';
+
+/**
+ *
  * Realmlist
  *
  * Write the realmlist used on your server to publish it on the website.
@@ -48,7 +74,7 @@ $config['realmlist'] = 'realm.azerothuniverse.org';
 
 /**
  *  Bnet enabled?
- * 
+ *
  *
  */
 
@@ -56,12 +82,12 @@ $config['bnet_enabled'] = false; // Default: True for Emulators BattleNet and fa
 
  /**
  *  Emulator
- * 
+ *
  *
  *  srp6 = For Emulators (SRP6 Compatibility)
  *  old-trinity =  Trinity Core not SRP6  (Sha_pass_hash Compatibility)
  *  hex = For emulators Mangos  (HEX6 Compatibility)
- *  
+ *
  */
 
 $config['emulator'] = 'srp6';
