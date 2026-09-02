@@ -217,6 +217,13 @@
   .au-fe-rule-small{ margin:10px 0 4px; }
 
   .au-fe-list{
+    /* min-height = max-height (au lieu d'une simple max-height) : le
+       grimoire garde toujours la meme taille, meme quand l'onglet actif
+       n'a qu'une seule ligne (ENUS/FRFR depuis leur regroupement en une
+       seule archive GitHub) - sinon le cadre se retrecit et les onglets
+       lateraux (positionnes en absolu par rapport au cadre) depassent en
+       bas au lieu de rester contenus dedans. */
+    min-height:360px;
     max-height:360px;
     overflow-y:auto;
     padding-right:4px;
@@ -335,42 +342,71 @@ const AU_I18N = {
   totalSuffix: "<?= $this->lang->line('patchs_total_suffix'); ?>"
 };
 (function(){
-  const BASE = "https://azeroth-universe.eu/universe_client/Data";
+  // Hebergement GitHub Releases (depot UniverseClient) depuis la migration
+  // hors du VPS. Chaque entree porte desormais sa PROPRE url complete (plus
+  // de prefixe commun type BASE + nom de fichier) et un `type` :
+  //   - "download" : fichier .MPQ unique, telechargeable directement en un
+  //     clic (correspond aux entrees "kind: direct" du manifest du launcher).
+  //   - "page" : gros patch (ou pack de langue) desormais distribue sous
+  //     forme d'archive .rar en plusieurs parties (limite ~2 Go par fichier
+  //     sur GitHub Releases) - le lien renvoie vers la page GitHub Releases
+  //     du patch, ou le joueur voit et telecharge lui-meme chaque partie
+  //     (correspond aux entrees "kind: archive" du manifest). La taille
+  //     affichee est le TOTAL de toutes les parties reelles de ce patch.
+  const REPO_RELEASES = "https://github.com/AzerothUniverseCore/UniverseClient/releases";
 
   const rootFiles = [
-    ["common.MPQ", 65], ["common-2.MPQ", 1358], ["expansion.MPQ", 65], ["lichking.MPQ", 65],
-    ["patch.MPQ", 1421], ["patch-2.MPQ", 1459], ["patch-3.MPQ", 1464], ["patch-4.MPQ", 2500792],
-    ["patch-5.MPQ", 3140908], ["patch-6.MPQ", 2762975], ["patch-7.MPQ", 3449454], ["patch-8.MPQ", 2115044],
-    ["patch-9.MPQ", 2582024], ["patch-A.MPQ", 3586981], ["patch-B.MPQ", 9576383], ["patch-C.MPQ", 7454003],
-    ["patch-D.MPQ", 7066882], ["patch-E.MPQ", 4472355], ["patch-F.MPQ", 4472260], ["patch-I.MPQ", 510847],
-    ["patch-K.MPQ", 2906400], ["patch-N.MPQ", 1294573], ["patch-T.MPQ", 16790], ["patch-U.MPQ", 450230],
-    ["patch-Y.MPQ", 5586645], ["patch-Z.MPQ", 1686301], ["patch-ZA.MPQ", 11393],
+    ["common.MPQ", 64, REPO_RELEASES + "/download/common.MPQ/common.MPQ", "download"],
+    ["common-2.MPQ", 1362, REPO_RELEASES + "/download/common-2.MPQ/common-2.MPQ", "download"],
+    ["expansion.MPQ", 64, REPO_RELEASES + "/download/expansion.MPQ/expansion.MPQ", "download"],
+    ["lichking.MPQ", 64, REPO_RELEASES + "/download/lichking.MPQ/lichking.MPQ", "download"],
+    ["patch.MPQ", 1423, REPO_RELEASES + "/download/patch.MPQ/patch.MPQ", "download"],
+    ["patch-2.MPQ", 1454, REPO_RELEASES + "/download/patch-2.MPQ/patch-2.MPQ", "download"],
+    ["patch-3.MPQ", 1464, REPO_RELEASES + "/download/patch-3.MPQ/patch-3.MPQ", "download"],
+    ["patch-4.MPQ", 2500608, REPO_RELEASES + "/tag/patch-4.MPQ", "page"],
+    ["patch-5.MPQ", 3140915, REPO_RELEASES + "/tag/patch-5.MPQ", "page"],
+    ["patch-6.MPQ", 2762752, REPO_RELEASES + "/tag/patch-6.MPQ", "page"],
+    ["patch-7.MPQ", 3449856, REPO_RELEASES + "/tag/patch-7.MPQ", "page"],
+    ["patch-8.MPQ", 2115072, REPO_RELEASES + "/tag/patch-8.MPQ", "page"],
+    ["patch-9.MPQ", 2582528, REPO_RELEASES + "/tag/patch-9.MPQ", "page"],
+    ["patch-A.MPQ", 3587072, REPO_RELEASES + "/tag/patch-A.MPQ", "page"],
+    // ATTENTION patch-B.MPQ : le manifest.json du launcher liste 12 parties
+    // (part01-part12) mais seules 10 existent reellement sur GitHub
+    // (part01-part10) au moment de cette mise a jour - taille ci-dessous
+    // basee sur ces 10 parties reelles. A corriger cote manifest.json (voir
+    // le recap envoye separement) avant que ce chiffre ne soit peut-etre
+    // amene a changer.
+    ["patch-B.MPQ", 9576448, REPO_RELEASES + "/tag/patch-B.MPQ", "page"],
+    ["patch-C.MPQ", 7453696, REPO_RELEASES + "/tag/patch-C.MPQ", "page"],
+    ["patch-D.MPQ", 7066624, REPO_RELEASES + "/tag/patch-D.MPQ", "page"],
+    ["patch-E.MPQ", 4472832, REPO_RELEASES + "/tag/patch-E.MPQ", "page"],
+    ["patch-F.MPQ", 4471808, REPO_RELEASES + "/tag/patch-F.MPQ", "page"],
+    ["patch-I.MPQ", 510976, REPO_RELEASES + "/download/patch-I.MPQ/patch-I.MPQ", "download"],
+    ["patch-K.MPQ", 2906112, REPO_RELEASES + "/tag/patch-K.MPQ", "page"],
+    ["patch-N.MPQ", 1289748, REPO_RELEASES + "/download/patch-N.MPQ/patch-N.MPQ", "download"],
+    ["patch-T.MPQ", 16794, REPO_RELEASES + "/download/patch-T.MPQ/patch-T.MPQ", "download"],
+    ["patch-U.MPQ", 450560, REPO_RELEASES + "/download/patch-U.MPQ/patch-U.MPQ", "download"],
+    ["patch-Y.MPQ", 5586944, REPO_RELEASES + "/tag/patch-Y.MPQ", "page"],
+    ["patch-Z.MPQ", 1688207, REPO_RELEASES + "/download/patch-Z.MPQ/patch-Z.MPQ", "download"],
+    ["patch-ZA.MPQ", 41882, REPO_RELEASES + "/download/patch-ZA.MPQ/patch-ZA.MPQ", "download"],
   ];
 
+  // frFR/enUS ne sont plus des dizaines de petits .MPQ individuels : ils
+  // sont desormais chacun regroupes en UNE seule archive .rar multi-parties
+  // sur GitHub (voir manifest.json, entrees "frFR"/"enUS"), donc une seule
+  // ligne par langue ici (taille = total des parties reelles).
   const enusFiles = [
-    ["backup-enUS.MPQ", 163327], ["base-enUS.MPQ", 28494], ["expansion-locale-enUS.MPQ", 16982],
-    ["expansion-speech-enUS.MPQ", 235385], ["lichking-locale-enUS.MPQ", 12065], ["lichking-speech-enUS.MPQ", 345712],
-    ["locale-enUS.MPQ", 199504], ["patch-enUS.MPQ", 289665], ["patch-enUS-2.MPQ", 220284],
-    ["patch-enUS-3.MPQ", 98022], ["patch-enUS-4.MPQ", 1236292], ["patch-enUS-5.MPQ", 93],
-    ["patch-enUS-6.MPQ", 571], ["patch-enUS-7.MPQ", 327769], ["patch-enUS-8.MPQ", 274],
-    ["patch-enUS-9.MPQ", 419], ["patch-enUS-U.MPQ", 811], ["patch-enUS-V.MPQ", 181749],
-    ["patch-enUS-X.MPQ", 40], ["speech-enUS.MPQ", 428155],
+    ["enUS (archive complete)", 3816816, REPO_RELEASES + "/tag/enUS", "page"],
   ];
 
   const frfrFiles = [
-    ["backup-frFR.MPQ", 25178], ["base-frFR.MPQ", 30378], ["expansion-locale-frFR.MPQ", 16982],
-    ["expansion-speech-frFR.MPQ", 259310], ["lichking-locale-frFR.MPQ", 12329], ["lichking-speech-frFR.MPQ", 20052],
-    ["locale-frFR.MPQ", 197304], ["patch-frFR.MPQ", 539160], ["patch-frFR-2.MPQ", 220894],
-    ["patch-frFR-3.MPQ", 1225345], ["patch-frFR-4.MPQ", 93], ["patch-frFR-5.MPQ", 571],
-    ["patch-frFR-6.MPQ", 327769], ["patch-frFR-7.MPQ", 274], ["patch-frFR-8.MPQ", 419],
-    ["patch-frFR-U.MPQ", 811], ["patch-frFR-V.MPQ", 172636], ["patch-frFR-W.MPQ", 47558],
-    ["patch-frFR-X.MPQ", 40], ["speech-frFR.MPQ", 431604],
+    ["frFR (archive complete)", 3565159, REPO_RELEASES + "/tag/frFR", "page"],
   ];
 
   const FOLDERS = {
-    root: { files: rootFiles, base: BASE, path: "Data/" },
-    enus: { files: enusFiles, base: BASE + "/enUS", path: "Data/enUS/" },
-    frfr: { files: frfrFiles, base: BASE + "/frFR", path: "Data/frFR/" }
+    root: { files: rootFiles, path: "Data/" },
+    enus: { files: enusFiles, path: "Data/enUS/" },
+    frfr: { files: frfrFiles, path: "Data/frFR/" }
   };
 
   function formatKo(ko){
@@ -399,23 +435,31 @@ const AU_I18N = {
   const pathEl = document.getElementById('au-fe-path');
 
   function render(){
-    const { files, base, path } = FOLDERS[currentTab];
+    const { files, path } = FOLDERS[currentTab];
     pathEl.textContent = path;
     listEl.innerHTML = '';
     let visible = 0;
     let totalKo = 0;
 
-    files.forEach(([name, ko])=>{
+    files.forEach(([name, ko, url, type])=>{
       totalKo += ko;
       const match = !query || name.toLowerCase().includes(query);
       if(!match) return;
       visible++;
-      const url = `${base}/${name}`;
+      const isPage = type === 'page';
       const color = qualityColor(ko);
       const row = document.createElement('a');
       row.className = 'au-fe-row';
       row.href = url;
-      row.setAttribute('download', '');
+      if(isPage){
+        // Gros patch multi-parties : ouvre la page GitHub Releases dans un
+        // nouvel onglet plutot que de tenter un telechargement direct (qui
+        // ne recupererait qu'UNE seule partie de l'archive).
+        row.target = '_blank';
+        row.rel = 'noopener';
+      } else {
+        row.setAttribute('download', '');
+      }
       row.style.borderLeftColor = color;
       let displayName = name;
       if(query){
@@ -425,7 +469,7 @@ const AU_I18N = {
       row.innerHTML = `
         <span class="au-fe-fn" style="color:${color}">${displayName}</span>
         <span class="au-fe-size">${formatKo(ko)}</span>
-        <span class="au-fe-dl">↓</span>
+        <span class="au-fe-dl">${isPage ? '↗' : '↓'}</span>
       `;
       listEl.appendChild(row);
     });
