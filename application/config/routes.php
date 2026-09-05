@@ -85,6 +85,11 @@ $route[$lang.'/changeusername'] = 'user/newusername';
 $route[$lang.'/vote'] = 'vote/index';
 $route[$lang.'/vote/votenow/(:num)'] = 'vote/votenow/$2';
 
+/*Restauration de personnage*/
+$route[$lang.'/restauration'] = 'restauration/index';
+$route[$lang.'/restauration/personnages'] = 'restauration/personnages';
+$route[$lang.'/restauration/restaurer/(:num)'] = 'restauration/restaurer/$2';
+
 /*Donate*/
 $route[$lang.'/donate'] = 'donate/index';
 $route[$lang.'/donate/check/(:any)'] = 'donate/check/$2';
