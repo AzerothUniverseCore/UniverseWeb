@@ -96,6 +96,8 @@ class Restauration_model extends CI_Model {
         'character_fishingsteps',
         'character_transmog',
         'transmog_char',
+        'character_arena_stats',
+        'character_dracthyr_display',
     );
 
     /**
