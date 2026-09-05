@@ -24,7 +24,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $protocol = is_https() ? 'https://' : 'http://';
-$config['base_url'] = $protocol.$_SERVER['HTTP_HOST'].'/';
+// FIX (CLI) : $_SERVER['HTTP_HOST'] n'existe pas en ligne de commande (pas de
+// vraie requete HTTP) -- ex. le cron RPG Paradize lance via
+// "php index.php cron checkRpgParadizeVotes" plantait ici avant meme
+// d'atteindre le controleur ("Undefined index: HTTP_HOST", puis "headers
+// already sent" en cascade). Fallback sur le vrai domaine du site quand
+// HTTP_HOST est absent (CLI uniquement -- en HTTP normal rien ne change).
+$config['base_url'] = $protocol.(isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'azeroth-universe.eu').'/';
 
 /*
 |--------------------------------------------------------------------------

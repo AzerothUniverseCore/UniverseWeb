@@ -65,6 +65,53 @@ $config['discord_vote_webhook_url'] = getenv('AU_DISCORD_VOTE_WEBHOOK_URL') ?: '
 
 /**
  *
+ * RPG Paradize - API de vote (verification OTP)
+ *
+ * Permet de VERIFIER qu'un vote sur RPG Paradize a reellement eu lieu avant
+ * de crediter les points, au lieu de faire confiance au simple clic sur
+ * "Voter" (voir application/modules/vote/models/Vote_model.php et
+ * application/libraries/Rpgparadize_api.php).
+ *
+ * rpgparadize_api_token : genere depuis le panel serveur RPG Paradize
+ * ("Token API" > Generer un token). Donne acces en lecture/ecriture a
+ * l'API REST de VOTRE serveur uniquement.
+ *
+ * rpgparadize_site_id : l'identifiant numerique de votre serveur sur
+ * RPG Paradize (le "{siteId}" des routes /api/v1/servers/{siteId}/...).
+ * Recupere ici depuis l'URL de vote deja configuree dans la table `votes`
+ * (https://rpg-paradize.com/vote/112289 -> siteId = 112289).
+ *
+ * SECURITE - lisez avant de committer ce fichier dans un depot Git : ce
+ * token permet d'agir sur votre compte serveur RPG Paradize (generer des
+ * OTP en votre nom). Meme recommandation que pour le webhook Discord
+ * ci-dessus : preferez getenv() (variable d'environnement / SetEnv Apache)
+ * plutot que la valeur codee en dur, SURTOUT si ce depot est ou pourrait
+ * devenir public un jour.
+ *
+ * Laissez le token vide ('') pour desactiver la verification : le vote
+ * RPG Paradize retombe alors automatiquement sur l'ancien comportement
+ * (credit immediat au clic, lien de vote statique), sans erreur.
+ *
+*/
+$config['rpgparadize_api_token'] = getenv('AU_RPGPARADIZE_API_TOKEN') ?: 'asE5OoYhhxJFberq76n2q499sk3SzkkDlX1oGPTq209c4f62';
+$config['rpgparadize_site_id'] = getenv('AU_RPGPARADIZE_SITE_ID') ?: '112289';
+
+/**
+ *
+ * Cron - Cle secrete
+ *
+ * Protege application/controllers/Cron.php (verification periodique des
+ * votes RPG Paradize en attente) contre un appel HTTP par n'importe qui.
+ * Ignoree si le controleur est lance en ligne de commande (CLI, via le
+ * planificateur de taches Windows) plutot que par une URL.
+ *
+ * Changez cette valeur avant la mise en prod.
+ *
+*/
+$config['cron_secret'] = getenv('AU_CRON_SECRET') ?: '51d9a81f6f82774fa0358d37cf09d8a69d6c20c109e9b5f7';
+
+/**
+ *
  * Realmlist
  *
  * Write the realmlist used on your server to publish it on the website.

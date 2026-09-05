@@ -54,61 +54,223 @@ class Vote_model extends CI_Model {
     public function voteNow($id)
     {
         $userid = $this->session->userdata('wow_sess_id');
-        $mytime = $this->wowgeneral->getTimestamp();
-        $ppoints = $this->getVotePoints($id);
         $votetime = $this->getVoteTime($id);
 
         $qqcheck = $this->getVoteLog($id, $userid);
+        $comprobetime = $qqcheck->row('expired_at');
 
+        // Cooldown pas encore ecoule : comportement inchange, quel que soit
+        // le topsite (RPG Paradize inclus -- pas la peine d'aller generer un
+        // OTP si le joueur ne peut de toute facon pas encore revoter).
+        if ($this->wowgeneral->getTimestamp() < $comprobetime) {
+            echo '<script type="text/javascript">alert("According to our records you have already voted in this top. Contact with Support Ingame for Resolving this problem")</script>';
+            redirect(site_url($this->lang->lang().'/vote'),'refresh');
+            return;
+        }
+
+        // RPG Paradize (et uniquement ce topsite, identifie par son domaine
+        // dans la colonne `url`) beneficie d'une vraie verification API
+        // avant de crediter -- voir voteNowRpgParadize(). Tous les autres
+        // topsites gardent l'ancien comportement (credit immediat au clic),
+        // faute d'API de verification equivalente.
+        $this->load->library('rpgparadize_api');
+        if ($this->isRpgParadizeVote($id) && $this->rpgparadize_api->isConfigured()) {
+            $handled = $this->voteNowRpgParadize($id, $userid, $votetime);
+            if ($handled) {
+                return;
+            }
+            // $handled === false : API injoignable/mal configuree au moment
+            // de generer l'OTP -- on retombe sciemment sur l'ancien
+            // comportement juste en dessous plutot que de bloquer le vote.
+        }
+
+        $ppoints = $this->getVotePoints($id);
         $url = $this->getVoteUrl($id);
-
-        $fecha = new DateTime();
-        $expired = $fecha->add(new DateInterval('PT'.$votetime.'H'));
-
-        $expired_at = $expired->getTimestamp();
 
         if(!preg_match("~^(?:f|ht)tps?://~i", $url)) {
             $url = "http://" . $url;
         }
 
-        $comprobetime = $qqcheck->row('expired_at');
+        $this->creditVote($id, $userid, $ppoints, $votetime);
 
-        if($this->wowgeneral->getTimestamp() >= $comprobetime)
-        {
-            $vp2 = $this->db->where('id', $userid)->get('users')->row('vp');
-            $vp = ($vp2+$ppoints);
+        echo '<script type="text/javascript">
+                window.open( "'.$url.'","_self")
+            </script>';
 
-            $data = array('vp' => $vp);
+        redirect(site_url($this->lang->lang().'/vote'),'refresh');
+    }
 
-            $logs = array(
-                'idaccount' => $userid,
-                'idvote' => $id,
-                'lasttime' => $mytime,
-                'expired_at' => $expired_at,
-                'points' => $ppoints
-            );
+    /**
+     * TRUE si la ligne `votes` #$id pointe vers RPG Paradize (identifie par
+     * son domaine plutot que par un id fixe, au cas ou l'ordre des topsites
+     * changerait dans la table).
+     */
+    private function isRpgParadizeVote($id)
+    {
+        $url = $this->getVoteUrl($id);
+        return $url && stripos($url, 'rpg-paradize.com') !== false;
+    }
 
-            $this->db->where('id', $userid)->update('users', $data);
-            $this->db->insert('votes_logs', $logs);
+    /**
+     * Flux OTP RPG Paradize : genere un token via l'API, l'enregistre comme
+     * "pending" dans votes_rpgparadize_otp, puis redirige le joueur vers le
+     * vote_url renvoye par l'API (qui embarque ce token) au lieu du lien
+     * statique de la table `votes`. Les points ne sont PAS credites ici --
+     * Cron::checkRpgParadizeVotes() les creditera une fois le vote
+     * reellement confirme par RPG Paradize (voir creditVote()).
+     *
+     * @return bool TRUE si le flux OTP a pris le relais (la reponse HTTP est
+     *              deja envoyee, l'appelant ne doit rien faire de plus),
+     *              FALSE si l'API n'a pas repondu correctement -- l'appelant
+     *              doit alors retomber sur l'ancien comportement.
+     */
+    private function voteNowRpgParadize($id, $userid, $votetime)
+    {
+        $otp = $this->rpgparadize_api->generateOtp();
 
-            // Alerte Discord (#vote-alert) : UNIQUEMENT ici, dans la branche
-            // ou le vote est reellement accepte (cooldown expire) - jamais
-            // dans la branche "deja vote" plus bas, qui ne represente pas
-            // un vote reel. Best-effort : si Discord est injoignable ou mal
-            // configure, on log l'erreur mais on ne bloque JAMAIS le
-            // joueur, qui doit dans tous les cas etre redirige vers le site
-            // de vote externe juste apres (voir sendDiscordVoteAlert()).
-            $this->sendDiscordVoteAlert($id, $ppoints);
-
-            echo '<script type="text/javascript">
-                    window.open( "'.$url.'","_self")
-                </script>';
-
-            redirect(site_url($this->lang->lang().'/vote'),'refresh');
-        } else {
-            echo '<script type="text/javascript">alert("According to our records you have already voted in this top. Contact with Support Ingame for Resolving this problem")</script>';
-            redirect(site_url($this->lang->lang().'/vote'),'refresh');
+        if (!$otp || empty($otp['token']) || empty($otp['vote_url'])) {
+            log_message('error', 'RPG Paradize : echec generation OTP pour le compte ' . $userid . ', fallback sur le lien statique.');
+            return false;
         }
+
+        $now = $this->wowgeneral->getTimestamp();
+        $expiresIn = isset($otp['expires_in']) ? (int) $otp['expires_in'] : 600;
+
+        // Un seul OTP "vivant" a la fois par compte+topsite : les anciens
+        // pending non consommes sont marques expired pour ne jamais pouvoir
+        // etre confondus avec celui-ci (creditVote() ne s'execute qu'une
+        // seule fois par ligne verified de toute facon, mais autant garder
+        // la table propre).
+        $this->db->where('idaccount', $userid)
+            ->where('idvote', $id)
+            ->where('status', 'pending')
+            ->update('votes_rpgparadize_otp', array('status' => 'expired'));
+
+        $this->db->insert('votes_rpgparadize_otp', array(
+            'idaccount'    => $userid,
+            'idvote'       => $id,
+            'otp_token'    => $otp['token'],
+            'requested_at' => $now,
+            'expires_at'   => $now + $expiresIn,
+            'status'       => 'pending',
+        ));
+
+        // On ne credite rien et on n'ecrit pas dans votes_logs tout de
+        // suite -- ca, c'est le role de creditVote(), appele par le cron
+        // uniquement quand RPG Paradize confirme le vote. Idem pour
+        // l'alerte Discord : elle ne doit partir que sur un vote reellement
+        // confirme (voir Cron::checkRpgParadizeVotes()).
+        echo '<script type="text/javascript">
+                window.open( "'.$otp['vote_url'].'","_self")
+            </script>';
+
+        redirect(site_url($this->lang->lang().'/vote'),'refresh');
+
+        return true;
+    }
+
+    /**
+     * Credite les points de vote et enregistre le log -- factorise pour
+     * etre appele soit immediatement (voteNow(), tous les topsites sauf RPG
+     * Paradize), soit differe (Cron::checkRpgParadizeVotes(), une fois le
+     * vote RPG Paradize confirme par l'API).
+     */
+    public function creditVote($id, $userid, $ppoints, $votetime)
+    {
+        $mytime = $this->wowgeneral->getTimestamp();
+
+        $fecha = new DateTime();
+        $expired = $fecha->add(new DateInterval('PT'.$votetime.'H'));
+        $expired_at = $expired->getTimestamp();
+
+        $vp2 = $this->db->where('id', $userid)->get('users')->row('vp');
+        $vp = ($vp2+$ppoints);
+
+        $data = array('vp' => $vp);
+
+        $logs = array(
+            'idaccount' => $userid,
+            'idvote' => $id,
+            'lasttime' => $mytime,
+            'expired_at' => $expired_at,
+            'points' => $ppoints
+        );
+
+        $this->db->where('id', $userid)->update('users', $data);
+        $this->db->insert('votes_logs', $logs);
+
+        // Alerte Discord (#vote-alert) : UNIQUEMENT ici, dans la branche
+        // ou le vote est reellement accepte (cooldown expire, et pour RPG
+        // Paradize : vote confirme par l'API) - jamais dans la branche
+        // "deja vote", qui ne represente pas un vote reel. Best-effort : si
+        // Discord est injoignable ou mal configure, on log l'erreur mais on
+        // ne bloque JAMAIS le credit des points (voir sendDiscordVoteAlert()).
+        $this->sendDiscordVoteAlert($id, $ppoints, $userid);
+    }
+
+    /**
+     * Verifie tous les OTP RPG Paradize encore "pending" : credite les
+     * votes confirmes, marque comme "expired" ceux dont le delai de 10
+     * minutes est depasse sans confirmation. Appelee periodiquement par
+     * Cron::checkRpgParadizeVotes() (voir application/controllers/Cron.php).
+     *
+     * @return array{verified: int, expired: int, retried: int} Petit
+     *         resume pour le log/la reponse du controleur.
+     */
+    public function checkPendingRpgParadizeOtp()
+    {
+        $this->load->library('rpgparadize_api');
+
+        $result = array('verified' => 0, 'expired' => 0, 'retried' => 0);
+        $now = $this->wowgeneral->getTimestamp();
+
+        $pending = $this->db->where('status', 'pending')->get('votes_rpgparadize_otp')->result();
+
+        foreach ($pending as $row) {
+            $verified = $this->rpgparadize_api->verifyOtp($row->otp_token);
+
+            if ($verified === null) {
+                // API injoignable : on reessaiera au prochain passage du
+                // cron, SAUF si le token est de toute facon deja expire
+                // cote RPG Paradize (10 min) -- dans ce cas, inutile
+                // d'insister indefiniment.
+                $result['retried']++;
+                if ($now >= $row->expires_at) {
+                    $this->db->where('id', $row->id)->update('votes_rpgparadize_otp', array('status' => 'expired'));
+                    $result['expired']++;
+                    $result['retried']--;
+                }
+                continue;
+            }
+
+            if ($verified === true) {
+                // Garde anti double-credit : on ne credite QUE si c'est bien
+                // CETTE execution qui a fait passer la ligne de "pending" a
+                // "verified" (WHERE status='pending' + affected_rows). Si
+                // deux passages du cron se chevauchaient jamais, le second
+                // trouverait 0 ligne affectee et ne crediterait rien deux fois.
+                $this->db->where('id', $row->id)->where('status', 'pending')
+                    ->update('votes_rpgparadize_otp', array('status' => 'verified'));
+
+                if ($this->db->affected_rows() > 0) {
+                    $ppoints = $this->getVotePoints($row->idvote);
+                    $votetime = $this->getVoteTime($row->idvote);
+                    $this->creditVote($row->idvote, $row->idaccount, $ppoints, $votetime);
+
+                    $result['verified']++;
+                }
+                continue;
+            }
+
+            // $verified === false : pas encore vote. On abandonne seulement
+            // une fois le delai de 10 minutes de l'OTP depasse.
+            if ($now >= $row->expires_at) {
+                $this->db->where('id', $row->id)->update('votes_rpgparadize_otp', array('status' => 'expired'));
+                $result['expired']++;
+            }
+        }
+
+        return $result;
     }
 
     /**
@@ -124,17 +286,25 @@ class Vote_model extends CI_Model {
      * JAMAIS transiter par du JavaScript cote client ni par une reponse
      * HTTP lisible par le joueur.
      */
-    private function sendDiscordVoteAlert($id, $points)
+    private function sendDiscordVoteAlert($id, $points, $userid)
     {
         $webhookUrl = $this->config->item('discord_vote_webhook_url');
         if (empty($webhookUrl)) {
             return;
         }
 
-        // Pseudo du compte de jeu, deja present en session depuis la
-        // connexion (voir Auth_model::arraySession()) : pas besoin d'une
-        // nouvelle requete SQL ici.
-        $username = $this->session->userdata('wow_sess_username');
+        // FIX : le pseudo NE PEUT PAS venir de la session ($this->session->
+        // userdata('wow_sess_username')) -- ca fonctionnait pour les
+        // topsites a credit immediat (executes pendant la requete du joueur,
+        // donc sa session existe), mais creditVote() est aussi appelee
+        // depuis Cron::checkRpgParadizeVotes(), qui tourne dans une requete
+        // totalement separee (curl/CLI, sans session joueur) -- d'ou le
+        // "Un joueur" generique observe sur les votes RPG Paradize. On va
+        // toujours chercher le pseudo en base via le compte ($userid),
+        // exactement comme le fait Auth_model::getUsernameID() -- $this->
+        // wowauth est l'alias autoload de Auth_model (voir application/
+        // config/autoload.php), deja connecte a la base auc_auth.
+        $username = $this->wowauth->getUsernameID($userid);
         if (empty($username)) {
             $username = 'Un joueur';
         }

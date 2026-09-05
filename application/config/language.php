@@ -90,5 +90,9 @@ $config['default_uri'] = '/';
   |
  */
 $config['special_uris'] = array(
-
+  // "cron" : evite la redirection automatique vers /fr/cron/... (qui perd
+  // le ?secret=... au passage et finit de toute facon en 404, faute de
+  // route pour un chemin prefixe par la langue) -- voir application/
+  // controllers/Cron.php et application/core/MY_Lang.php::is_special().
+  'cron',
 );
