@@ -12,20 +12,28 @@ $copyrightYear = date('Y');
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cinzel+Decorative:wght@700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --stage: #04140d;
+    --stage: #000000;
     --stage-2: #0a2818;
-    --gold: #cda75e;
-    --gold-bright: #f0d38a;
-    --gold-dim: #7a6130;
-    --leather: #4a2c14;
-    --leather-dark: #2a1708;
-    --leather-light: #6b4322;
-    --parchment: #ecdcb4;
-    --parchment-2: #e2cd9c;
-    --parchment-shadow: #c9ad78;
-    --ink: #3a2a14;
-    --ink-soft: #5c4426;
+    --gold: #c9a227;
+    --gold-bright: #f2d788;
+    --gold-dim: #7a5f1f;
+    --bronze: #8a5a2b;
+    --bronze-dark: #4f2f14;
+    --leather: #3d160e;
+    --leather-dark: #200a06;
+    --leather-light: #5c2414;
+    --navy: #0e2436;
+    --navy-deep: #081722;
+    --parchment: #e9c583;
+    --parchment-2: #d9a860;
+    --parchment-shadow: #a97a3e;
+    --parchment-burn: #6b4a22;
+    --ink: #3a2410;
+    --ink-soft: #5c4020;
     --seal: #7a1f1f;
+    --ribbon: #7c1420;
+    --ribbon-dark: #490b13;
+    --corner-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M6,58 C6,30 30,6 58,6' fill='none' stroke='%234f2f14' stroke-width='9' stroke-linecap='round'/%3E%3Cpath d='M6,58 C6,30 30,6 58,6' fill='none' stroke='%23c9a227' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M15,46 Q24,36 19,21 Q30,29 35,15' fill='none' stroke='%23f2d788' stroke-width='2.5' stroke-linecap='round' opacity='0.85'/%3E%3Cpath d='M22,54 Q34,48 34,34' fill='none' stroke='%23f2d788' stroke-width='2' stroke-linecap='round' opacity='0.6'/%3E%3Ccircle cx='58' cy='6' r='5' fill='%23f2d788'/%3E%3Ccircle cx='58' cy='6' r='2' fill='%237a1f1f'/%3E%3Ccircle cx='6' cy='58' r='5' fill='%23f2d788'/%3E%3Ccircle cx='6' cy='58' r='2' fill='%237a1f1f'/%3E%3C/svg%3E");
   }
 
   * { box-sizing: border-box; }
@@ -34,7 +42,7 @@ $copyrightYear = date('Y');
   body {
     min-height: 100vh;
     background:
-      radial-gradient(ellipse at 50% 20%, rgba(63,156,102,0.10), transparent 60%),
+      radial-gradient(ellipse at 50% 20%, rgb(156 63 63 / 10%), transparent 60%),
       radial-gradient(ellipse at 50% 100%, rgba(0,0,0,0.55), transparent 55%),
       var(--stage);
     color: var(--parchment);
@@ -140,16 +148,25 @@ $copyrightYear = date('Y');
     border-radius: 10px 0 0 10px;
   }
   .cover-emblem {
-    width: 86px; height: 86px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 30%, var(--gold-bright), var(--gold) 55%, var(--gold-dim) 100%);
-    box-shadow: 0 4px 18px rgba(0,0,0,0.55), inset 0 0 0 3px rgba(42,23,8,0.5);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 34px;
-    color: var(--leather-dark);
-    margin-bottom: 22px;
+    width: min(58%, 168px);
+    margin-bottom: 20px;
     position: relative;
     z-index: 1;
+  }
+  .cover-emblem::before {
+    content: '';
+    position: absolute;
+    left: 50%; top: 50%;
+    width: 190%; height: 190%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(ellipse at 50% 45%, rgba(14,36,54,0.55), transparent 65%);
+    z-index: -1;
+  }
+  .cover-emblem img {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 6px 14px rgba(0,0,0,0.65)) drop-shadow(0 0 20px rgba(201,162,39,0.3));
   }
   .cover-title {
     font-family: 'Cinzel Decorative', 'Cinzel', serif;
@@ -175,13 +192,32 @@ $copyrightYear = date('Y');
     z-index: 1;
   }
   .cover-corner {
-    position: absolute; width: 30px; height: 30px;
-    border: 1.5px solid rgba(205,167,94,0.5);
+    position: absolute; width: 52px; height: 52px;
+    background-image: var(--corner-svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.92;
+    pointer-events: none;
   }
-  .cover-corner.tl { top: 3%; left: 3%; border-right: none; border-bottom: none; }
-  .cover-corner.tr { top: 3%; right: 3%; border-left: none; border-bottom: none; }
-  .cover-corner.bl { bottom: 3%; left: 3%; border-right: none; border-top: none; }
-  .cover-corner.br { bottom: 3%; right: 3%; border-left: none; border-top: none; }
+  .cover-corner.tl { top: 3%; left: 3%; }
+  .cover-corner.tr { top: 3%; right: 3%; transform: scaleX(-1); }
+  .cover-corner.bl { bottom: 3%; left: 3%; transform: scaleY(-1); }
+  .cover-corner.br { bottom: 3%; right: 3%; transform: scale(-1,-1); }
+
+  /* smaller version reused on the open pages / TOC panel */
+  .page-corner {
+    position: absolute; width: 34px; height: 34px;
+    background-image: var(--corner-svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.85;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .page-corner.tl { top: 5px; left: 5px; }
+  .page-corner.tr { top: 5px; right: 5px; transform: scaleX(-1); }
+  .page-corner.bl { bottom: 5px; left: 5px; transform: scaleY(-1); }
+  .page-corner.br { bottom: 5px; right: 5px; transform: scale(-1,-1); }
 
   #cover-screen.hidden, #book-screen.hidden { display: none; }
 
@@ -212,6 +248,29 @@ $copyrightYear = date('Y');
     z-index: 5;
     pointer-events: none;
   }
+  .book-ribbon {
+    position: absolute; left: 50%; top: -14px; width: 22px; height: 34%;
+    min-height: 90px;
+    transform: translateX(-50%);
+    background: linear-gradient(180deg, var(--ribbon) 0%, var(--ribbon-dark) 92%);
+    clip-path: polygon(0 0, 100% 0, 100% 86%, 50% 100%, 0 86%);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.5), inset 1px 0 0 rgba(255,255,255,0.12), inset -1px 0 0 rgba(0,0,0,0.35);
+    z-index: 6;
+    pointer-events: none;
+  }
+  .book-ribbon::before {
+    content: '';
+    position: absolute; inset: 12px 4px 20px;
+    background: repeating-linear-gradient(180deg, rgba(242,215,136,0.4) 0 2px, transparent 2px 13px);
+    opacity: 0.7;
+  }
+  .book-ribbon::after {
+    content: '';
+    position: absolute; left: 50%; top: 8px; width: 10px; height: 10px;
+    transform: translateX(-50%) rotate(45deg);
+    background: var(--gold);
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.4);
+  }
 
   .leftPanel, .rightStack { position: absolute; top: 0; height: 100%; width: 50%; }
   .leftPanel { left: 0; z-index: 500; }
@@ -220,11 +279,13 @@ $copyrightYear = date('Y');
   .leftPanel-inner {
     position: absolute; inset: 6px 4px 6px 10px;
     background:
+      radial-gradient(ellipse at 75% 85%, rgba(107,74,34,0.18), transparent 50%),
+      radial-gradient(ellipse at 15% 15%, rgba(255,241,204,0.22), transparent 45%),
       radial-gradient(ellipse at 30% 0%, rgba(255,255,255,0.10), transparent 55%),
       linear-gradient(120deg, var(--parchment), var(--parchment-2) 60%, var(--parchment-shadow));
     border-radius: 3px 10px 10px 3px;
-    box-shadow: inset 0 0 30px rgba(120,90,40,0.25), 2px 0 10px rgba(0,0,0,0.3);
-    padding: 22px 20px;
+    box-shadow: inset 0 0 46px rgba(107,74,34,0.4), inset 0 0 90px rgba(107,74,34,0.18), 2px 0 10px rgba(0,0,0,0.3);
+    padding: 28px 22px 22px;
     overflow-y: auto;
     color: var(--ink);
   }
@@ -267,27 +328,31 @@ $copyrightYear = date('Y');
   }
   .face.front {
     background:
+      radial-gradient(ellipse at 20% 90%, rgba(107,74,34,0.2), transparent 50%),
+      radial-gradient(ellipse at 85% 10%, rgba(255,241,204,0.2), transparent 45%),
       radial-gradient(ellipse at 70% 0%, rgba(255,255,255,0.10), transparent 55%),
       linear-gradient(240deg, var(--parchment), var(--parchment-2) 60%, var(--parchment-shadow));
-    box-shadow: inset 0 0 30px rgba(120,90,40,0.25), -2px 0 10px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 46px rgba(107,74,34,0.4), inset 0 0 90px rgba(107,74,34,0.18), -2px 0 10px rgba(0,0,0,0.3);
   }
   .face.back {
     transform: rotateY(180deg);
     background:
       radial-gradient(ellipse at 30% 100%, rgba(0,0,0,0.12), transparent 55%),
       linear-gradient(60deg, var(--parchment-shadow), var(--parchment-2) 55%, var(--parchment));
-    box-shadow: inset 0 0 30px rgba(120,90,40,0.3);
+    box-shadow: inset 0 0 46px rgba(107,74,34,0.35);
     display: flex; align-items: center; justify-content: center;
   }
   .face.back .seal {
-    width: 74px; height: 74px; border-radius: 50%;
+    width: 78px; height: 78px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--gold-bright), var(--bronze) 65%, var(--bronze-dark) 100%);
     border: 2px solid var(--gold-dim);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.45), inset 0 0 0 3px rgba(32,10,6,0.35);
     display: flex; align-items: center; justify-content: center;
-    color: var(--gold-dim); font-size: 26px;
-    opacity: 0.65;
+    color: var(--leather-dark); font-size: 28px;
+    opacity: 0.92;
   }
 
-  .page-content { position: absolute; inset: 0; padding: 22px 22px 18px; overflow-y: auto; color: var(--ink); }
+  .page-content { position: absolute; inset: 0; padding: 28px 24px 18px; overflow-y: auto; color: var(--ink); }
   .page-icon {
     width: 40px; height: 40px; border-radius: 50%;
     background: radial-gradient(circle at 35% 30%, var(--gold-bright), var(--gold) 65%, var(--gold-dim));
@@ -312,20 +377,40 @@ $copyrightYear = date('Y');
   .page-num { position: absolute; bottom: 10px; right: 18px; font-family: 'Cinzel', serif; font-size: 11px; color: var(--gold-dim); }
 
   /* ---------- controls ---------- */
-  .controls { display: flex; align-items: center; gap: 18px; }
+  .controls {
+    display: flex; align-items: center; gap: 2px;
+    background: linear-gradient(180deg, var(--bronze) 0%, var(--bronze-dark) 100%);
+    border: 2px solid var(--gold-dim);
+    border-radius: 10px;
+    padding: 7px 9px;
+    box-shadow:
+      0 14px 28px rgba(0,0,0,0.55),
+      inset 0 1px 0 rgba(255,255,255,0.18),
+      inset 0 -3px 6px rgba(0,0,0,0.45);
+  }
   .nav-btn {
-    width: 42px; height: 42px; border-radius: 50%;
-    background: linear-gradient(180deg, var(--gold-bright), var(--gold));
+    width: 36px; height: 36px; border-radius: 6px;
+    background: linear-gradient(180deg, var(--gold-bright), var(--gold) 60%, var(--gold-dim));
     color: var(--leather-dark);
-    border: none; cursor: pointer;
-    font-size: 17px;
+    border: 1px solid rgba(32,10,6,0.55); cursor: pointer;
+    font-size: 15px;
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.55), 0 3px 8px rgba(0,0,0,0.4);
     transition: transform 0.15s, opacity 0.15s;
   }
   .nav-btn:hover:not(:disabled) { transform: translateY(-2px); }
-  .nav-btn:disabled { opacity: 0.3; cursor: default; }
-  .page-counter { font-family: 'Cinzel', serif; font-size: 13px; letter-spacing: 1px; color: rgba(240,211,138,0.75); min-width: 90px; text-align: center; }
+  .nav-btn:disabled { opacity: 0.35; cursor: default; }
+  .page-counter {
+    font-family: 'Cinzel', serif; font-size: 12.5px; letter-spacing: 1px;
+    color: var(--ink);
+    min-width: 76px; text-align: center;
+    margin: 0 8px;
+    padding: 8px 10px;
+    background: linear-gradient(160deg, var(--parchment), var(--parchment-2));
+    border: 1px solid var(--gold-dim);
+    border-radius: 5px;
+    box-shadow: inset 0 2px 5px rgba(107,74,34,0.5), inset 0 -1px 0 rgba(255,255,255,0.25);
+  }
   .toc-toggle {
     display: none;
     font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: 1px;
@@ -347,6 +432,7 @@ $copyrightYear = date('Y');
     .leftPanel.open { transform: translateX(0); }
     .rightStack { width: 100%; left: 0; right: 0; }
     .book-spine { display: none; }
+    .book-ribbon { display: none; }
     .toc-toggle { display: inline-block; }
     .leftPanel-inner { box-shadow: 4px 0 24px rgba(0,0,0,0.5); border-radius: 3px 10px 10px 3px; }
   }
@@ -377,7 +463,7 @@ $copyrightYear = date('Y');
     <div class="cover" id="coverOpen">
       <span class="cover-corner tl"></span><span class="cover-corner tr"></span>
       <span class="cover-corner bl"></span><span class="cover-corner br"></span>
-      <div class="cover-emblem">&#9878;</div>
+      <div class="cover-emblem"><img src="LogoAzerothUniverseA.png" alt="Azeroth Universe"></div>
       <div class="cover-title" data-i18n="cover_title">Grimoire<br>d'Azeroth Universe</div>
       <div class="cover-sub" data-i18n="cover_sub">Chroniques du royaume</div>
       <div class="cover-hint" data-i18n="cover_hint">— touchez la couverture pour l'ouvrir —</div>
@@ -390,9 +476,12 @@ $copyrightYear = date('Y');
       <div class="book" id="book">
         <div class="book-shell"></div>
         <div class="book-spine"></div>
+        <div class="book-ribbon"></div>
 
         <div class="leftPanel" id="leftPanel">
           <div class="leftPanel-inner">
+            <span class="page-corner tl"></span><span class="page-corner tr"></span>
+            <span class="page-corner bl"></span><span class="page-corner br"></span>
             <h2 class="toc-title" data-i18n="toc_title">Table des Matieres</h2>
             <div class="toc-rule"></div>
             <ul class="toc-list" id="tocList"></ul>
@@ -554,6 +643,8 @@ $copyrightYear = date('Y');
       leaf.style.zIndex = isFlipped ? String(i) : String(PAGES.length - i);
       leaf.innerHTML =
         '<div class="face front">' +
+          '<span class="page-corner tl"></span><span class="page-corner tr"></span>' +
+          '<span class="page-corner bl"></span><span class="page-corner br"></span>' +
           '<div class="page-content">' +
             '<div class="page-head">' +
               '<div class="page-icon">' + p.icon + '</div>' +
@@ -673,7 +764,7 @@ $copyrightYear = date('Y');
   document.querySelectorAll(".lang-btn").forEach(function (b) {
     b.addEventListener("click", function () { setLang(b.dataset.lang); });
   });
-
+  
   rightStack.addEventListener("click", function (e) {
     var leaf = e.target.closest(".page");
     if (!leaf) return;
