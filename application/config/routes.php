@@ -84,6 +84,7 @@ $route[$lang.'/changeusername'] = 'user/newusername';
 /*Vote*/
 $route[$lang.'/vote'] = 'vote/index';
 $route[$lang.'/vote/votenow/(:num)'] = 'vote/votenow/$2';
+$route[$lang.'/topvote'] = 'topvote/index';
 
 /*Restauration de personnage*/
 $route[$lang.'/restauration'] = 'restauration/index';

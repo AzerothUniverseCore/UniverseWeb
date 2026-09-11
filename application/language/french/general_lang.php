@@ -47,6 +47,7 @@ $lang['tab_register'] = 'Inscription';
 $lang['tab_home'] = 'Accueil';
 $lang['tab_donate'] = 'Don';
 $lang['tab_vote'] = 'Vote';
+$lang['tab_topvote'] = 'Top Vote';
 $lang['tab_cart'] = 'Panier';
 $lang['tab_account'] = 'Mon compte';
 $lang['tab_reset'] = 'Récupération du mot de passe';
@@ -57,6 +58,7 @@ $lang['tab_download'] = 'Téléchargement';
 
 /*Panel Navbar*/
 $lang['navbar_vote_panel'] = 'Vote';
+$lang['navbar_topvote_panel'] = 'Top Vote';
 $lang['navbar_donate_panel'] = 'Don';
 
 /*Button Lang*/
@@ -261,6 +263,21 @@ $lang['donate_get'] = 'Obtenir';
 
 /*Vote Lang*/
 $lang['vote_next_time'] = 'Prochain vote :';
+
+/*Top Vote Lang*/
+$lang['topvote_subtitle'] = 'Les aventuriers les plus fidèles au royaume - un classement pour ceux qui votent chaque jour pour Azeroth Universe.';
+$lang['topvote_stat_voters'] = 'Votants';
+$lang['topvote_stat_total_votes'] = 'Votes au total';
+$lang['topvote_stat_vp_distributed'] = 'VP distribués';
+$lang['topvote_empty_text'] = 'Aucun vote enregistré pour le moment. Soyez le premier à inscrire votre nom sur ce parchemin !';
+$lang['topvote_vote_now'] = 'Voter maintenant';
+$lang['topvote_col_player'] = 'Joueur';
+$lang['topvote_col_votes'] = 'Votes';
+$lang['topvote_col_points'] = 'Points VP';
+$lang['topvote_col_last_vote'] = 'Dernier vote';
+$lang['topvote_you_badge'] = 'Vous';
+$lang['topvote_vote_singular'] = 'vote';
+$lang['topvote_vote_plural'] = 'votes';
 
 /*Forum Lang*/
 $lang['forum_posts_count'] = 'Publications';
