@@ -61,7 +61,7 @@ $config['discord_invitation'] = 'yDVSxdWFYx';
  * notification Discord).
  *
 */
-$config['discord_vote_webhook_url'] = getenv('AU_DISCORD_VOTE_WEBHOOK_URL') ?: 'https://discord.com/api/webhooks/1247691761372102697/pSdmHHVpTrocQUz_hbMcZZ3p6miSj2cuRy-pZPgh3un1wd_76iEqOHipiEZiWoxW9w6Y';
+$config['discord_vote_webhook_url'] = getenv('AU_DISCORD_VOTE_WEBHOOK_URL') ?: 'WEBHOOK_URL_DISCORD';
 
 /**
  *
